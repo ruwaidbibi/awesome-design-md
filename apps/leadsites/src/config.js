@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -12,18 +13,36 @@ const int = (v, fallback) => {
 };
 
 export const appRoot = path.resolve(here, "..");
-export const repoRoot = path.resolve(appRoot, "..", "..");
+
+/**
+ * Find the DESIGN.md collection.
+ *
+ * Standalone, it is vendored at the app root. Inside the awesome-design-md
+ * repo, the app sits at apps/leadsites and the collection is two levels up.
+ * Checking both means one codebase serves either layout.
+ */
+function findDesignDir() {
+  const candidates = [
+    process.env.DESIGN_MD_DIR,
+    path.join(appRoot, "design-md"),
+    path.resolve(appRoot, "..", "..", "design-md"),
+  ].filter(Boolean);
+
+  for (const dir of candidates) {
+    if (fs.existsSync(dir)) return dir;
+  }
+  return candidates[1];
+}
 
 export const config = {
   port: int(process.env.PORT, 4317),
 
   appRoot,
-  repoRoot,
   dataDir: path.join(appRoot, "data"),
   sitesDir: path.join(appRoot, "data", "sites"),
   publishedDir: path.join(appRoot, "data", "published"),
   dbPath: path.join(appRoot, "data", "leadsites.db"),
-  designDir: path.join(repoRoot, "design-md"),
+  designDir: findDesignDir(),
 
   places: {
     apiKey: process.env.GOOGLE_MAPS_API_KEY || "",
