@@ -1,0 +1,310 @@
+{
+  "$schema": "./jurisdictions.schema.json",
+  "note": "US canonical jurisdictions for the seven traditions in scope. 'confidence' records how each URL was established: 'verified' = the URL appeared directly in a search result; 'reported' = a source described it but the URL itself was not directly observed; 'pattern' = inferred from a naming convention used by confirmed siblings. The pipeline re-checks every URL on first harvest and writes the result back to data/registry-health.json.",
+  "generated": "2026-09-04",
+  "traditions": [
+    {
+      "id": "maronite",
+      "name": "Maronite Catholic",
+      "family": "Eastern Catholic",
+      "rite": "West Syriac (Antiochene)",
+      "liturgicalLanguages": ["Syriac", "Arabic", "English"],
+      "communion": "Catholic",
+      "estimatedUsParishes": 69
+    },
+    {
+      "id": "chaldean",
+      "name": "Chaldean Catholic",
+      "family": "Eastern Catholic",
+      "rite": "East Syriac (Chaldean)",
+      "liturgicalLanguages": ["Syriac", "Aramaic", "Arabic", "English"],
+      "communion": "Catholic",
+      "estimatedUsParishes": 27
+    },
+    {
+      "id": "melkite",
+      "name": "Melkite Greek Catholic",
+      "family": "Eastern Catholic",
+      "rite": "Byzantine",
+      "liturgicalLanguages": ["Arabic", "Greek", "English"],
+      "communion": "Catholic",
+      "estimatedUsParishes": 50
+    },
+    {
+      "id": "greek-orthodox",
+      "name": "Greek Orthodox",
+      "family": "Eastern Orthodox",
+      "rite": "Byzantine",
+      "liturgicalLanguages": ["Greek", "English"],
+      "communion": "Eastern Orthodox (Ecumenical Patriarchate)",
+      "estimatedUsParishes": 525
+    },
+    {
+      "id": "coptic-orthodox",
+      "name": "Coptic Orthodox",
+      "family": "Oriental Orthodox",
+      "rite": "Alexandrian",
+      "liturgicalLanguages": ["Coptic", "Arabic", "English"],
+      "communion": "Oriental Orthodox",
+      "estimatedUsParishes": 250
+    },
+    {
+      "id": "syriac-orthodox",
+      "name": "Syriac Orthodox",
+      "family": "Oriental Orthodox",
+      "rite": "West Syriac (Antiochene)",
+      "liturgicalLanguages": ["Syriac", "Aramaic", "Arabic", "English", "Malayalam"],
+      "communion": "Oriental Orthodox",
+      "estimatedUsParishes": 60
+    },
+    {
+      "id": "assyrian-coe",
+      "name": "Assyrian Church of the East",
+      "family": "Church of the East",
+      "rite": "East Syriac",
+      "liturgicalLanguages": ["Syriac", "Aramaic", "English"],
+      "communion": "Assyrian Church of the East",
+      "estimatedUsParishes": 35
+    }
+  ],
+  "jurisdictions": [
+    {
+      "id": "maronite-brooklyn",
+      "tradition": "maronite",
+      "name": "Eparchy of Saint Maron of Brooklyn",
+      "seat": "Brooklyn, NY",
+      "territory": "Eastern United States",
+      "site": "https://www.stmaron.org",
+      "directoryUrls": ["https://www.stmaron.org/parishes"],
+      "confidence": "reported",
+      "expectedParishes": { "min": 28, "max": 45, "reported": 34 },
+      "enabled": true
+    },
+    {
+      "id": "maronite-los-angeles",
+      "tradition": "maronite",
+      "name": "Eparchy of Our Lady of Lebanon of Los Angeles",
+      "seat": "Los Angeles, CA",
+      "territory": "34 western, central and southern states",
+      "site": "https://www.eparchy.org",
+      "directoryUrls": ["https://www.eparchy.org/parishes"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 28, "max": 45, "reported": 35 },
+      "enabled": true
+    },
+    {
+      "id": "chaldean-detroit",
+      "tradition": "chaldean",
+      "name": "Eparchy of Saint Thomas the Apostle of Detroit",
+      "seat": "Southfield, MI",
+      "territory": "Eastern United States",
+      "site": "https://chaldeanchurch.com",
+      "directoryUrls": ["https://chaldeanchurch.com/parishes"],
+      "confidence": "reported",
+      "expectedParishes": { "min": 10, "max": 20, "reported": 13 },
+      "enabled": true
+    },
+    {
+      "id": "chaldean-san-diego",
+      "tradition": "chaldean",
+      "name": "Eparchy of Saint Peter the Apostle of San Diego",
+      "seat": "El Cajon, CA",
+      "territory": "Western United States",
+      "site": "https://www.stpeterdiocese.org",
+      "directoryUrls": ["https://www.stpeterdiocese.org/parishes"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 10, "max": 20, "reported": 14 },
+      "enabled": true
+    },
+    {
+      "id": "melkite-newton",
+      "tradition": "melkite",
+      "name": "Eparchy of Newton",
+      "seat": "West Roxbury, MA",
+      "territory": "Entire United States",
+      "site": "https://melkite.org",
+      "directoryUrls": ["https://melkite.org/parish-locator"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 40, "max": 65, "reported": 50 },
+      "enabled": true
+    },
+    {
+      "id": "goarch",
+      "tradition": "greek-orthodox",
+      "name": "Greek Orthodox Archdiocese of America",
+      "seat": "New York, NY",
+      "territory": "Entire United States",
+      "site": "https://www.goarch.org",
+      "directoryUrls": ["https://www.goarch.org/directory"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 450, "max": 600, "reported": 525 },
+      "enabled": true,
+      "children": [
+        { "id": "goarch-district", "name": "Direct Archdiocesan District", "directoryUrls": ["https://ny.goarch.org/parish/parishes"], "confidence": "verified", "expectedParishes": { "reported": 65 } },
+        { "id": "goarch-detroit", "name": "Metropolis of Detroit", "directoryUrls": ["https://detroit.goarch.org/parishes"], "confidence": "verified" },
+        { "id": "goarch-pittsburgh", "name": "Metropolis of Pittsburgh", "directoryUrls": ["https://pittsburgh.goarch.org/parishes"], "confidence": "verified" },
+        { "id": "goarch-boston", "name": "Metropolis of Boston", "directoryUrls": ["https://boston.goarch.org/parishes"], "confidence": "pattern" },
+        { "id": "goarch-denver", "name": "Metropolis of Denver", "directoryUrls": ["https://denver.goarch.org/parishes"], "confidence": "pattern" },
+        { "id": "goarch-atlanta", "name": "Metropolis of Atlanta", "directoryUrls": ["https://atlanta.goarch.org/parishes"], "confidence": "pattern" },
+        { "id": "goarch-chicago", "name": "Metropolis of Chicago", "directoryUrls": ["https://chicago.goarch.org/parishes"], "confidence": "pattern" },
+        { "id": "goarch-san-francisco", "name": "Metropolis of San Francisco", "directoryUrls": ["https://sanfran.goarch.org/parishes"], "confidence": "pattern" },
+        { "id": "goarch-new-jersey", "name": "Metropolis of New Jersey", "directoryUrls": ["https://nj.goarch.org/parishes"], "confidence": "pattern" }
+      ]
+    },
+    {
+      "id": "coptic-sus",
+      "tradition": "coptic-orthodox",
+      "name": "Coptic Orthodox Diocese of the Southern United States",
+      "seat": "Colleyville, TX",
+      "territory": "AL AZ AR FL GA LA MS NM OK TN TX",
+      "site": "https://suscopts.org",
+      "directoryUrls": ["https://suscopts.org/churches"],
+      "confidence": "reported",
+      "expectedParishes": { "min": 35, "max": 70, "reported": 64 },
+      "enabled": true
+    },
+    {
+      "id": "coptic-nyne",
+      "tradition": "coptic-orthodox",
+      "name": "Coptic Orthodox Diocese of New York & New England",
+      "seat": "Chestnut Ridge, NY",
+      "territory": "CT ME MA NH NY RI VT",
+      "site": "https://nynecopts.org",
+      "directoryUrls": ["https://nynecopts.org/churches"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 25, "max": 45, "reported": 33 },
+      "enabled": true
+    },
+    {
+      "id": "coptic-la",
+      "tradition": "coptic-orthodox",
+      "name": "Coptic Orthodox Diocese of Los Angeles, Southern California and Hawaii",
+      "seat": "Pomona, CA",
+      "territory": "Southern California and Hawaii",
+      "site": "https://www.lacopts.org",
+      "directoryUrls": ["https://www.lacopts.org/the-diocese/parishes/"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 20, "max": 50 },
+      "enabled": true
+    },
+    {
+      "id": "coptic-archdiocese-na",
+      "tradition": "coptic-orthodox",
+      "name": "Coptic Orthodox Archdiocese of North America",
+      "seat": "Cedar Grove, NJ",
+      "territory": "All North American churches not under a specific diocese",
+      "site": "https://copticorthodox.church/en/dioceses/",
+      "directoryUrls": ["https://copticorthodox.church/en/dioceses/"],
+      "confidence": "reported",
+      "note": "The archdiocese's own site could not be confirmed; the patriarchate's diocese index is used as the entry point. Expect to replace this URL after the first harvest.",
+      "expectedParishes": { "min": 50, "max": 150 },
+      "enabled": true
+    },
+    {
+      "id": "syriac-orthodox-east",
+      "tradition": "syriac-orthodox",
+      "name": "Syriac Orthodox Archdiocese for the Eastern United States",
+      "seat": "Paramus, NJ",
+      "territory": "Eastern United States",
+      "site": "https://syrianorthodoxchurch.org",
+      "directoryUrls": ["https://syrianorthodoxchurch.org/directories/parishes/"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 20, "max": 45 },
+      "enabled": true
+    },
+    {
+      "id": "syriac-orthodox-west",
+      "tradition": "syriac-orthodox",
+      "name": "Syriac Orthodox Archdiocese of the Western United States",
+      "seat": "Burbank, CA",
+      "territory": "Western United States",
+      "site": "https://www.soc-wus.org",
+      "directoryUrls": ["https://www.soc-wus.org/Directory.htm"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 8, "max": 25 },
+      "enabled": true
+    },
+    {
+      "id": "syriac-orthodox-malankara-na",
+      "tradition": "syriac-orthodox",
+      "name": "Malankara Archdiocese of North America (Syriac Orthodox)",
+      "seat": "Bellerose, NY",
+      "territory": "North America",
+      "site": "https://ksoc.us",
+      "directoryUrls": ["https://ksoc.us/parishes"],
+      "confidence": "pattern",
+      "note": "Canonically part of the Syriac Orthodox Church but a distinct Indian tradition. Disabled by default so it does not silently widen the requested scope; set enabled=true to include it.",
+      "expectedParishes": { "min": 25, "max": 60 },
+      "enabled": false
+    },
+    {
+      "id": "assyrian-california",
+      "tradition": "assyrian-coe",
+      "name": "Assyrian Church of the East, Diocese of California",
+      "seat": "Ceres, CA",
+      "territory": "California",
+      "site": "https://acoecalifornia.org",
+      "directoryUrls": ["https://acoecalifornia.org/parishes"],
+      "confidence": "verified",
+      "expectedParishes": { "min": 6, "max": 20 },
+      "enabled": true
+    },
+    {
+      "id": "assyrian-eastern-usa",
+      "tradition": "assyrian-coe",
+      "name": "Assyrian Church of the East, Diocese of Eastern USA",
+      "seat": "Chicago, IL",
+      "territory": "Illinois, Michigan, New England, New York",
+      "site": "https://news.assyrianchurch.org",
+      "directoryUrls": ["https://news.assyrianchurch.org/category/diocese/eastern-usa/"],
+      "confidence": "verified",
+      "note": "No standalone diocesan parish directory was found; this is the denomination's news site filtered to the diocese. Expect low yield until a better entry point is found.",
+      "expectedParishes": { "min": 5, "max": 20 },
+      "enabled": true
+    },
+    {
+      "id": "assyrian-western-usa",
+      "tradition": "assyrian-coe",
+      "name": "Assyrian Church of the East, Diocese of Western USA",
+      "seat": "Glendale, AZ",
+      "territory": "Western USA excluding California",
+      "site": "https://news.assyrianchurch.org",
+      "directoryUrls": ["https://news.assyrianchurch.org/category/diocese/western-usa/"],
+      "confidence": "pattern",
+      "expectedParishes": { "min": 4, "max": 15 },
+      "enabled": true
+    }
+  ],
+  "crossReferenceSources": [
+    {
+      "id": "gcatholic",
+      "name": "GCatholic.org",
+      "covers": ["maronite", "chaldean", "melkite"],
+      "url": "https://gcatholic.org",
+      "confidence": "verified",
+      "note": "Structured per-eparchy and per-church pages with addresses. Best cross-check for the Eastern Catholic jurisdictions."
+    },
+    {
+      "id": "catholic-hierarchy",
+      "name": "Catholic-Hierarchy.org",
+      "covers": ["maronite", "chaldean", "melkite"],
+      "url": "https://www.catholic-hierarchy.org",
+      "confidence": "verified"
+    },
+    {
+      "id": "wikipedia-coptic-list",
+      "name": "Wikipedia: List of Coptic Orthodox churches in the United States",
+      "covers": ["coptic-orthodox"],
+      "url": "https://en.wikipedia.org/wiki/List_of_Coptic_Orthodox_churches_in_the_United_States",
+      "confidence": "verified"
+    },
+    {
+      "id": "openstreetmap",
+      "name": "OpenStreetMap via Overpass API",
+      "covers": ["maronite", "chaldean", "melkite", "greek-orthodox", "coptic-orthodox", "syriac-orthodox", "assyrian-coe"],
+      "url": "https://overpass-api.de/api/interpreter",
+      "confidence": "verified",
+      "note": "Queried by amenity=place_of_worship + denomination tag. Fills coordinates and catches parishes missing from official directories."
+    }
+  ]
+}

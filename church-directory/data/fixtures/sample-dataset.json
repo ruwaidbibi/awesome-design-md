@@ -1,0 +1,5759 @@
+{
+  "generatedAt": "2026-09-04T03:20:05.526Z",
+  "version": "0.1.0-fixture",
+  "demonstrationData": true,
+  "counts": {
+    "parishes": 34,
+    "events": 129,
+    "socials": 83,
+    "withCoordinates": 34
+  },
+  "parishes": [
+    {
+      "id": "demo-maronite-0",
+      "name": "Example Maronite Catholic Parish of Resurrection (Atlanta)",
+      "alternateNames": [],
+      "tradition": "maronite",
+      "jurisdictionId": "maronite-brooklyn",
+      "status": "cathedral",
+      "address": {
+        "street": "100 Example Street",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "64319",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.76863424692845,
+        "lon": -84.49122418208384,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 100-0100",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-maronite-0",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-maronite-0",
+          "handle": "demo-maronite-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-maronite-0",
+          "handle": "demo-maronite-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-maronite-0",
+          "handle": "demo-maronite-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-maronite-0/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-maronite-1",
+      "name": "Example Maronite Catholic Parish of Pentecost (Atlanta)",
+      "alternateNames": [],
+      "tradition": "maronite",
+      "jurisdictionId": "maronite-los-angeles",
+      "status": "parish",
+      "address": {
+        "street": "107 Example Street",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "78492",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.60621235277933,
+        "lon": -84.32309148346964,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 101-0101",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-maronite-1",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-maronite-1",
+          "handle": "demo-maronite-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-maronite-1",
+          "handle": "demo-maronite-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-maronite-1/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-maronite-2",
+      "name": "Example Maronite Catholic Parish of Ascension (Boston)",
+      "alternateNames": [],
+      "tradition": "maronite",
+      "jurisdictionId": "maronite-brooklyn",
+      "status": "parish",
+      "address": {
+        "street": "114 Example Street",
+        "city": "Boston",
+        "state": "MA",
+        "postalCode": "40401",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 42.263624351168204,
+        "lon": -71.16925027499792,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 102-0102",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-maronite-2",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-maronite-2",
+          "handle": "demo-maronite-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-maronite-2",
+          "handle": "demo-maronite-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-maronite-2/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-maronite-3",
+      "name": "Example Maronite Catholic Parish of Forty Martyrs (Houston)",
+      "alternateNames": [],
+      "tradition": "maronite",
+      "jurisdictionId": "maronite-los-angeles",
+      "status": "parish",
+      "address": {
+        "street": "121 Example Street",
+        "city": "Houston",
+        "state": "TX",
+        "postalCode": "59803",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 29.950117436018267,
+        "lon": -95.48158836818402,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 103-0103",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-maronite-3",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-maronite-3",
+          "handle": "demo-maronite-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-maronite-3",
+          "handle": "demo-maronite-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-maronite-3",
+          "handle": "demo-maronite-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-maronite-3/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-chaldean-0",
+      "name": "Example Chaldean Catholic Parish of Nativity (Jersey City)",
+      "alternateNames": [],
+      "tradition": "chaldean",
+      "jurisdictionId": "chaldean-detroit",
+      "status": "cathedral",
+      "address": {
+        "street": "100 Example Street",
+        "city": "Jersey City",
+        "state": "NJ",
+        "postalCode": "29653",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 40.54574901133885,
+        "lon": -74.1623598104101,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 100-0100",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-chaldean-0",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-chaldean-0",
+          "handle": "demo-chaldean-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-chaldean-0",
+          "handle": "demo-chaldean-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-chaldean-0",
+          "handle": "demo-chaldean-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-chaldean-0/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-chaldean-1",
+      "name": "Example Chaldean Catholic Parish of Ascension (San Diego)",
+      "alternateNames": [],
+      "tradition": "chaldean",
+      "jurisdictionId": "chaldean-san-diego",
+      "status": "parish",
+      "address": {
+        "street": "107 Example Street",
+        "city": "San Diego",
+        "state": "CA",
+        "postalCode": "93609",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 32.71871799783624,
+        "lon": -117.04375705093865,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 101-0101",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-chaldean-1",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-chaldean-1",
+          "handle": "demo-chaldean-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-chaldean-1",
+          "handle": "demo-chaldean-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-chaldean-1/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-chaldean-2",
+      "name": "Example Chaldean Catholic Parish of Nativity (Atlanta)",
+      "alternateNames": [],
+      "tradition": "chaldean",
+      "jurisdictionId": "chaldean-detroit",
+      "status": "parish",
+      "address": {
+        "street": "114 Example Street",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "65811",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.89401924530837,
+        "lon": -84.54911288068868,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 102-0102",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-chaldean-2",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-chaldean-2",
+          "handle": "demo-chaldean-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-chaldean-2",
+          "handle": "demo-chaldean-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-chaldean-2/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-chaldean-3",
+      "name": "Example Chaldean Catholic Parish of Pentecost (San Diego)",
+      "alternateNames": [],
+      "tradition": "chaldean",
+      "jurisdictionId": "chaldean-san-diego",
+      "status": "parish",
+      "address": {
+        "street": "121 Example Street",
+        "city": "San Diego",
+        "state": "CA",
+        "postalCode": "32752",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 32.81423525175644,
+        "lon": -117.23135098794617,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 103-0103",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-chaldean-3",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-chaldean-3",
+          "handle": "demo-chaldean-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-chaldean-3",
+          "handle": "demo-chaldean-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-chaldean-3",
+          "handle": "demo-chaldean-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-chaldean-3/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-melkite-0",
+      "name": "Example Melkite Greek Catholic Parish of Ascension (Phoenix)",
+      "alternateNames": [],
+      "tradition": "melkite",
+      "jurisdictionId": "melkite-newton",
+      "status": "cathedral",
+      "address": {
+        "street": "100 Example Street",
+        "city": "Phoenix",
+        "state": "AZ",
+        "postalCode": "56809",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.58147213798774,
+        "lon": -112.09093644515096,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 100-0100",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-melkite-0",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Arabic",
+        "Greek"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Arabic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-melkite-0",
+          "handle": "demo-melkite-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-melkite-0",
+          "handle": "demo-melkite-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-melkite-0",
+          "handle": "demo-melkite-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-melkite-0/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-melkite-1",
+      "name": "Example Melkite Greek Catholic Parish of Resurrection (Cleveland)",
+      "alternateNames": [],
+      "tradition": "melkite",
+      "jurisdictionId": "melkite-newton",
+      "status": "parish",
+      "address": {
+        "street": "107 Example Street",
+        "city": "Cleveland",
+        "state": "OH",
+        "postalCode": "27398",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 41.37307792600252,
+        "lon": -81.84404053628484,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 101-0101",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-melkite-1",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Arabic",
+        "Greek"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Arabic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-melkite-1",
+          "handle": "demo-melkite-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-melkite-1",
+          "handle": "demo-melkite-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-melkite-1/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-melkite-2",
+      "name": "Example Melkite Greek Catholic Parish of Holy Cross (San Diego)",
+      "alternateNames": [],
+      "tradition": "melkite",
+      "jurisdictionId": "melkite-newton",
+      "status": "parish",
+      "address": {
+        "street": "114 Example Street",
+        "city": "San Diego",
+        "state": "CA",
+        "postalCode": "61745",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 32.86967233979496,
+        "lon": -117.07093495698768,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 102-0102",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-melkite-2",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Arabic",
+        "Greek"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Arabic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-melkite-2",
+          "handle": "demo-melkite-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-melkite-2",
+          "handle": "demo-melkite-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-melkite-2/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-melkite-3",
+      "name": "Example Melkite Greek Catholic Parish of Ascension (Phoenix)",
+      "alternateNames": [],
+      "tradition": "melkite",
+      "jurisdictionId": "melkite-newton",
+      "status": "parish",
+      "address": {
+        "street": "121 Example Street",
+        "city": "Phoenix",
+        "state": "AZ",
+        "postalCode": "51629",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.55737579207503,
+        "lon": -111.94202310928145,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 103-0103",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-melkite-3",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Arabic",
+        "Greek"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Arabic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-melkite-3",
+          "handle": "demo-melkite-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-melkite-3",
+          "handle": "demo-melkite-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-melkite-3",
+          "handle": "demo-melkite-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-melkite-3/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-greek-orthodox-0",
+      "name": "Example Greek Orthodox Parish of Ascension (Jersey City)",
+      "alternateNames": [],
+      "tradition": "greek-orthodox",
+      "jurisdictionId": "goarch",
+      "status": "cathedral",
+      "address": {
+        "street": "100 Example Street",
+        "city": "Jersey City",
+        "state": "NJ",
+        "postalCode": "30091",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 40.718049886606,
+        "lon": -74.06675121833219,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 100-0100",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-greek-orthodox-0",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Greek",
+        "English"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Greek"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-greek-orthodox-0",
+          "handle": "demo-greek-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-greek-orthodox-0",
+          "handle": "demo-greek-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-greek-orthodox-0",
+          "handle": "demo-greek-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-greek-orthodox-0/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-greek-orthodox-1",
+      "name": "Example Greek Orthodox Parish of Forty Martyrs (Jersey City)",
+      "alternateNames": [],
+      "tradition": "greek-orthodox",
+      "jurisdictionId": "goarch",
+      "status": "parish",
+      "address": {
+        "street": "107 Example Street",
+        "city": "Jersey City",
+        "state": "NJ",
+        "postalCode": "60632",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 40.7758958844433,
+        "lon": -74.02077815579551,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 101-0101",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-greek-orthodox-1",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Greek",
+        "English"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Greek"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-greek-orthodox-1",
+          "handle": "demo-greek-orthodox-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-greek-orthodox-1",
+          "handle": "demo-greek-orthodox-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-greek-orthodox-1/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-greek-orthodox-2",
+      "name": "Example Greek Orthodox Parish of Pentecost (Phoenix)",
+      "alternateNames": [],
+      "tradition": "greek-orthodox",
+      "jurisdictionId": "goarch",
+      "status": "parish",
+      "address": {
+        "street": "114 Example Street",
+        "city": "Phoenix",
+        "state": "AZ",
+        "postalCode": "17424",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.430345097531166,
+        "lon": -111.8888387907142,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 102-0102",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-greek-orthodox-2",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Greek",
+        "English"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Greek"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-greek-orthodox-2",
+          "handle": "demo-greek-orthodox-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-greek-orthodox-2",
+          "handle": "demo-greek-orthodox-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-greek-orthodox-2/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-greek-orthodox-3",
+      "name": "Example Greek Orthodox Parish of Transfiguration (Boston)",
+      "alternateNames": [],
+      "tradition": "greek-orthodox",
+      "jurisdictionId": "goarch",
+      "status": "parish",
+      "address": {
+        "street": "121 Example Street",
+        "city": "Boston",
+        "state": "MA",
+        "postalCode": "19574",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 42.22334778798188,
+        "lon": -71.04087147836069,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 103-0103",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-greek-orthodox-3",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Greek",
+        "English"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Greek"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-greek-orthodox-3",
+          "handle": "demo-greek-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-greek-orthodox-3",
+          "handle": "demo-greek-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-greek-orthodox-3",
+          "handle": "demo-greek-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-greek-orthodox-3/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-greek-orthodox-4",
+      "name": "Example Greek Orthodox Parish of Forty Martyrs (Detroit)",
+      "alternateNames": [],
+      "tradition": "greek-orthodox",
+      "jurisdictionId": "goarch",
+      "status": "parish",
+      "address": {
+        "street": "128 Example Street",
+        "city": "Detroit",
+        "state": "MI",
+        "postalCode": "99078",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 42.492239557815736,
+        "lon": -83.18249881817731,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 104-0104",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-greek-orthodox-4",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Greek",
+        "English"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Greek"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-greek-orthodox-4",
+          "handle": "demo-greek-orthodox-4",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-greek-orthodox-4",
+          "handle": "demo-greek-orthodox-4",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-greek-orthodox-4/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-greek-orthodox-5",
+      "name": "Example Greek Orthodox Parish of Forty Martyrs (Los Angeles)",
+      "alternateNames": [],
+      "tradition": "greek-orthodox",
+      "jurisdictionId": "goarch",
+      "status": "mission",
+      "address": {
+        "street": "135 Example Street",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "86858",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 34.16491715178746,
+        "lon": -118.23394419774779,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 105-0105",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-greek-orthodox-5",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Greek",
+        "English"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Greek"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-greek-orthodox-5",
+          "handle": "demo-greek-orthodox-5",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-greek-orthodox-5",
+          "handle": "demo-greek-orthodox-5",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-greek-orthodox-5/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-greek-orthodox-6",
+      "name": "Example Greek Orthodox Parish of Ascension (Los Angeles)",
+      "alternateNames": [],
+      "tradition": "greek-orthodox",
+      "jurisdictionId": "goarch",
+      "status": "parish",
+      "address": {
+        "street": "142 Example Street",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "65101",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 34.23960735072056,
+        "lon": -118.29757091629854,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 106-0106",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-greek-orthodox-6",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Greek",
+        "English"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Greek"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-greek-orthodox-6",
+          "handle": "demo-greek-orthodox-6",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-greek-orthodox-6",
+          "handle": "demo-greek-orthodox-6",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-greek-orthodox-6",
+          "handle": "demo-greek-orthodox-6",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-greek-orthodox-6/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-greek-orthodox-7",
+      "name": "Example Greek Orthodox Parish of Transfiguration (Jersey City)",
+      "alternateNames": [],
+      "tradition": "greek-orthodox",
+      "jurisdictionId": "goarch",
+      "status": "parish",
+      "address": {
+        "street": "149 Example Street",
+        "city": "Jersey City",
+        "state": "NJ",
+        "postalCode": "11292",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 40.763233674866996,
+        "lon": -74.11710813096855,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 107-0107",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-greek-orthodox-7",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Greek",
+        "English"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Greek"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-greek-orthodox-7",
+          "handle": "demo-greek-orthodox-7",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-greek-orthodox-7",
+          "handle": "demo-greek-orthodox-7",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-greek-orthodox-7/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-coptic-orthodox-0",
+      "name": "Example Coptic Orthodox Parish of Ascension (Los Angeles)",
+      "alternateNames": [],
+      "tradition": "coptic-orthodox",
+      "jurisdictionId": "coptic-sus",
+      "status": "cathedral",
+      "address": {
+        "street": "100 Example Street",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "45415",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 34.189713017811584,
+        "lon": -118.07609226324129,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 100-0100",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-coptic-orthodox-0",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Coptic",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Coptic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-coptic-orthodox-0",
+          "handle": "demo-coptic-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-coptic-orthodox-0",
+          "handle": "demo-coptic-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-coptic-orthodox-0",
+          "handle": "demo-coptic-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-coptic-orthodox-0/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-coptic-orthodox-1",
+      "name": "Example Coptic Orthodox Parish of Transfiguration (Phoenix)",
+      "alternateNames": [],
+      "tradition": "coptic-orthodox",
+      "jurisdictionId": "coptic-nyne",
+      "status": "parish",
+      "address": {
+        "street": "107 Example Street",
+        "city": "Phoenix",
+        "state": "AZ",
+        "postalCode": "61897",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.62736685617928,
+        "lon": -112.12517974274381,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 101-0101",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-coptic-orthodox-1",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Coptic",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Coptic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-coptic-orthodox-1",
+          "handle": "demo-coptic-orthodox-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-coptic-orthodox-1",
+          "handle": "demo-coptic-orthodox-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-coptic-orthodox-1/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-coptic-orthodox-2",
+      "name": "Example Coptic Orthodox Parish of Resurrection (Los Angeles)",
+      "alternateNames": [],
+      "tradition": "coptic-orthodox",
+      "jurisdictionId": "coptic-la",
+      "status": "parish",
+      "address": {
+        "street": "114 Example Street",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "61191",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.904583327508526,
+        "lon": -118.38113180033632,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 102-0102",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-coptic-orthodox-2",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Coptic",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Coptic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-coptic-orthodox-2",
+          "handle": "demo-coptic-orthodox-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-coptic-orthodox-2",
+          "handle": "demo-coptic-orthodox-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-coptic-orthodox-2/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-coptic-orthodox-3",
+      "name": "Example Coptic Orthodox Parish of Pentecost (Phoenix)",
+      "alternateNames": [],
+      "tradition": "coptic-orthodox",
+      "jurisdictionId": "coptic-archdiocese-na",
+      "status": "parish",
+      "address": {
+        "street": "121 Example Street",
+        "city": "Phoenix",
+        "state": "AZ",
+        "postalCode": "59882",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.43813751076951,
+        "lon": -111.88899576550675,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 103-0103",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-coptic-orthodox-3",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Coptic",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Coptic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-coptic-orthodox-3",
+          "handle": "demo-coptic-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-coptic-orthodox-3",
+          "handle": "demo-coptic-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-coptic-orthodox-3",
+          "handle": "demo-coptic-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-coptic-orthodox-3/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-coptic-orthodox-4",
+      "name": "Example Coptic Orthodox Parish of Resurrection (Houston)",
+      "alternateNames": [],
+      "tradition": "coptic-orthodox",
+      "jurisdictionId": "coptic-sus",
+      "status": "parish",
+      "address": {
+        "street": "128 Example Street",
+        "city": "Houston",
+        "state": "TX",
+        "postalCode": "69194",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 29.69364980741984,
+        "lon": -95.35716538877122,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 104-0104",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-coptic-orthodox-4",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Coptic",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Coptic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-coptic-orthodox-4",
+          "handle": "demo-coptic-orthodox-4",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-coptic-orthodox-4",
+          "handle": "demo-coptic-orthodox-4",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-coptic-orthodox-4/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-coptic-orthodox-5",
+      "name": "Example Coptic Orthodox Parish of Ascension (Chicago)",
+      "alternateNames": [],
+      "tradition": "coptic-orthodox",
+      "jurisdictionId": "coptic-nyne",
+      "status": "mission",
+      "address": {
+        "street": "135 Example Street",
+        "city": "Chicago",
+        "state": "IL",
+        "postalCode": "38826",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 41.752016673694705,
+        "lon": -87.58599062173934,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 105-0105",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-coptic-orthodox-5",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Coptic",
+        "Arabic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Coptic"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-coptic-orthodox-5",
+          "handle": "demo-coptic-orthodox-5",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-coptic-orthodox-5",
+          "handle": "demo-coptic-orthodox-5",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-coptic-orthodox-5/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-syriac-orthodox-0",
+      "name": "Example Syriac Orthodox Parish of Forty Martyrs (Los Angeles)",
+      "alternateNames": [],
+      "tradition": "syriac-orthodox",
+      "jurisdictionId": "syriac-orthodox-east",
+      "status": "cathedral",
+      "address": {
+        "street": "100 Example Street",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "14974",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.901109246944316,
+        "lon": -118.04430975533008,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 100-0100",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-syriac-orthodox-0",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-syriac-orthodox-0",
+          "handle": "demo-syriac-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-syriac-orthodox-0",
+          "handle": "demo-syriac-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-syriac-orthodox-0",
+          "handle": "demo-syriac-orthodox-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-syriac-orthodox-0/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-syriac-orthodox-1",
+      "name": "Example Syriac Orthodox Parish of Transfiguration (Atlanta)",
+      "alternateNames": [],
+      "tradition": "syriac-orthodox",
+      "jurisdictionId": "syriac-orthodox-west",
+      "status": "parish",
+      "address": {
+        "street": "107 Example Street",
+        "city": "Atlanta",
+        "state": "GA",
+        "postalCode": "76549",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.867128681331,
+        "lon": -84.23096560270851,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 101-0101",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-syriac-orthodox-1",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-syriac-orthodox-1",
+          "handle": "demo-syriac-orthodox-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-syriac-orthodox-1",
+          "handle": "demo-syriac-orthodox-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-syriac-orthodox-1/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-syriac-orthodox-2",
+      "name": "Example Syriac Orthodox Parish of Nativity (Los Angeles)",
+      "alternateNames": [],
+      "tradition": "syriac-orthodox",
+      "jurisdictionId": "syriac-orthodox-east",
+      "status": "parish",
+      "address": {
+        "street": "114 Example Street",
+        "city": "Los Angeles",
+        "state": "CA",
+        "postalCode": "29219",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 34.104150562117596,
+        "lon": -118.29007694351672,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 102-0102",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-syriac-orthodox-2",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-syriac-orthodox-2",
+          "handle": "demo-syriac-orthodox-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-syriac-orthodox-2",
+          "handle": "demo-syriac-orthodox-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-syriac-orthodox-2/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-syriac-orthodox-3",
+      "name": "Example Syriac Orthodox Parish of Three Holy Youths (Jersey City)",
+      "alternateNames": [],
+      "tradition": "syriac-orthodox",
+      "jurisdictionId": "syriac-orthodox-west",
+      "status": "parish",
+      "address": {
+        "street": "121 Example Street",
+        "city": "Jersey City",
+        "state": "NJ",
+        "postalCode": "57314",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 40.785889485293296,
+        "lon": -73.93550398392658,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 103-0103",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-syriac-orthodox-3",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-syriac-orthodox-3",
+          "handle": "demo-syriac-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-syriac-orthodox-3",
+          "handle": "demo-syriac-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-syriac-orthodox-3",
+          "handle": "demo-syriac-orthodox-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-syriac-orthodox-3/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-assyrian-coe-0",
+      "name": "Example Assyrian Church of the East Parish of Nativity (Detroit)",
+      "alternateNames": [],
+      "tradition": "assyrian-coe",
+      "jurisdictionId": "assyrian-california",
+      "status": "cathedral",
+      "address": {
+        "street": "100 Example Street",
+        "city": "Detroit",
+        "state": "MI",
+        "postalCode": "48545",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 42.340950380804365,
+        "lon": -83.14030426096772,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 100-0100",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-assyrian-coe-0",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-assyrian-coe-0",
+          "handle": "demo-assyrian-coe-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-assyrian-coe-0",
+          "handle": "demo-assyrian-coe-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-assyrian-coe-0",
+          "handle": "demo-assyrian-coe-0",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-assyrian-coe-0/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-assyrian-coe-1",
+      "name": "Example Assyrian Church of the East Parish of Ascension (Phoenix)",
+      "alternateNames": [],
+      "tradition": "assyrian-coe",
+      "jurisdictionId": "assyrian-eastern-usa",
+      "status": "parish",
+      "address": {
+        "street": "107 Example Street",
+        "city": "Phoenix",
+        "state": "AZ",
+        "postalCode": "52297",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 33.52210271695485,
+        "lon": -112.05705196751983,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 101-0101",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-assyrian-coe-1",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-assyrian-coe-1",
+          "handle": "demo-assyrian-coe-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-assyrian-coe-1",
+          "handle": "demo-assyrian-coe-1",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-assyrian-coe-1/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-assyrian-coe-2",
+      "name": "Example Assyrian Church of the East Parish of Holy Cross (Jersey City)",
+      "alternateNames": [],
+      "tradition": "assyrian-coe",
+      "jurisdictionId": "assyrian-western-usa",
+      "status": "parish",
+      "address": {
+        "street": "114 Example Street",
+        "city": "Jersey City",
+        "state": "NJ",
+        "postalCode": "34009",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 40.776404097486754,
+        "lon": -73.97988488719128,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 102-0102",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-assyrian-coe-2",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-assyrian-coe-2",
+          "handle": "demo-assyrian-coe-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-assyrian-coe-2",
+          "handle": "demo-assyrian-coe-2",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-assyrian-coe-2/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    },
+    {
+      "id": "demo-assyrian-coe-3",
+      "name": "Example Assyrian Church of the East Parish of Forty Martyrs (Jersey City)",
+      "alternateNames": [],
+      "tradition": "assyrian-coe",
+      "jurisdictionId": "assyrian-california",
+      "status": "parish",
+      "address": {
+        "street": "121 Example Street",
+        "city": "Jersey City",
+        "state": "NJ",
+        "postalCode": "66579",
+        "country": "US"
+      },
+      "coordinates": {
+        "lat": 40.86722736641943,
+        "lon": -74.15861537509798,
+        "precision": "rooftop",
+        "source": "manual"
+      },
+      "phone": "(555) 103-0103",
+      "email": "office@example.org",
+      "website": "https://example.org/demo-assyrian-coe-3",
+      "clergy": [
+        {
+          "title": "Fr.",
+          "name": "Example Clergy Name"
+        }
+      ],
+      "languages": [
+        "Syriac",
+        "Aramaic"
+      ],
+      "serviceTimes": [
+        {
+          "label": "Divine Liturgy",
+          "dayOfWeek": 0,
+          "time": "10:00",
+          "language": "Syriac"
+        },
+        {
+          "label": "Vespers",
+          "dayOfWeek": 6,
+          "time": "18:00",
+          "language": "English"
+        }
+      ],
+      "socials": [
+        {
+          "platform": "facebook",
+          "url": "https://www.facebook.com/demo-assyrian-coe-3",
+          "handle": "demo-assyrian-coe-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "instagram",
+          "url": "https://www.instagram.com/demo-assyrian-coe-3",
+          "handle": "demo-assyrian-coe-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        },
+        {
+          "platform": "youtube",
+          "url": "https://www.youtube.com/@demo-assyrian-coe-3",
+          "handle": "demo-assyrian-coe-3",
+          "provenance": {
+            "source": "fixture",
+            "method": "manual",
+            "fetchedAt": "2026-09-04T03:20:05.526Z",
+            "confidence": 0
+          }
+        }
+      ],
+      "feeds": [
+        {
+          "type": "ical",
+          "url": "https://example.org/demo-assyrian-coe-3/calendar.ics"
+        }
+      ],
+      "provenance": [
+        {
+          "source": "fixture",
+          "method": "manual",
+          "fetchedAt": "2026-09-04T03:20:05.526Z",
+          "confidence": 0
+        }
+      ],
+      "mergedFrom": [],
+      "firstSeenAt": "2026-09-04T03:20:05.526Z",
+      "lastSeenAt": "2026-09-04T03:20:05.526Z",
+      "flags": [
+        "demonstration-data"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "demo-maronite-2--evt-1",
+      "parishId": "demo-maronite-2",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-05T14:00:00.000Z",
+      "end": "2026-09-05T16:00:00.000Z",
+      "allDay": false,
+      "location": "Boston, MA",
+      "url": "https://example.org/demo-maronite-2/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-6--evt-4",
+      "parishId": "demo-greek-orthodox-6",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-05T14:00:00.000Z",
+      "end": "2026-09-05T16:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-6/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-2--evt-1",
+      "parishId": "demo-chaldean-2",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-06T15:00:00.000Z",
+      "end": "2026-09-06T17:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-chaldean-2/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-4--evt-0",
+      "parishId": "demo-greek-orthodox-4",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-06T18:00:00.000Z",
+      "end": "2026-09-06T20:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-greek-orthodox-4/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-1--evt-1",
+      "parishId": "demo-maronite-1",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-07T14:00:00.000Z",
+      "end": "2026-09-07T16:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-1/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-0--evt-2",
+      "parishId": "demo-syriac-orthodox-0",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-07T16:00:00.000Z",
+      "end": "2026-09-07T18:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-0/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-3--evt-1",
+      "parishId": "demo-greek-orthodox-3",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-08T15:00:00.000Z",
+      "end": "2026-09-08T17:00:00.000Z",
+      "allDay": false,
+      "location": "Boston, MA",
+      "url": "https://example.org/demo-greek-orthodox-3/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-5--evt-1",
+      "parishId": "demo-greek-orthodox-5",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-09T16:00:00.000Z",
+      "end": "2026-09-09T18:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-5/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-2--evt-3",
+      "parishId": "demo-melkite-2",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-09T17:00:00.000Z",
+      "end": "2026-09-09T19:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-melkite-2/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-0--evt-0",
+      "parishId": "demo-assyrian-coe-0",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-10T14:00:00.000Z",
+      "end": "2026-09-10T16:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-assyrian-coe-0/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-1--evt-0",
+      "parishId": "demo-greek-orthodox-1",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-11T17:00:00.000Z",
+      "end": "2026-09-11T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-1/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-0--evt-3",
+      "parishId": "demo-syriac-orthodox-0",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-13T16:00:00.000Z",
+      "end": "2026-09-13T18:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-0/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-0--evt-1",
+      "parishId": "demo-chaldean-0",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-13T17:00:00.000Z",
+      "end": "2026-09-13T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-chaldean-0/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-5--evt-1",
+      "parishId": "demo-coptic-orthodox-5",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-13T17:00:00.000Z",
+      "end": "2026-09-13T19:00:00.000Z",
+      "allDay": false,
+      "location": "Chicago, IL",
+      "url": "https://example.org/demo-coptic-orthodox-5/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-1--evt-0",
+      "parishId": "demo-maronite-1",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-14T19:00:00.000Z",
+      "end": "2026-09-14T21:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-1/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-4--evt-2",
+      "parishId": "demo-coptic-orthodox-4",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-15T16:00:00.000Z",
+      "end": "2026-09-15T18:00:00.000Z",
+      "allDay": false,
+      "location": "Houston, TX",
+      "url": "https://example.org/demo-coptic-orthodox-4/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-0--evt-2",
+      "parishId": "demo-greek-orthodox-0",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-16T18:00:00.000Z",
+      "end": "2026-09-16T20:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-0/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-1--evt-0",
+      "parishId": "demo-chaldean-1",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-16T19:00:00.000Z",
+      "end": "2026-09-16T21:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-chaldean-1/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-0--evt-3",
+      "parishId": "demo-assyrian-coe-0",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-17T16:00:00.000Z",
+      "end": "2026-09-17T18:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-assyrian-coe-0/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-2--evt-4",
+      "parishId": "demo-melkite-2",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-19T15:00:00.000Z",
+      "end": "2026-09-19T17:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-melkite-2/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-3--evt-1",
+      "parishId": "demo-melkite-3",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-19T17:00:00.000Z",
+      "end": "2026-09-19T19:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-melkite-3/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-7--evt-0",
+      "parishId": "demo-greek-orthodox-7",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-20T17:00:00.000Z",
+      "end": "2026-09-20T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-7/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-1--evt-4",
+      "parishId": "demo-maronite-1",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-20T19:00:00.000Z",
+      "end": "2026-09-20T21:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-1/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-4--evt-4",
+      "parishId": "demo-greek-orthodox-4",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-20T19:00:00.000Z",
+      "end": "2026-09-20T21:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-greek-orthodox-4/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-2--evt-2",
+      "parishId": "demo-assyrian-coe-2",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-21T19:00:00.000Z",
+      "end": "2026-09-21T21:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-2/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-4--evt-2",
+      "parishId": "demo-greek-orthodox-4",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-22T18:00:00.000Z",
+      "end": "2026-09-22T20:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-greek-orthodox-4/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-2--evt-1",
+      "parishId": "demo-coptic-orthodox-2",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-23T14:00:00.000Z",
+      "end": "2026-09-23T16:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-coptic-orthodox-2/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-1--evt-3",
+      "parishId": "demo-maronite-1",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-23T16:00:00.000Z",
+      "end": "2026-09-23T18:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-1/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-6--evt-2",
+      "parishId": "demo-greek-orthodox-6",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-23T19:00:00.000Z",
+      "end": "2026-09-23T21:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-6/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-7--evt-1",
+      "parishId": "demo-greek-orthodox-7",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-24T14:00:00.000Z",
+      "end": "2026-09-24T16:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-7/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-3--evt-0",
+      "parishId": "demo-chaldean-3",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-24T16:00:00.000Z",
+      "end": "2026-09-24T18:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-chaldean-3/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-1--evt-4",
+      "parishId": "demo-assyrian-coe-1",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-25T15:00:00.000Z",
+      "end": "2026-09-25T17:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-assyrian-coe-1/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-3--evt-2",
+      "parishId": "demo-coptic-orthodox-3",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-25T16:00:00.000Z",
+      "end": "2026-09-25T18:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-coptic-orthodox-3/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-0--evt-2",
+      "parishId": "demo-coptic-orthodox-0",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-25T18:00:00.000Z",
+      "end": "2026-09-25T20:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-coptic-orthodox-0/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-2--evt-2",
+      "parishId": "demo-melkite-2",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-25T19:00:00.000Z",
+      "end": "2026-09-25T21:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-melkite-2/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-3--evt-3",
+      "parishId": "demo-assyrian-coe-3",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-26T16:00:00.000Z",
+      "end": "2026-09-26T18:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-3/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-1--evt-2",
+      "parishId": "demo-coptic-orthodox-1",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-27T18:00:00.000Z",
+      "end": "2026-09-27T20:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-coptic-orthodox-1/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-2--evt-2",
+      "parishId": "demo-syriac-orthodox-2",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-27T18:00:00.000Z",
+      "end": "2026-09-27T20:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-2/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-0--evt-2",
+      "parishId": "demo-maronite-0",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-28T15:00:00.000Z",
+      "end": "2026-09-28T17:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-0/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-0--evt-0",
+      "parishId": "demo-syriac-orthodox-0",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-29T19:00:00.000Z",
+      "end": "2026-09-29T21:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-0/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-1--evt-2",
+      "parishId": "demo-syriac-orthodox-1",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-29T19:00:00.000Z",
+      "end": "2026-09-29T21:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-syriac-orthodox-1/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-1--evt-2",
+      "parishId": "demo-greek-orthodox-1",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-09-30T14:00:00.000Z",
+      "end": "2026-09-30T16:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-1/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-4--evt-3",
+      "parishId": "demo-greek-orthodox-4",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-01T14:00:00.000Z",
+      "end": "2026-10-01T16:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-greek-orthodox-4/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-0--evt-1",
+      "parishId": "demo-melkite-0",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-01T18:00:00.000Z",
+      "end": "2026-10-01T20:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-melkite-0/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-4--evt-1",
+      "parishId": "demo-coptic-orthodox-4",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-02T18:00:00.000Z",
+      "end": "2026-10-02T20:00:00.000Z",
+      "allDay": false,
+      "location": "Houston, TX",
+      "url": "https://example.org/demo-coptic-orthodox-4/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-3--evt-0",
+      "parishId": "demo-assyrian-coe-3",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-02T18:00:00.000Z",
+      "end": "2026-10-02T20:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-3/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-3--evt-0",
+      "parishId": "demo-maronite-3",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-02T19:00:00.000Z",
+      "end": "2026-10-02T21:00:00.000Z",
+      "allDay": false,
+      "location": "Houston, TX",
+      "url": "https://example.org/demo-maronite-3/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-3--evt-2",
+      "parishId": "demo-chaldean-3",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-03T17:00:00.000Z",
+      "end": "2026-10-03T19:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-chaldean-3/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-3--evt-1",
+      "parishId": "demo-assyrian-coe-3",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-03T19:00:00.000Z",
+      "end": "2026-10-03T21:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-3/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-2--evt-1",
+      "parishId": "demo-syriac-orthodox-2",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-05T15:00:00.000Z",
+      "end": "2026-10-05T17:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-2/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-3--evt-4",
+      "parishId": "demo-assyrian-coe-3",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-05T17:00:00.000Z",
+      "end": "2026-10-05T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-3/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-0--evt-4",
+      "parishId": "demo-maronite-0",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-05T19:00:00.000Z",
+      "end": "2026-10-05T21:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-0/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-0--evt-1",
+      "parishId": "demo-assyrian-coe-0",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-06T14:00:00.000Z",
+      "end": "2026-10-06T16:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-assyrian-coe-0/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-3--evt-1",
+      "parishId": "demo-chaldean-3",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-06T15:00:00.000Z",
+      "end": "2026-10-06T17:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-chaldean-3/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-3--evt-3",
+      "parishId": "demo-coptic-orthodox-3",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-06T16:00:00.000Z",
+      "end": "2026-10-06T18:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-coptic-orthodox-3/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-6--evt-0",
+      "parishId": "demo-greek-orthodox-6",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-06T18:00:00.000Z",
+      "end": "2026-10-06T20:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-6/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-2--evt-1",
+      "parishId": "demo-greek-orthodox-2",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-06T19:00:00.000Z",
+      "end": "2026-10-06T21:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-greek-orthodox-2/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-2--evt-1",
+      "parishId": "demo-melkite-2",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-07T14:00:00.000Z",
+      "end": "2026-10-07T16:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-melkite-2/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-2--evt-0",
+      "parishId": "demo-maronite-2",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-07T15:00:00.000Z",
+      "end": "2026-10-07T17:00:00.000Z",
+      "allDay": false,
+      "location": "Boston, MA",
+      "url": "https://example.org/demo-maronite-2/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-6--evt-3",
+      "parishId": "demo-greek-orthodox-6",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-07T16:00:00.000Z",
+      "end": "2026-10-07T18:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-6/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-6--evt-1",
+      "parishId": "demo-greek-orthodox-6",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-07T18:00:00.000Z",
+      "end": "2026-10-07T20:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-6/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-2--evt-0",
+      "parishId": "demo-melkite-2",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-08T15:00:00.000Z",
+      "end": "2026-10-08T17:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-melkite-2/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-4--evt-1",
+      "parishId": "demo-greek-orthodox-4",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-08T17:00:00.000Z",
+      "end": "2026-10-08T19:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-greek-orthodox-4/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-2--evt-2",
+      "parishId": "demo-chaldean-2",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-08T19:00:00.000Z",
+      "end": "2026-10-08T21:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-chaldean-2/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-2--evt-3",
+      "parishId": "demo-maronite-2",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-09T16:00:00.000Z",
+      "end": "2026-10-09T18:00:00.000Z",
+      "allDay": false,
+      "location": "Boston, MA",
+      "url": "https://example.org/demo-maronite-2/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-0--evt-0",
+      "parishId": "demo-maronite-0",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-09T19:00:00.000Z",
+      "end": "2026-10-09T21:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-0/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-2--evt-3",
+      "parishId": "demo-assyrian-coe-2",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-09T19:00:00.000Z",
+      "end": "2026-10-09T21:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-2/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-1--evt-2",
+      "parishId": "demo-assyrian-coe-1",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-10T16:00:00.000Z",
+      "end": "2026-10-10T18:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-assyrian-coe-1/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-1--evt-1",
+      "parishId": "demo-melkite-1",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-10T19:00:00.000Z",
+      "end": "2026-10-10T21:00:00.000Z",
+      "allDay": false,
+      "location": "Cleveland, OH",
+      "url": "https://example.org/demo-melkite-1/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-2--evt-3",
+      "parishId": "demo-syriac-orthodox-2",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-11T15:00:00.000Z",
+      "end": "2026-10-11T17:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-2/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-1--evt-0",
+      "parishId": "demo-melkite-1",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-11T18:00:00.000Z",
+      "end": "2026-10-11T20:00:00.000Z",
+      "allDay": false,
+      "location": "Cleveland, OH",
+      "url": "https://example.org/demo-melkite-1/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-1--evt-0",
+      "parishId": "demo-assyrian-coe-1",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-11T19:00:00.000Z",
+      "end": "2026-10-11T21:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-assyrian-coe-1/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-5--evt-0",
+      "parishId": "demo-coptic-orthodox-5",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-14T15:00:00.000Z",
+      "end": "2026-10-14T17:00:00.000Z",
+      "allDay": false,
+      "location": "Chicago, IL",
+      "url": "https://example.org/demo-coptic-orthodox-5/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-1--evt-3",
+      "parishId": "demo-melkite-1",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-15T15:00:00.000Z",
+      "end": "2026-10-15T17:00:00.000Z",
+      "allDay": false,
+      "location": "Cleveland, OH",
+      "url": "https://example.org/demo-melkite-1/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-0--evt-3",
+      "parishId": "demo-maronite-0",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-16T15:00:00.000Z",
+      "end": "2026-10-16T17:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-0/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-2--evt-0",
+      "parishId": "demo-chaldean-2",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-17T15:00:00.000Z",
+      "end": "2026-10-17T17:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-chaldean-2/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-0--evt-0",
+      "parishId": "demo-greek-orthodox-0",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-17T16:00:00.000Z",
+      "end": "2026-10-17T18:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-0/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-3--evt-1",
+      "parishId": "demo-syriac-orthodox-3",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-17T16:00:00.000Z",
+      "end": "2026-10-17T18:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-syriac-orthodox-3/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-1--evt-2",
+      "parishId": "demo-melkite-1",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-19T19:00:00.000Z",
+      "end": "2026-10-19T21:00:00.000Z",
+      "allDay": false,
+      "location": "Cleveland, OH",
+      "url": "https://example.org/demo-melkite-1/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-0--evt-3",
+      "parishId": "demo-coptic-orthodox-0",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-20T19:00:00.000Z",
+      "end": "2026-10-20T21:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-coptic-orthodox-0/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-1--evt-1",
+      "parishId": "demo-greek-orthodox-1",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-21T17:00:00.000Z",
+      "end": "2026-10-21T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-1/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-0--evt-2",
+      "parishId": "demo-melkite-0",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-23T18:00:00.000Z",
+      "end": "2026-10-23T20:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-melkite-0/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-1--evt-2",
+      "parishId": "demo-maronite-1",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-25T17:00:00.000Z",
+      "end": "2026-10-25T19:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-1/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-1--evt-1",
+      "parishId": "demo-assyrian-coe-1",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-25T17:00:00.000Z",
+      "end": "2026-10-25T19:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-assyrian-coe-1/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-1--evt-3",
+      "parishId": "demo-greek-orthodox-1",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-27T14:00:00.000Z",
+      "end": "2026-10-27T16:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-1/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-3--evt-2",
+      "parishId": "demo-assyrian-coe-3",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-28T17:00:00.000Z",
+      "end": "2026-10-28T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-3/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-4--evt-0",
+      "parishId": "demo-coptic-orthodox-4",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-28T18:00:00.000Z",
+      "end": "2026-10-28T20:00:00.000Z",
+      "allDay": false,
+      "location": "Houston, TX",
+      "url": "https://example.org/demo-coptic-orthodox-4/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-1--evt-0",
+      "parishId": "demo-coptic-orthodox-1",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-10-29T15:00:00.000Z",
+      "end": "2026-10-29T17:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-coptic-orthodox-1/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-1--evt-1",
+      "parishId": "demo-coptic-orthodox-1",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-02T16:00:00.000Z",
+      "end": "2026-11-02T18:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-coptic-orthodox-1/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-2--evt-0",
+      "parishId": "demo-greek-orthodox-2",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-04T14:00:00.000Z",
+      "end": "2026-11-04T16:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-greek-orthodox-2/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-0--evt-0",
+      "parishId": "demo-coptic-orthodox-0",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-06T15:00:00.000Z",
+      "end": "2026-11-06T17:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-coptic-orthodox-0/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-1--evt-0",
+      "parishId": "demo-syriac-orthodox-1",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-09T17:00:00.000Z",
+      "end": "2026-11-09T19:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-syriac-orthodox-1/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-3--evt-0",
+      "parishId": "demo-melkite-3",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-10T15:00:00.000Z",
+      "end": "2026-11-10T17:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-melkite-3/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-3--evt-1",
+      "parishId": "demo-coptic-orthodox-3",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-10T15:00:00.000Z",
+      "end": "2026-11-10T17:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-coptic-orthodox-3/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-1--evt-1",
+      "parishId": "demo-syriac-orthodox-1",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-13T16:00:00.000Z",
+      "end": "2026-11-13T18:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-syriac-orthodox-1/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-3--evt-0",
+      "parishId": "demo-syriac-orthodox-3",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-13T17:00:00.000Z",
+      "end": "2026-11-13T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-syriac-orthodox-3/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-0--evt-1",
+      "parishId": "demo-greek-orthodox-0",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-13T18:00:00.000Z",
+      "end": "2026-11-13T20:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-0/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-1--evt-3",
+      "parishId": "demo-syriac-orthodox-1",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-13T18:00:00.000Z",
+      "end": "2026-11-13T20:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-syriac-orthodox-1/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-2--evt-2",
+      "parishId": "demo-maronite-2",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-13T19:00:00.000Z",
+      "end": "2026-11-13T21:00:00.000Z",
+      "allDay": false,
+      "location": "Boston, MA",
+      "url": "https://example.org/demo-maronite-2/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-0--evt-2",
+      "parishId": "demo-assyrian-coe-0",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-14T16:00:00.000Z",
+      "end": "2026-11-14T18:00:00.000Z",
+      "allDay": false,
+      "location": "Detroit, MI",
+      "url": "https://example.org/demo-assyrian-coe-0/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-3--evt-2",
+      "parishId": "demo-melkite-3",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-14T19:00:00.000Z",
+      "end": "2026-11-14T21:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-melkite-3/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-3--evt-4",
+      "parishId": "demo-coptic-orthodox-3",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-15T14:00:00.000Z",
+      "end": "2026-11-15T16:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-coptic-orthodox-3/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-1--evt-4",
+      "parishId": "demo-melkite-1",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-17T15:00:00.000Z",
+      "end": "2026-11-17T17:00:00.000Z",
+      "allDay": false,
+      "location": "Cleveland, OH",
+      "url": "https://example.org/demo-melkite-1/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-5--evt-3",
+      "parishId": "demo-greek-orthodox-5",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-17T17:00:00.000Z",
+      "end": "2026-11-17T19:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-5/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-7--evt-2",
+      "parishId": "demo-greek-orthodox-7",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-17T17:00:00.000Z",
+      "end": "2026-11-17T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-greek-orthodox-7/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-0--evt-3",
+      "parishId": "demo-melkite-0",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-18T14:00:00.000Z",
+      "end": "2026-11-18T16:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-melkite-0/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-0--evt-0",
+      "parishId": "demo-chaldean-0",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-18T19:00:00.000Z",
+      "end": "2026-11-18T21:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-chaldean-0/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-3--evt-3",
+      "parishId": "demo-chaldean-3",
+      "title": "Feast of the Nativity (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-18T19:00:00.000Z",
+      "end": "2026-11-18T21:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-chaldean-3/events",
+      "category": "feast",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-0--evt-1",
+      "parishId": "demo-syriac-orthodox-0",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-21T18:00:00.000Z",
+      "end": "2026-11-21T20:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-0/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-3--evt-1",
+      "parishId": "demo-maronite-3",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-23T15:00:00.000Z",
+      "end": "2026-11-23T17:00:00.000Z",
+      "allDay": false,
+      "location": "Houston, TX",
+      "url": "https://example.org/demo-maronite-3/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-2--evt-2",
+      "parishId": "demo-coptic-orthodox-2",
+      "title": "Building Fund Gala (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-23T16:00:00.000Z",
+      "end": "2026-11-23T18:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-coptic-orthodox-2/events",
+      "category": "fundraiser",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-3--evt-4",
+      "parishId": "demo-chaldean-3",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-24T14:00:00.000Z",
+      "end": "2026-11-24T16:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-chaldean-3/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-2--evt-1",
+      "parishId": "demo-assyrian-coe-2",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-25T14:00:00.000Z",
+      "end": "2026-11-25T16:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-2/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-5--evt-0",
+      "parishId": "demo-greek-orthodox-5",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-25T17:00:00.000Z",
+      "end": "2026-11-25T19:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-5/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-2--evt-0",
+      "parishId": "demo-coptic-orthodox-2",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-25T18:00:00.000Z",
+      "end": "2026-11-25T20:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-coptic-orthodox-2/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-5--evt-2",
+      "parishId": "demo-greek-orthodox-5",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-26T15:00:00.000Z",
+      "end": "2026-11-26T17:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-greek-orthodox-5/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-1--evt-3",
+      "parishId": "demo-assyrian-coe-1",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-26T18:00:00.000Z",
+      "end": "2026-11-26T20:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-assyrian-coe-1/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-0--evt-1",
+      "parishId": "demo-coptic-orthodox-0",
+      "title": "Choir Rehearsal (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-26T19:00:00.000Z",
+      "end": "2026-11-26T21:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-coptic-orthodox-0/events",
+      "category": "music",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-2--evt-4",
+      "parishId": "demo-syriac-orthodox-2",
+      "title": "Divine Liturgy (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-27T16:00:00.000Z",
+      "end": "2026-11-27T18:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-2/events",
+      "category": "liturgy",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-maronite-0--evt-1",
+      "parishId": "demo-maronite-0",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-27T19:00:00.000Z",
+      "end": "2026-11-27T21:00:00.000Z",
+      "allDay": false,
+      "location": "Atlanta, GA",
+      "url": "https://example.org/demo-maronite-0/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-chaldean-1--evt-1",
+      "parishId": "demo-chaldean-1",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-27T19:00:00.000Z",
+      "end": "2026-11-27T21:00:00.000Z",
+      "allDay": false,
+      "location": "San Diego, CA",
+      "url": "https://example.org/demo-chaldean-1/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-0--evt-4",
+      "parishId": "demo-coptic-orthodox-0",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-28T15:00:00.000Z",
+      "end": "2026-11-28T17:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-coptic-orthodox-0/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-3--evt-2",
+      "parishId": "demo-greek-orthodox-3",
+      "title": "Youth Group Night (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-28T16:00:00.000Z",
+      "end": "2026-11-28T18:00:00.000Z",
+      "allDay": false,
+      "location": "Boston, MA",
+      "url": "https://example.org/demo-greek-orthodox-3/events",
+      "category": "youth",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-greek-orthodox-3--evt-0",
+      "parishId": "demo-greek-orthodox-3",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-11-29T16:00:00.000Z",
+      "end": "2026-11-29T18:00:00.000Z",
+      "allDay": false,
+      "location": "Boston, MA",
+      "url": "https://example.org/demo-greek-orthodox-3/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-syriac-orthodox-2--evt-0",
+      "parishId": "demo-syriac-orthodox-2",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-12-01T14:00:00.000Z",
+      "end": "2026-12-01T16:00:00.000Z",
+      "allDay": false,
+      "location": "Los Angeles, CA",
+      "url": "https://example.org/demo-syriac-orthodox-2/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-melkite-0--evt-0",
+      "parishId": "demo-melkite-0",
+      "title": "Lenten Retreat (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-12-02T16:00:00.000Z",
+      "end": "2026-12-02T18:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-melkite-0/events",
+      "category": "retreat",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-coptic-orthodox-3--evt-0",
+      "parishId": "demo-coptic-orthodox-3",
+      "title": "Parish Council Meeting (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-12-02T17:00:00.000Z",
+      "end": "2026-12-02T19:00:00.000Z",
+      "allDay": false,
+      "location": "Phoenix, AZ",
+      "url": "https://example.org/demo-coptic-orthodox-3/events",
+      "category": "community",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-2--evt-4",
+      "parishId": "demo-assyrian-coe-2",
+      "title": "Annual Food Festival (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-12-02T17:00:00.000Z",
+      "end": "2026-12-02T19:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-2/events",
+      "category": "festival",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    },
+    {
+      "id": "demo-assyrian-coe-2--evt-0",
+      "parishId": "demo-assyrian-coe-2",
+      "title": "Bible Study (demo)",
+      "description": "Demonstration record. Not a real event.",
+      "start": "2026-12-03T18:00:00.000Z",
+      "end": "2026-12-03T20:00:00.000Z",
+      "allDay": false,
+      "location": "Jersey City, NJ",
+      "url": "https://example.org/demo-assyrian-coe-2/events",
+      "category": "education",
+      "provenance": {
+        "source": "fixture",
+        "method": "manual",
+        "fetchedAt": "2026-09-04T03:20:05.526Z",
+        "confidence": 0
+      },
+      "cancelled": false
+    }
+  ]
+}

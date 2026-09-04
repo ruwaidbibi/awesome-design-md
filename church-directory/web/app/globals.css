@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+
+  --color-ink: #16130f;
+  --color-ink-soft: #57514a;
+  --color-ink-faint: #8b837a;
+  --color-page: #faf8f4;
+  --color-surface: #ffffff;
+  --color-line: #e5ded2;
+  --color-accent: #7c2d12;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-ink: #f2ede5;
+    --color-ink-soft: #b3aa9d;
+    --color-ink-faint: #7d7568;
+    --color-page: #14120f;
+    --color-surface: #1c1916;
+    --color-line: #2f2a24;
+    --color-accent: #e8a87c;
+  }
+}
+
+html { color-scheme: light dark; }
+
+body {
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .serif { font-family: var(--font-serif); }
+
+/* MapLibre ships its own stylesheet; these override the parts that clash
+   with the page palette. */
+.maplibregl-popup-content {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-sans);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.12);
+}
+.maplibregl-popup-tip { border-top-color: var(--color-surface); border-bottom-color: var(--color-surface); }
+.maplibregl-ctrl-attrib { font-size: 10px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
