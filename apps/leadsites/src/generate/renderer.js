@@ -2,7 +2,7 @@ import { HttpError } from "../http.js";
 import { genConfig, send, textOf, usageOf } from "./client.js";
 import { buildEvidence, evidenceText, TRUTH_RULES } from "./evidence.js";
 
-const SYSTEM = `You build small, complete marketing websites for local businesses.
+export const RENDERER_SYSTEM = `You build small, complete marketing websites for local businesses.
 
 You are given a design system (a DESIGN.md), a content plan that has already decided what the site says and why, and the evidence behind it. You write the HTML.
 
@@ -146,7 +146,7 @@ export async function renderSite({ business, design, plan, feedback = null, prev
     {
       model: genConfig().model,
       max_tokens: 64000,
-      system: SYSTEM,
+      system: RENDERER_SYSTEM,
       thinking: { type: "adaptive", display: "summarized" },
       output_config: { effort: genConfig().effort },
       messages: [{ role: "user", content: homeParts }],
@@ -200,7 +200,7 @@ export async function renderSite({ business, design, plan, feedback = null, prev
       {
         model: genConfig().model,
         max_tokens: 32000,
-        system: SYSTEM,
+        system: RENDERER_SYSTEM,
         thinking: { type: "adaptive", display: "summarized" },
         output_config: { effort: genConfig().effort },
         messages: [{ role: "user", content: parts }],

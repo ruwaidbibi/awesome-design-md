@@ -253,6 +253,33 @@ Not happy with it? Type what to change and regenerate. Each run is a new
 version; the previous HTML and your notes go into the revision prompt, and every
 version stays previewable and publishable.
 
+## Generating without an API key
+
+The generation half does not have to run inside this app. If you have no
+`ANTHROPIC_API_KEY` configured here - or you would simply rather do it in a
+Claude session where you can argue with the output - export the brief, generate
+by hand, and import the result:
+
+```bash
+npm run brief -- <placeId> --design ferrari --out brief.md
+#   ... produce plan.json + one .html per page from that brief ...
+npm run import -- <placeId> --design ferrari --dir ./out --model claude-code
+```
+
+`npm run brief` with no arguments lists your saved leads and their ids.
+
+The brief is one self-contained document containing both system prompts, the
+plan schema, every piece of evidence, and the full `DESIGN.md`. Nothing else
+about the business is needed, and nothing else about it is true.
+
+The import is not a dumb file copy. It refuses a plan that is structurally
+invalid, a page set that does not match the plan (either direction), a file that
+is not an HTML document, and any page that references an external stylesheet,
+script or image - because published pages must be self-contained. What lands is
+a normal site version: the plan panel, the page tabs, preview, revision and
+publish all work on it exactly as if this app had generated it. The `model`
+column records what actually produced it, so the versions list stays honest.
+
 ## Publishing
 
 `POST /api/sites/:id/publish` writes the file to `data/published/<slug>/index.html`

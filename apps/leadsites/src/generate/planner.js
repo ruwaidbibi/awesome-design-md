@@ -4,7 +4,7 @@ import { genConfig, send, textOf, usageOf } from "./client.js";
 import { buildEvidence, evidenceText, TRUTH_RULES } from "./evidence.js";
 import { CONTENT_PLAN_SCHEMA, validatePlan } from "./schema.js";
 
-const SYSTEM = `You plan small marketing websites for local businesses, from evidence.
+export const PLANNER_SYSTEM = `You plan small marketing websites for local businesses, from evidence.
 
 You are given what is actually known about one real business: verified facts from Google, what its customers say in reviews, sometimes what its photos show, and sometimes notes from the person running this tool. You return a content plan: which pages the site should have, what each section says, and - for every section - which piece of evidence entitles you to say it.
 
@@ -52,7 +52,7 @@ export async function planSite({ business, design }, onEvent = () => {}) {
     {
       model: genConfig().model,
       max_tokens: 32000,
-      system: SYSTEM,
+      system: PLANNER_SYSTEM,
       thinking: { type: "adaptive", display: "summarized" },
       output_config: {
         effort: genConfig().effort,

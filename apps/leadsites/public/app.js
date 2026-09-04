@@ -307,13 +307,19 @@ function renderDetail() {
   showDesc();
 
   const genButton = node.querySelector("#generate");
+  const genHint = node.querySelector('[data-slot="genHint"]');
   if (!state.meta.generationReady) {
     genButton.disabled = true;
-    node.querySelector('[data-slot="genHint"]').textContent =
-      "Set ANTHROPIC_API_KEY in apps/leadsites/.env and restart to enable generation.";
+    genHint.replaceChildren(
+      document.createTextNode("No ANTHROPIC_API_KEY, so this app cannot generate. You can still do it by hand: take the "),
+      el("a", { href: `/api/businesses/${encodeURIComponent(business.id)}/brief?design=${select.value}` }, "generation brief"),
+      document.createTextNode(" to any Claude session, then run "),
+      el("code", {}, `npm run import -- ${business.id} --design ${select.value} --dir <dir>`),
+      document.createTextNode(". The result behaves exactly like a generated one."),
+    );
+    select.addEventListener("change", () => renderDetail());
   } else {
-    node.querySelector('[data-slot="genHint"]').textContent =
-      "One click. Streams for a minute or two, then lands in the preview below.";
+    genHint.textContent = "One click. Streams for a minute or two, then lands in the preview below.";
   }
   genButton.addEventListener("click", () => generate({ design: select.value }));
 

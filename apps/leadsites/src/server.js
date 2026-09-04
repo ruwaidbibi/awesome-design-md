@@ -14,6 +14,8 @@ import {
 import { CATEGORIES, CITIES, METRO } from "./geo.js";
 import { listDesigns } from "./generate/designs.js";
 import { generateSite, rebuildSite } from "./generate/generator.js";
+import { buildBrief } from "./generate/brief.js";
+import { importSite } from "./generate/importer.js";
 import { validatePlan, weakSections } from "./generate/schema.js";
 import { analyzePhotos } from "./generate/vision.js";
 import {
@@ -132,6 +134,36 @@ router.post("/api/businesses/:id/details", async (req, res, { id }) => {
   const body = await readJsonBody(req);
   const { business, billedRequests, cached } = await fetchDetails(id, { force: Boolean(body.force) });
   sendJson(res, 200, { business: hydrate(business), billedRequests, cached });
+});
+
+router.get("/api/businesses/:id/brief", (req, res, { id }, url) => {
+  const business = getBusiness(id);
+  if (!business) throw new HttpError(404, "No such business");
+  const designKey = url.searchParams.get("design");
+  if (!designKey) throw new HttpError(400, "design is required");
+  const brief = buildBrief({
+    business,
+    designKey,
+    includeDesign: url.searchParams.get("design_md") !== "false",
+  });
+  res.writeHead(200, {
+    "content-type": "text/markdown; charset=utf-8",
+    "content-disposition": `attachment; filename="brief-${id}-${designKey}.md"`,
+    "cache-control": "no-store",
+  });
+  res.end(brief);
+});
+
+router.post("/api/sites/import", async (req, res) => {
+  const body = await readJsonBody(req, 8_000_000);
+  const site = importSite({
+    businessId: body.businessId,
+    designKey: body.designKey,
+    plan: body.plan,
+    pages: body.pages ?? [],
+    model: body.model ?? "external",
+  });
+  sendJson(res, 200, { site: hydrateSite(site) });
 });
 
 router.post("/api/businesses/:id/photos", async (req, res, { id }) => {

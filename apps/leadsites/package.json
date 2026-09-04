@@ -4,11 +4,15 @@
   "private": true,
   "type": "module",
   "description": "Find local businesses that earned a reputation but never got a website, then build them one from what their customers already said.",
-  "engines": { "node": ">=22.9" },
+  "engines": {
+    "node": ">=22.9"
+  },
   "scripts": {
     "start": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env src/server.js",
     "dev": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env --watch src/server.js",
-    "check": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env src/selftest.js"
+    "check": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env src/selftest.js",
+    "brief": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env src/cli/brief.js",
+    "import": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env src/cli/import.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.123.0"
