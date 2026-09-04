@@ -39,11 +39,31 @@ const badge = (status) =>
 function log(target, message, cls) {
   const node = $(target);
   if (!node) return;
-  node.append(el("div", { className: cls ?? "" }, message), "\n");
+  // Each entry is its own block; the container is pre-wrap, so an added
+  // newline would double-space the whole log.
+  node.append(el("div", { className: cls ?? "" }, message));
   node.scrollTop = node.scrollHeight;
 }
 
 const clearLog = (target) => { const n = $(target); if (n) n.textContent = ""; };
+
+/**
+ * Run something that re-renders the detail column without losing the log.
+ *
+ * renderDetail() rebuilds the whole column from the template, which throws away
+ * #genLog - including the summary line just written into it. Carry the entries
+ * across so the account of what happened survives the re-render.
+ */
+function keepingLog(target, rerender) {
+  const before = $(target);
+  const entries = before ? [...before.childNodes].map((n) => n.cloneNode(true)) : [];
+  rerender();
+  const after = $(target);
+  if (after && entries.length > 0) {
+    after.replaceChildren(...entries);
+    after.scrollTop = after.scrollHeight;
+  }
+}
 
 async function api(path, options) {
   const res = await fetch(path, {
@@ -659,6 +679,7 @@ function runGenerationStream(url, busyLabel) {
 
   const source = new EventSource(url);
   let thinkingLine = null;
+  let stage = null;
 
   source.addEventListener("progress", (e) => {
     const d = JSON.parse(e.data);
@@ -666,6 +687,7 @@ function runGenerationStream(url, busyLabel) {
     if (d.type === "note") log("#genLog", d.message);
     if (d.type === "stage") {
       thinkingLine = null;
+      stage = d.stage;
       log("#genLog", d.stage === "planning" ? "planning what the site should say..." : "building the pages...");
     }
     if (d.type === "plan") {
@@ -681,7 +703,8 @@ function runGenerationStream(url, busyLabel) {
       const node = $("#genLog");
       let counter = node.querySelector(".counter");
       if (!counter) { counter = el("div", { className: "counter" }); node.append(counter); }
-      counter.textContent = `writing HTML... ${(d.bytes / 1024).toFixed(1)} kB`;
+      // The planner streams JSON, the renderer streams HTML; say which.
+      counter.textContent = `${stage === "planning" ? "drafting the plan" : "writing HTML"}... ${(d.bytes / 1024).toFixed(1)} kB`;
       node.scrollTop = node.scrollHeight;
     }
   });
@@ -695,7 +718,7 @@ function runGenerationStream(url, busyLabel) {
     state.detail = await api(`/api/businesses/${encodeURIComponent(id)}`);
     state.activeSiteId = d.site.id;
     state.activePage = "index.html";
-    renderDetail();
+    keepingLog("#genLog", renderDetail);
   });
 
   source.addEventListener("error", (e) => {
