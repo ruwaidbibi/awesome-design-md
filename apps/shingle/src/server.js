@@ -311,7 +311,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(config.port, () => {
-  console.log(`sitesmith listening on http://localhost:${config.port}`);
+  console.log(`shingle listening on http://localhost:${config.port}`);
   console.log(`  places provider : ${config.places.provider}${config.places.apiKey ? "" : " (no GOOGLE_MAPS_API_KEY set)"}`);
   console.log(`  generation      : ${hasGenKey() ? `ready (${config.gen.model}, effort ${config.gen.effort})` : "disabled (no ANTHROPIC_API_KEY set)"}`);
   console.log(`  design systems  : ${listDesigns().length} found in ${config.designDir}`);

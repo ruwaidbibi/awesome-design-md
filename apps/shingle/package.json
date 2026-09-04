@@ -1,9 +1,9 @@
 {
-  "name": "sitesmith",
+  "name": "shingle",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Find local businesses with lots of Google reviews and no website, then generate one for them from a DESIGN.md.",
+  "description": "Find local businesses that earned a reputation but never got a website, then build them one from what their customers already said.",
   "engines": { "node": ">=22.9" },
   "scripts": {
     "start": "node --disable-warning=ExperimentalWarning --env-file-if-exists=.env src/server.js",

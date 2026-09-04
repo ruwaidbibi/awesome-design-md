@@ -7,7 +7,7 @@ let client = null;
 export function getClient() {
   if (!hasGenKey()) {
     throw new HttpError(400, "ANTHROPIC_API_KEY is not set", {
-      hint: "Add it to apps/sitesmith/.env. Prospecting works without it; generation does not.",
+      hint: "Add it to apps/shingle/.env. Prospecting works without it; generation does not.",
     });
   }
   return (client ??= new Anthropic());

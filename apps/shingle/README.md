@@ -1,8 +1,11 @@
-# sitesmith
+# Shingle
+
+> *To hang out your shingle*: to announce you are open for business.
 
 Find local businesses that have earned hundreds of Google reviews but never got a
 website, confirm they really don't have one, then build them one in a click using
-any of the 74 `DESIGN.md` files in this repo.
+any of the 74 `DESIGN.md` files in this repo - written from what their customers
+already said, with every claim on the page traceable to the evidence behind it.
 
 ```
 search Google Places  →  drop anyone under N reviews  →  prove the website gap
@@ -16,7 +19,7 @@ Zero build step. `@anthropic-ai/sdk` is the only dependency; the store is
 ## Quick start
 
 ```bash
-cd apps/sitesmith
+cd apps/shingle
 npm install
 cp .env.example .env      # optional - it runs on sample data without keys
 npm start                 # http://localhost:4317
@@ -237,8 +240,8 @@ names, awards, certifications, "family owned since 1974", prices, guarantees, or
 email addresses. Anything it doesn't know becomes a visibly outlined placeholder:
 
 ```html
-<span class="sitesmith-todo">[[ADD: two sentences on your story]]</span>
-<div class="sitesmith-photo">[[ADD PHOTO: storefront]]</div>
+<span class="shingle-todo">[[ADD: two sentences on your story]]</span>
+<div class="shingle-photo">[[ADD PHOTO: storefront]]</div>
 ```
 
 Output is self-contained by construction — no external CSS, JS, fonts, or images
