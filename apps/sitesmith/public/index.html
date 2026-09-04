@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>sitesmith</title>
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='13' font-size='13'>&#127959;</text></svg>">
+</head>
+<body>
+
+<header class="top">
+  <h1>sitesmith</h1>
+  <span class="tagline">Businesses with the reviews but no website &rarr; a website.</span>
+  <div class="meta" id="meta"></div>
+</header>
+
+<main>
+  <div class="col">
+    <section class="card">
+      <h2>1 &middot; Find leads</h2>
+      <div class="row">
+        <div class="field" style="flex: 2 1 240px">
+          <label for="q">What to search for</label>
+          <input type="text" id="q" placeholder="barber shops" value="barber shops">
+        </div>
+        <div class="field" style="flex: 2 1 200px">
+          <label for="loc">Where</label>
+          <input type="text" id="loc" placeholder="Austin, TX" value="Austin, TX">
+        </div>
+        <div class="field" style="flex: 0 1 120px">
+          <label for="minReviews">Min reviews</label>
+          <input type="number" id="minReviews" min="0" step="10" value="200">
+        </div>
+      </div>
+      <label class="checkline">
+        <input type="checkbox" id="includeLive">
+        Also show businesses that already have a working website
+      </label>
+      <div class="row" style="margin-top: 12px">
+        <button class="primary" id="search">Find leads</button>
+        <button class="ghost" id="loadAll">Load everything saved</button>
+      </div>
+      <p class="hint" id="searchHint"></p>
+      <div class="log" id="searchLog" aria-live="polite"></div>
+    </section>
+
+    <section class="card">
+      <h2>2 &middot; Review the leads <span id="leadCount" style="text-transform:none;letter-spacing:0"></span></h2>
+      <div id="leads"><p class="empty">Run a search to see leads.</p></div>
+    </section>
+  </div>
+
+  <div class="col" id="detailCol">
+    <p class="empty">Select a lead to inspect it and build its website.</p>
+  </div>
+</main>
+
+<template id="detailTpl">
+  <section class="card">
+    <h2>Lead</h2>
+    <div data-slot="facts"></div>
+  </section>
+
+  <section class="card">
+    <h2>Why it scored what it did</h2>
+    <div data-slot="score"></div>
+  </section>
+
+  <section class="card">
+    <h2>3 &middot; Generate the website</h2>
+    <div class="field">
+      <label for="design">Design system (from this repo's DESIGN.md collection)</label>
+      <select id="design"></select>
+      <p class="hint" data-slot="designDesc"></p>
+    </div>
+    <button class="primary big" id="generate">Generate website</button>
+    <p class="hint" data-slot="genHint"></p>
+    <div class="log" id="genLog" aria-live="polite"></div>
+  </section>
+
+  <section class="card" data-slot="versionsCard" hidden>
+    <h2>4 &middot; Review &amp; publish</h2>
+    <div class="versions" data-slot="versions"></div>
+    <div data-slot="preview"></div>
+  </section>
+</template>
+
+<script src="/app.js" type="module"></script>
+</body>
+</html>
