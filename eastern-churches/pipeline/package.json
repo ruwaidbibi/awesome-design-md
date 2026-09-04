@@ -1,10 +1,10 @@
 {
-  "name": "@qandela/pipeline",
+  "name": "@eastern/pipeline",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "bin": {
-    "qandela": "./src/cli.ts"
+    "churches": "./src/cli.ts"
   },
   "scripts": {
     "start": "tsx src/cli.ts",

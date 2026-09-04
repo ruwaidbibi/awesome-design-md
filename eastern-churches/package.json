@@ -1,0 +1,19 @@
+{
+  "name": "eastern-churches",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Directory of Eastern Catholic, Eastern Orthodox, Oriental Orthodox and Church of the East parishes in the United States, with their social accounts and events.",
+  "workspaces": ["pipeline", "web"],
+  "scripts": {
+    "pipeline": "npm run -w @eastern/pipeline start --",
+    "harvest": "npm run -w @eastern/pipeline start -- harvest",
+    "enrich": "npm run -w @eastern/pipeline start -- enrich",
+    "events": "npm run -w @eastern/pipeline start -- events",
+    "build:data": "npm run -w @eastern/pipeline start -- build",
+    "refresh": "npm run -w @eastern/pipeline start -- refresh",
+    "dev": "npm run -w @eastern/web dev",
+    "build": "npm run -w @eastern/web build",
+    "typecheck": "npm run -w @eastern/pipeline typecheck && npm run -w @eastern/web typecheck"
+  },
+  "engines": { "node": ">=20.11" }
+}

@@ -32,7 +32,7 @@ const num = (f: Flags, k: string) => (typeof f[k] === "string" ? Number(f[k]) : 
 const bool = (f: Flags, k: string) => f[k] === true || f[k] === "true";
 
 const HELP = `
-qandela pipeline
+eastern-churches pipeline
 
   harvest    Read each jurisdiction's parish directory into data/parishes.json
     --tradition=<id>      Limit to one tradition (see \`targets\`)

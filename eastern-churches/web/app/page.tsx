@@ -27,7 +27,7 @@ export default function HomePage() {
             Run the pipeline to populate it:
           </p>
           <pre className="mt-3 overflow-x-auto rounded bg-[var(--color-ink)]/5 p-3 text-xs">
-{`cd qandela
+{`cd eastern-churches
 npm install
 cp .env.example .env    # add ANTHROPIC_API_KEY for the LLM fallback
 npm run refresh`}
