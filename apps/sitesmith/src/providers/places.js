@@ -1,7 +1,9 @@
 import { config } from "../config.js";
+import { METRO } from "../geo.js";
 import { HttpError } from "../http.js";
 
 const ENDPOINT = "https://places.googleapis.com/v1/places:searchText";
+const DETAILS_ENDPOINT = "https://places.googleapis.com/v1/places";
 
 // Every field here is billed. websiteUri and userRatingCount are what put this
 // request on the Enterprise SKU, and they are exactly the two the whole app is
@@ -62,7 +64,15 @@ export async function searchPlaces({ query, location, maxPages = config.places.m
   let pages = 0;
 
   do {
-    const body = { textQuery, pageSize: 20, languageCode: "en" };
+    const body = {
+      textQuery,
+      pageSize: 20,
+      languageCode: "en",
+      regionCode: "US",
+      // Hard fence: nothing outside the metro can come back, whatever the
+      // text query gets geocoded to.
+      locationRestriction: { rectangle: METRO.bounds },
+    };
     if (pageToken) body.pageToken = pageToken;
 
     const res = await fetch(ENDPOINT, {
@@ -90,4 +100,64 @@ export async function searchPlaces({ query, location, maxPages = config.places.m
   } while (pageToken && pages < maxPages);
 
   return { places: places.map(normalizePlace), pages, requestCount: pages };
+}
+
+/**
+ * Fields that carry the content signal: what customers actually say, and how
+ * Google itself summarises the place.
+ *
+ * These sit in the Enterprise + Atmosphere SKU, one tier above the search mask
+ * above. That is exactly why they are fetched per place, on demand, for the one
+ * business you decided to build for - not for all 60 search results you are
+ * about to throw most of away.
+ */
+const DETAILS_FIELD_MASK = [
+  "id",
+  "displayName",
+  "reviews",
+  "editorialSummary",
+  "priceLevel",
+  "regularOpeningHours",
+  "primaryTypeDisplayName",
+].join(",");
+
+const normalizeReview = (review) => ({
+  rating: review.rating ?? null,
+  text: review.text?.text ?? review.originalText?.text ?? "",
+  author: review.authorAttribution?.displayName ?? null,
+  when: review.relativePublishTimeDescription ?? null,
+  publishedAt: review.publishTime ?? null,
+});
+
+/** Place Details for one place. One billed Enterprise + Atmosphere request. */
+export async function fetchPlaceDetails(placeId) {
+  if (!config.places.apiKey) {
+    throw new HttpError(400, "GOOGLE_MAPS_API_KEY is not set", {
+      hint: "Reviews come from Google Place Details, which needs a key.",
+    });
+  }
+
+  const res = await fetch(`${DETAILS_ENDPOINT}/${encodeURIComponent(placeId)}`, {
+    headers: {
+      "X-Goog-Api-Key": config.places.apiKey,
+      "X-Goog-FieldMask": DETAILS_FIELD_MASK,
+    },
+  });
+
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new HttpError(res.status === 403 ? 403 : 502, json?.error?.message ?? `Place Details returned ${res.status}`, {
+      status: res.status,
+      googleStatus: json?.error?.status,
+    });
+  }
+
+  return {
+    reviews: (json.reviews ?? []).map(normalizeReview).filter((r) => r.text),
+    editorialSummary: json.editorialSummary?.text ?? null,
+    priceLevel: json.priceLevel ?? null,
+    typeDisplayName: json.primaryTypeDisplayName?.text ?? null,
+    hours: json.regularOpeningHours?.weekdayDescriptions ?? null,
+    billedRequests: 1,
+  };
 }

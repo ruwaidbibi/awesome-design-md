@@ -10,6 +10,7 @@ import {
   listSites,
   updateBusiness,
 } from "./db.js";
+import { CATEGORIES, CITIES, METRO } from "./geo.js";
 import { listDesigns } from "./generate/designs.js";
 import { generateSite } from "./generate/generator.js";
 import {
@@ -21,6 +22,7 @@ import {
   sendText,
   serveStatic,
 } from "./http.js";
+import { contentContext, DETAILS_TTL_DAYS, fetchDetails } from "./pipeline/content.js";
 import { enrichBusiness, runProspect } from "./pipeline/prospect.js";
 import { listTargets, publishSite } from "./publish.js";
 
@@ -33,6 +35,7 @@ const hydrate = (b) => ({
   hours: JSON.parse(b.hours_json ?? "null"),
   socials: JSON.parse(b.socials_json ?? "null"),
   score_breakdown: JSON.parse(b.score_breakdown ?? "null"),
+  content: contentContext(b),
 });
 
 /* --------------------------------- meta ---------------------------------- */
@@ -47,6 +50,10 @@ router.get("/api/meta", (req, res) => {
     maxPages: config.places.maxPages,
     socialSearchProvider: config.social.braveKey ? "brave" : config.social.serpApiKey ? "serpapi" : null,
     socialGuess: config.social.guess,
+    metro: { id: METRO.id, label: METRO.label, bounds: METRO.bounds },
+    cities: CITIES,
+    categories: CATEGORIES,
+    detailsTtlDays: DETAILS_TTL_DAYS,
     designs: listDesigns(),
     publishTargets: listTargets(),
     searches: listSearches(),
@@ -64,7 +71,7 @@ router.get("/api/prospect/stream", async (req, res, params, url) => {
     const result = await runProspect(
       {
         query,
-        location: url.searchParams.get("location") || null,
+        city: url.searchParams.get("city") || null,
         minReviews: Number(url.searchParams.get("minReviews") ?? 200),
         includeLiveSites: url.searchParams.get("includeLiveSites") === "true",
       },
@@ -106,6 +113,13 @@ router.patch("/api/businesses/:id", async (req, res, { id }) => {
   if ("notes" in body) patch.notes = String(body.notes ?? "").slice(0, 4000);
   updateBusiness(id, patch);
   sendJson(res, 200, { business: hydrate(getBusiness(id)) });
+});
+
+router.post("/api/businesses/:id/details", async (req, res, { id }) => {
+  if (!getBusiness(id)) throw new HttpError(404, "No such business");
+  const body = await readJsonBody(req);
+  const { business, billedRequests, cached } = await fetchDetails(id, { force: Boolean(body.force) });
+  sendJson(res, 200, { business: hydrate(business), billedRequests, cached });
 });
 
 router.post("/api/businesses/:id/revalidate", async (req, res, { id }) => {
@@ -232,4 +246,5 @@ server.listen(config.port, () => {
   console.log(`  places provider : ${config.places.provider}${config.places.apiKey ? "" : " (no GOOGLE_MAPS_API_KEY set)"}`);
   console.log(`  generation      : ${hasGenKey() ? `ready (${config.gen.model}, effort ${config.gen.effort})` : "disabled (no ANTHROPIC_API_KEY set)"}`);
   console.log(`  design systems  : ${listDesigns().length} found in ${config.designDir}`);
+  console.log(`  scope           : ${METRO.label} (${CITIES.length} cities)`);
 });

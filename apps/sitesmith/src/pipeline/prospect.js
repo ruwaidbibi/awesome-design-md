@@ -7,6 +7,7 @@ import {
   updateBusiness,
   upsertBusiness,
 } from "../db.js";
+import { cityLabel, findCity, METRO, withinMetro } from "../geo.js";
 import { getProvider } from "../providers/index.js";
 import { LEAD_STATUSES, scoreBusiness } from "./classify.js";
 import { discoverSocials, validateWebsite } from "./validate.js";
@@ -58,28 +59,46 @@ export async function enrichBusiness(id) {
  * `onProgress` receives {phase, ...} events so the UI can stream the run.
  */
 export async function runProspect(
-  { query, location, minReviews = 200, includeLiveSites = false, concurrency = 6 },
+  { query, city, minReviews = 200, includeLiveSites = false, concurrency = 6 },
   onProgress = () => {},
 ) {
   const provider = getProvider();
-  const searchId = createSearch({ query, location, minReviews, provider: provider.name });
+  const resolved = findCity(city);
+  if (city && !resolved) {
+    throw new Error(`"${city}" is outside the ${METRO.label}. This POC only covers its cities.`);
+  }
+  const location = resolved ? cityLabel(resolved) : null;
+  const searchId = createSearch({ query, location, city: resolved?.name ?? null, minReviews, provider: provider.name });
 
-  onProgress({ phase: "searching", provider: provider.name, query, location });
+  onProgress({ phase: "searching", provider: provider.name, query, location, metro: METRO.label });
 
   const { places, pages, requestCount } = await provider.searchPlaces({ query, location });
   onProgress({ phase: "searched", found: places.length, pages, billedRequests: requestCount });
 
-  const overThreshold = places.filter((p) => (p.review_count ?? 0) >= minReviews);
+  // locationRestriction should already guarantee this; verifying costs nothing
+  // and catches a provider that quietly ignores it.
+  const inMetro = places.filter((p) => withinMetro(p.lat, p.lng));
+  if (inMetro.length !== places.length) {
+    onProgress({ phase: "fenced", dropped: places.length - inMetro.length, metro: METRO.label });
+  }
+
+  const overThreshold = inMetro.filter((p) => (p.review_count ?? 0) >= minReviews);
   onProgress({
     phase: "filtered",
     kept: overThreshold.length,
-    dropped: places.length - overThreshold.length,
+    dropped: inMetro.length - overThreshold.length,
     minReviews,
   });
 
   const timestamp = now();
   for (const place of overThreshold) {
-    upsertBusiness({ ...place, search_id: searchId, created_at: timestamp, updated_at: timestamp });
+    upsertBusiness({
+      ...place,
+      city: resolved?.name ?? null,
+      search_id: searchId,
+      created_at: timestamp,
+      updated_at: timestamp,
+    });
   }
 
   let done = 0;

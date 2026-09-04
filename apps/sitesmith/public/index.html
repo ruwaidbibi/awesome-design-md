@@ -22,11 +22,12 @@
       <div class="row">
         <div class="field" style="flex: 2 1 240px">
           <label for="q">What to search for</label>
-          <input type="text" id="q" placeholder="barber shops" value="barber shops">
+          <input type="text" id="q" list="categories" placeholder="barber shops" value="barber shops">
+          <datalist id="categories"></datalist>
         </div>
         <div class="field" style="flex: 2 1 200px">
-          <label for="loc">Where</label>
-          <input type="text" id="loc" placeholder="Austin, TX" value="Austin, TX">
+          <label for="city">City</label>
+          <select id="city"></select>
         </div>
         <div class="field" style="flex: 0 1 120px">
           <label for="minReviews">Min reviews</label>
@@ -68,7 +69,12 @@
   </section>
 
   <section class="card">
-    <h2>3 &middot; Generate the website</h2>
+    <h2>3 &middot; What the site should say</h2>
+    <div data-slot="content"></div>
+  </section>
+
+  <section class="card">
+    <h2>4 &middot; Generate the website</h2>
     <div class="field">
       <label for="design">Design system (from this repo's DESIGN.md collection)</label>
       <select id="design"></select>
@@ -80,7 +86,7 @@
   </section>
 
   <section class="card" data-slot="versionsCard" hidden>
-    <h2>4 &middot; Review &amp; publish</h2>
+    <h2>5 &middot; Review &amp; publish</h2>
     <div class="versions" data-slot="versions"></div>
     <div data-slot="preview"></div>
   </section>

@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS searches (
   id            INTEGER PRIMARY KEY AUTOINCREMENT,
   query         TEXT NOT NULL,
   location      TEXT,
+  city          TEXT,
   min_reviews   INTEGER NOT NULL,
   provider      TEXT NOT NULL,
   pages_fetched INTEGER NOT NULL DEFAULT 0,
@@ -47,6 +48,11 @@ CREATE TABLE IF NOT EXISTS businesses (
   website_checked_at  TEXT,
   socials_json        TEXT,
   socials_checked_at  TEXT,
+  city                TEXT,
+  reviews_json        TEXT,
+  editorial_summary   TEXT,
+  price_level         TEXT,
+  details_fetched_at  TEXT,
   score               REAL NOT NULL DEFAULT 0,
   score_breakdown     TEXT,
   status              TEXT NOT NULL DEFAULT 'new',
@@ -83,6 +89,23 @@ export const now = () => new Date().toISOString();
 
 const columns = (table) =>
   db.prepare(`PRAGMA table_info(${table})`).all().map((c) => c.name);
+
+/** Bring a database created by an older version up to the current schema. */
+function addMissingColumns(table, wanted) {
+  const existing = new Set(columns(table));
+  for (const [name, type] of Object.entries(wanted)) {
+    if (!existing.has(name)) db.exec(`ALTER TABLE ${table} ADD COLUMN ${name} ${type}`);
+  }
+}
+
+addMissingColumns("businesses", {
+  city: "TEXT",
+  reviews_json: "TEXT",
+  editorial_summary: "TEXT",
+  price_level: "TEXT",
+  details_fetched_at: "TEXT",
+});
+addMissingColumns("searches", { city: "TEXT" });
 
 /** INSERT ... ON CONFLICT UPDATE that never clobbers enrichment we already did. */
 export function upsertBusiness(row) {
@@ -151,13 +174,13 @@ export function updateSite(id, patch) {
   );
 }
 
-export function createSearch({ query, location, minReviews, provider }) {
+export function createSearch({ query, location, city, minReviews, provider }) {
   const info = db
     .prepare(
-      `INSERT INTO searches (query, location, min_reviews, provider, created_at)
-       VALUES (?, ?, ?, ?, ?)`,
+      `INSERT INTO searches (query, location, city, min_reviews, provider, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`,
     )
-    .run(query, location ?? null, minReviews, provider, now());
+    .run(query, location ?? null, city ?? null, minReviews, provider, now());
   return Number(info.lastInsertRowid);
 }
 

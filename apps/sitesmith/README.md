@@ -6,7 +6,8 @@ any of the 74 `DESIGN.md` files in this repo.
 
 ```
 search Google Places  →  drop anyone under N reviews  →  prove the website gap
-      →  find their socials  →  score & rank  →  pick one  →  generate  →  review  →  publish
+      →  find their socials  →  score & rank  →  pick one  →  pull their reviews
+      →  generate  →  review  →  publish
 ```
 
 Zero build step. `@anthropic-ai/sdk` is the only dependency; the store is
@@ -30,6 +31,24 @@ Requires Node 22.9+.
 | `BRAVE_SEARCH_KEY` or `SERPAPI_KEY` | finding socials Google doesn't list | socials are only found when Google's own website field points at one |
 
 `npm run check` runs the offline test suite (22 assertions, no keys, no network).
+
+## Geography
+
+The POC covers the Jacksonville metro and nothing else. That is enforced twice:
+
+- the **city name goes into the text query**, because Google geocodes
+  "barber shops in Orange Park, FL" better than any box we could draw;
+- a **metro bounding box goes into `locationRestriction`**, which is a hard
+  filter, so a stray match in Tampa or Savannah cannot come back at all.
+
+Fourteen cities across five counties are in scope: Jacksonville and the beaches
+(Duval), Orange Park, Fleming Island, Middleburg, Green Cove Springs (Clay),
+Ponte Vedra Beach and St. Augustine (St. Johns), Fernandina Beach, Yulee,
+Callahan (Nassau), and Macclenny (Baker). Asking for a city outside that list is
+rejected rather than silently searched.
+
+The box (29.75/-82.25 to 30.78/-81.20) is coarse on purpose. It is a fence, not a
+targeting mechanism; the city name does the aiming.
 
 ## Deciding that a business has no website
 
@@ -85,6 +104,50 @@ A transparent sum, shown as a bar chart per lead so you can argue with it:
 | Existing social presence | 7 | already marketing somewhere, easier conversation |
 | Not operational | −40 | penalty for `CLOSED_PERMANENTLY` / `CLOSED_TEMPORARILY` |
 
+## Working out what the site should say
+
+Facts alone produce a generic page. What makes a generated site sound like *this*
+barber shop is the reviews: they name the services people actually come for
+("beard trim", "hot towel shave", "walk-ins", "kids cuts") and the qualities
+worth leading on.
+
+Reviews come from a **Place Details** call, made on demand for the one business
+you chose, never for a whole search. That is a billing decision as much as a
+design one: see [API costs](#api-costs).
+
+Three rules govern how they are used, enforced in the generation prompt:
+
+1. **Never reproduced.** Reviews are research input. The model is instructed not
+   to quote or closely paraphrase them, and no review text reaches the page.
+2. **Never attributed.** No reviewer is named, quoted, or alluded to.
+3. **Never defensive.** Complaints are not repeated or answered.
+
+The reasoning: republishing Google review text on a third party's site is a
+licensing question you do not want to answer per-site, and invented-sounding
+testimonials are exactly what makes a generated site read as fake. Stating the
+aggregate ("4.9 stars across 287 Google reviews") is both safe and the strongest
+proof point available. If you later decide you *do* want pull quotes with proper
+attribution, it is a prompt change plus a policy review, not an architecture
+change.
+
+Review data is stored with a fetch timestamp and **ignored once it is more than
+30 days old**, which is the limit Google's terms allow place content to be
+cached for. Stale rows stay visible in the UI, marked as not in use, until you
+re-fetch.
+
+### What socials contribute, and what they don't
+
+Socials give you two things: a signal that the business markets itself somewhere
+(worth 7 points in the score) and links to put on the finished site. They do not
+give you content. There is no supported way to read posts from Facebook or
+Instagram without the business's own permission, and scraping them is both
+against those platforms' terms and unreliable.
+
+So the honest path for social-derived content is manual: look at their page, and
+put what you learn in the **operator notes** box on the lead. Those notes go into
+the generation prompt as verified fact, on the same footing as the address and
+phone number.
+
 ## Generating
 
 Pick one of the repo's `DESIGN.md` files, press Generate, and the model streams a
@@ -127,18 +190,32 @@ carries a sketch of the Netlify deploy call; nothing else in the app changes.
 
 ## API costs
 
-Text Search with a field mask containing `websiteUri` and `userRatingCount` bills
-at the Places **Enterprise** SKU, and those two fields are the entire point of the
-app, so there is nothing to trim. One page is one billed request; `MAX_PAGES`
-defaults to 3, which is also Google's ceiling (60 results per query). Results are
-cached in SQLite and keyed by place ID, so re-running a search re-bills the
-search but never re-bills places you already hold.
+Places bills by the most expensive field you ask for, so the app deliberately
+splits its requests across two tiers:
+
+| Call | When | Fields that set the tier | SKU |
+|---|---|---|---|
+| Text Search | once per page of a search | `websiteUri`, `userRatingCount`, `rating` | Enterprise (~$35/1k) |
+| Place Details | once per business you choose | `reviews`, `editorialSummary` | Enterprise + Atmosphere (~$40/1k) |
+
+Reviews are what push a call into the higher tier, which is exactly why they are
+**not** in the search field mask. Putting them there would charge the premium on
+all 60 results per query when you only ever build for one or two of them.
+
+One search page is one billed request; `MAX_PAGES` defaults to 3, which is also
+Google's ceiling (60 results per query). Results are cached in SQLite keyed by
+place ID, and Place Details is skipped entirely if fresh reviews are already on
+file, so the only thing that re-bills is a new search or an explicit re-fetch.
+
+Verify current rates before you budget - Google restructured Places pricing in
+March 2025 and the per-SKU free allowances no longer pool across products.
 
 ## Layout
 
 ```
 src/
   config.js              env + paths
+  geo.js                 the Jacksonville fence, city list, category presets
   db.js                  node:sqlite schema and queries
   http.js                router, SSE, static serving, JSON helpers
   server.js              routes
@@ -148,6 +225,8 @@ src/
     fixtures.js          sample data, no key required
   pipeline/
     classify.js          pure classification + scoring (host lists, parked-page rules)
+    content.js           Place Details fetch, and what the generator may use
+    freshness.js         the 30-day review caching rule
     validate.js          HTTP probing and social discovery
     prospect.js          search → filter → validate → score → persist
   generate/
@@ -170,3 +249,21 @@ data/                    gitignored: SQLite db, generated sites, published sites
   one.
 - Generated sites are one page. Multi-page output, a real contact form backend,
   and custom domains are all out of scope here.
+- Place Details returns at most 5 reviews, and Google chooses which. That is
+  enough to learn what a business is known for; it is not a representative
+  sample.
+
+## Open decisions
+
+Two things this POC deliberately does not settle:
+
+**What the finished site should be built on.** Right now it is a single static
+HTML file, which is the right answer for showing a prospect something within a
+minute of finding them. It is not obviously the right answer for a site a
+customer owns and edits for years. Deciding that means deciding who maintains it,
+which is a business-model question, not a technical one.
+
+**Whether the model should emit structured content alongside the HTML.** If it
+did, moving a site to WordPress, Astro, or anything else later would be a
+template swap rather than a regeneration. The cost is a slightly more constrained
+prompt; the benefit is that the platform decision above stops being a rewrite.

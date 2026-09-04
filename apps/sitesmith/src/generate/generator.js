@@ -4,6 +4,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { config, hasGenKey } from "../config.js";
 import { createSite, getSite, listSites, updateSite } from "../db.js";
 import { HttpError } from "../http.js";
+import { contentContext } from "../pipeline/content.js";
 import { readDesign } from "./designs.js";
 
 let client = null;
@@ -20,6 +21,23 @@ This site represents a REAL business to REAL customers. Every factual claim must
 NEVER invent: testimonials or review quotes, customer names, staff names or bios, awards, certifications, licences, "family owned since 1974", years in business, employee counts, prices, service guarantees, email addresses, second locations, or delivery/booking partners.
 
 You MAY state the rating and review count exactly as supplied (e.g. "4.7 stars across 412 Google reviews"), the address, the phone number, and the opening hours, because those are supplied and verified.
+
+## Using the reviews
+
+When customer reviews are supplied, they are evidence of what this business actually does and what it is actually good at. Use them to decide what the site should say:
+
+- A service named across several reviews (a beard trim, gel manicures, catering, weekend tamales) is real - feature it.
+- A detail mentioned once is weak evidence. You may reflect it quietly; never headline it.
+- Recurring praise tells you the tone and the selling point. Write to it.
+- Where reviews and the structured facts disagree, the structured facts win.
+
+Three hard limits on reviews:
+
+1. NEVER reproduce review text verbatim or near-verbatim, and never put it on the page as a quote or a testimonial. The reviews are research input, not copy. Write original sentences in the business's own voice.
+2. NEVER name, quote, or allude to an individual reviewer.
+3. NEVER repeat a complaint, and never write defensively about one.
+
+Operator notes, when supplied, are verified fact from the person running this tool. Treat them exactly like the structured facts.
 
 Where a section would normally carry information you do not have, do ONE of:
   1. omit the section entirely, or
@@ -43,7 +61,8 @@ Describe services only in the general terms implied by the business category, ne
 Follow the DESIGN.md as a real design system: use its colour tokens, type scale, spacing, radii, and component patterns. Adapt them to this business's category and tone. Do not copy the source brand's name, logo, wordmark, product names, or marketing copy into the site, and do not imply any affiliation with it. You are borrowing the visual language only.`;
 
 function buildUserPrompt({ business, design, previousHtml, feedback }) {
-  const socials = JSON.parse(business.socials_json ?? "{}")?.socials ?? [];
+  const content = contentContext(business);
+  const socials = content.socials;
   const facts = {
     name: business.name,
     category: business.primary_type,
@@ -63,6 +82,28 @@ function buildUserPrompt({ business, design, previousHtml, feedback }) {
       JSON.stringify(facts, null, 2) +
       "\n```",
   ];
+
+  if (content.editorialSummary) {
+    blocks.push("# How Google summarises this place\n\n" + content.editorialSummary);
+  }
+
+  if (content.reviews.length > 0) {
+    blocks.push(
+      "# What customers say (research input only - never quote or paraphrase closely)\n\n" +
+        content.reviews
+          .map((r, i) => `${i + 1}. [${r.rating ?? "?"} stars, ${r.when ?? "undated"}] ${r.text}`)
+          .join("\n\n") +
+        "\n\nUse these to decide which services and qualities the site features. Do not reproduce any of this text.",
+    );
+  } else {
+    blocks.push(
+      "# What customers say\n\nNo review text is available for this business. Describe services only in the general terms its category implies, and lean on placeholders rather than guessing at specifics.",
+    );
+  }
+
+  if (content.ownerNotes) {
+    blocks.push("# Operator notes (verified - treat as fact)\n\n" + content.ownerNotes);
+  }
 
   if (previousHtml && feedback) {
     blocks.push(

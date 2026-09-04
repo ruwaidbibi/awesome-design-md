@@ -7,6 +7,14 @@ const el = (tag, props = {}, ...kids) => {
   return node;
 };
 
+/** Like el()'s child handling: append() alone would stringify a null into "null". */
+const append = (node, ...kids) => {
+  for (const kid of kids.flat()) {
+    if (kid != null) node.append(kid.nodeType ? kid : document.createTextNode(String(kid)));
+  }
+  return node;
+};
+
 const state = { meta: null, leads: [], selectedId: null, detail: null, activeSiteId: null, stream: null };
 
 const STATUS_LABEL = {
@@ -63,17 +71,25 @@ async function boot() {
     el("span", { className: "chip" }, `${m.designs.length} designs`),
   );
 
-  const hints = [];
+  $("#city").replaceChildren(
+    el("option", { value: "" }, `Anywhere in the ${m.metro.label}`),
+    ...m.cities.map((c) => el("option", { value: c.name }, `${c.name}, ${c.state} (${c.county})`)),
+  );
+  $("#city").value = localStorage.getItem("sitesmith:city") ?? "";
+  $("#city").addEventListener("change", () => localStorage.setItem("sitesmith:city", $("#city").value));
+  $("#categories").replaceChildren(...m.categories.map((c) => el("option", { value: c })));
+
+  const hints = [`Scoped to the ${m.metro.label}; results outside it are rejected by the API itself.`];
   if (!m.placesKeyPresent) {
     hints.push("No GOOGLE_MAPS_API_KEY, so searches return sample businesses. Everything downstream is real.");
   } else {
-    hints.push(`Live Google Places search, up to ${m.maxPages * 20} results per query. Each page is a billed request.`);
+    hints.push(`Up to ${m.maxPages * 20} results per query, one billed request per page.`);
   }
   $("#searchHint").textContent = hints.join(" ");
 
   $("#search").addEventListener("click", runSearch);
   $("#loadAll").addEventListener("click", loadSaved);
-  for (const id of ["#q", "#loc", "#minReviews"]) {
+  for (const id of ["#q", "#minReviews"]) {
     $(id).addEventListener("keydown", (e) => { if (e.key === "Enter") runSearch(); });
   }
 
@@ -93,7 +109,7 @@ function runSearch() {
 
   const params = new URLSearchParams({
     query,
-    location: $("#loc").value.trim(),
+    city: $("#city").value,
     minReviews: $("#minReviews").value || "0",
     includeLiveSites: String($("#includeLive").checked),
   });
@@ -103,7 +119,8 @@ function runSearch() {
 
   source.addEventListener("progress", (e) => {
     const d = JSON.parse(e.data);
-    if (d.phase === "searching") log("#searchLog", `searching ${d.provider}: "${d.query}"${d.location ? ` in ${d.location}` : ""}`);
+    if (d.phase === "searching") log("#searchLog", `searching ${d.provider}: "${d.query}"${d.location ? ` in ${d.location}` : ` across the ${d.metro}`}`);
+    if (d.phase === "fenced") log("#searchLog", `${d.dropped} result(s) fell outside the ${d.metro} and were dropped`);
     if (d.phase === "searched") log("#searchLog", `found ${d.found} places across ${d.pages} page(s), ${d.billedRequests} billed request(s)`);
     if (d.phase === "filtered") log("#searchLog", `${d.kept} at or above ${d.minReviews} reviews, ${d.dropped} below`);
     if (d.phase === "validated") {
@@ -254,6 +271,9 @@ function renderDetail() {
     ),
   );
 
+  /* content */
+  node.querySelector('[data-slot="content"]').replaceChildren(renderContent(business));
+
   /* generation */
   const select = node.querySelector("#design");
   select.replaceChildren(...state.meta.designs.map((d) => el("option", { value: d.key }, d.label)));
@@ -285,6 +305,65 @@ function renderDetail() {
   }
 
   $("#detailCol").replaceChildren(node);
+}
+
+function renderContent(business) {
+  const c = business.content ?? {};
+  const wrap = el("div", {});
+
+  const fetchButton = el("button", {
+    className: c.usable ? "tiny" : "primary",
+    disabled: !state.meta.placesKeyPresent && state.meta.provider !== "fixtures",
+    onclick: () => loadDetails(Boolean(c.fetchedAt)),
+  }, c.fetchedAt ? "Re-fetch reviews" : "Fetch reviews from Google");
+
+  if (!c.fetchedAt) {
+    append(wrap,
+      el("p", { className: "hint" },
+        "Reviews are what tell the site which services to feature. They are a separate Google call in a higher pricing tier, so they are fetched only for the business you choose, not for every search result."),
+      fetchButton,
+    );
+  } else {
+    const age = c.ageDays == null ? "unknown age"
+      : c.ageDays < 1 ? "fetched today"
+      : `fetched ${Math.round(c.ageDays)} day(s) ago`;
+
+    if (c.stale) {
+      append(wrap, el("p", { className: "notice" },
+        `Review data is older than ${state.meta.detailsTtlDays} days, which is the limit Google's terms allow it to be cached for. It is being ignored until re-fetched.`));
+    }
+
+    append(wrap,
+      el("p", { className: "hint" },
+        c.stale
+          ? `${c.storedCount} review(s) stored but not in use, ${age}.`
+          : `${c.reviews.length} review(s) on file, ${age}. Used as research only: the generator is instructed never to quote or paraphrase them, and never to name a reviewer.`),
+      c.editorialSummary ? el("p", { className: "evidence" }, c.editorialSummary) : null,
+      el("ul", { className: "plain" }, ...c.reviews.slice(0, 8).map((r) =>
+        el("li", { style: "display:block" },
+          el("span", { className: "conf" }, `${r.rating ?? "?"}★ · ${r.when ?? "undated"}`),
+          el("div", { style: "color:var(--muted)" }, r.text)))),
+      el("div", { className: "row", style: "margin-top:10px" }, fetchButton),
+    );
+  }
+
+  const notes = el("textarea", {
+    id: "ownerNotes",
+    value: business.notes ?? "",
+    placeholder: "Anything you know that Google doesn't: what you saw on their Facebook page, what they told you on the phone, services they offer. Treated as verified fact by the generator.",
+  });
+
+  append(wrap,
+    el("div", { className: "field", style: "margin-top:14px" },
+      el("label", { htmlFor: "ownerNotes" }, "Your own notes on this business"),
+      notes),
+    el("div", { className: "row" },
+      el("button", { className: "tiny", onclick: () => saveNotes(notes.value) }, "Save notes")),
+    el("p", { className: "hint" },
+      "Social profiles are linked on the generated site, but their content is not read: there is no supported way to pull posts from Facebook or Instagram without the business's own permission."),
+  );
+
+  return wrap;
 }
 
 function renderVersion(site) {
@@ -362,6 +441,31 @@ function renderPreview() {
 }
 
 /* -------------------------------- actions -------------------------------- */
+
+async function loadDetails(force = false) {
+  const id = state.selectedId;
+  try {
+    const { business, billedRequests, cached } = await api(`/api/businesses/${encodeURIComponent(id)}/details`, {
+      method: "POST",
+      body: JSON.stringify({ force }),
+    });
+    state.detail.business = business;
+    renderDetail();
+    log("#genLog", cached ? "reviews already on file, no request made" : `reviews fetched (${billedRequests} billed request)`);
+  } catch (err) {
+    log("#genLog", `could not fetch reviews: ${err.message}`, "err");
+  }
+}
+
+async function saveNotes(notes) {
+  const id = state.selectedId;
+  const { business } = await api(`/api/businesses/${encodeURIComponent(id)}`, {
+    method: "PATCH",
+    body: JSON.stringify({ notes }),
+  });
+  state.detail.business = business;
+  renderDetail();
+}
 
 async function revalidate() {
   const id = state.selectedId;

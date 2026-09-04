@@ -7,6 +7,8 @@ import { classifyByHost, looksParked, scoreBusiness, socialPlatform } from "./pi
 import { extractHtml } from "./generate/generator.js";
 import { listDesigns, readDesign } from "./generate/designs.js";
 import { createRouter } from "./http.js";
+import { CATEGORIES, CITIES, findCity, METRO, withinMetro } from "./geo.js";
+import { detailsAreStale, DETAILS_TTL_DAYS } from "./pipeline/freshness.js";
 import { slugify } from "./publish.js";
 
 let passed = 0;
@@ -86,6 +88,44 @@ check("a design can be read", () =>
   assert.ok(readDesign(listDesigns()[0].key).markdown.length > 100));
 check("path traversal in a design key is refused", () =>
   assert.throws(() => readDesign("../../etc")));
+
+console.log("\ngeographic scope");
+check("downtown Jacksonville is inside the fence", () =>
+  assert.equal(withinMetro(30.3322, -81.6557), true));
+check("the beaches are inside the fence", () =>
+  assert.equal(withinMetro(30.2947, -81.3931), true));
+check("Fernandina Beach in the north is inside the fence", () =>
+  assert.equal(withinMetro(30.6697, -81.4637), true));
+check("St. Augustine in the south is inside the fence", () =>
+  assert.equal(withinMetro(29.8947, -81.3145), true));
+check("Macclenny in the west is inside the fence", () =>
+  assert.equal(withinMetro(30.2819, -82.1215), true));
+check("Austin is outside the fence", () =>
+  assert.equal(withinMetro(30.2672, -97.7431), false));
+check("Savannah is outside the fence", () =>
+  assert.equal(withinMetro(32.0809, -81.0912), false));
+check("Tampa is outside the fence", () =>
+  assert.equal(withinMetro(27.9506, -82.4572), false));
+check("city lookup is case insensitive", () =>
+  assert.equal(findCity("orange park")?.name, "Orange Park"));
+check("a city outside the metro does not resolve", () =>
+  assert.equal(findCity("Austin"), null));
+check("the metro has cities and categories to search", () => {
+  assert.ok(CITIES.length >= 10);
+  assert.ok(CATEGORIES.length >= 10);
+  assert.ok(METRO.bounds.low.latitude < METRO.bounds.high.latitude);
+  assert.ok(METRO.bounds.low.longitude < METRO.bounds.high.longitude);
+});
+
+console.log("\nreview caching policy");
+check("never-fetched details are stale", () =>
+  assert.equal(detailsAreStale(null), true));
+check("just-fetched details are fresh", () =>
+  assert.equal(detailsAreStale(new Date().toISOString()), false));
+check(`details older than ${DETAILS_TTL_DAYS} days are stale`, () =>
+  assert.equal(detailsAreStale(new Date(Date.now() - (DETAILS_TTL_DAYS + 1) * 86400000).toISOString()), true));
+check("details just inside the window are still fresh", () =>
+  assert.equal(detailsAreStale(new Date(Date.now() - (DETAILS_TTL_DAYS - 1) * 86400000).toISOString()), false));
 
 console.log("\nplumbing");
 check("the router extracts params", () => {
