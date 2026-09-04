@@ -12,10 +12,10 @@ ${TRUTH_RULES}
 
 The plan is the decision. Write the sections it lists, on the pages it lists, saying what its copy says. Improve the wording; do not add claims it did not make, and do not drop sections it did make. If a section carries placeholders, render them as visible placeholder elements rather than inventing the missing content:
 
-  <span class="shingle-todo">[[ADD: two sentences on your story]]</span>
-  <div class="shingle-photo">[[ADD PHOTO: storefront]]</div>
+  <span class="leadsites-todo">[[ADD: two sentences on your story]]</span>
+  <div class="leadsites-photo">[[ADD PHOTO: storefront]]</div>
 
-Give .shingle-todo and .shingle-photo a dashed outline so unfinished spots are obvious in review.
+Give .leadsites-todo and .leadsites-photo a dashed outline so unfinished spots are obvious in review.
 
 ## Output
 

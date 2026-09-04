@@ -22,7 +22,7 @@ export const config = {
   dataDir: path.join(appRoot, "data"),
   sitesDir: path.join(appRoot, "data", "sites"),
   publishedDir: path.join(appRoot, "data", "published"),
-  dbPath: path.join(appRoot, "data", "shingle.db"),
+  dbPath: path.join(appRoot, "data", "leadsites.db"),
   designDir: path.join(repoRoot, "design-md"),
 
   places: {

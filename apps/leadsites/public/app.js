@@ -75,8 +75,8 @@ async function boot() {
     el("option", { value: "" }, `Anywhere in the ${m.metro.label}`),
     ...m.cities.map((c) => el("option", { value: c.name }, `${c.name}, ${c.state} (${c.county})`)),
   );
-  $("#city").value = localStorage.getItem("shingle:city") ?? "";
-  $("#city").addEventListener("change", () => localStorage.setItem("shingle:city", $("#city").value));
+  $("#city").value = localStorage.getItem("leadsites:city") ?? "";
+  $("#city").addEventListener("change", () => localStorage.setItem("leadsites:city", $("#city").value));
   $("#categories").replaceChildren(...m.categories.map((c) => el("option", { value: c })));
 
   const hints = [`Scoped to the ${m.metro.label}; results outside it are rejected by the API itself.`];
@@ -277,20 +277,20 @@ function renderDetail() {
   /* generation */
   const select = node.querySelector("#design");
   select.replaceChildren(...state.meta.designs.map((d) => el("option", { value: d.key }, d.label)));
-  select.value = localStorage.getItem("shingle:design") ?? state.meta.designs[0]?.key ?? "";
+  select.value = localStorage.getItem("leadsites:design") ?? state.meta.designs[0]?.key ?? "";
   const descNode = node.querySelector('[data-slot="designDesc"]');
   const showDesc = () => {
     const d = state.meta.designs.find((x) => x.key === select.value);
     descNode.textContent = d?.description ?? "";
   };
-  select.addEventListener("change", () => { localStorage.setItem("shingle:design", select.value); showDesc(); });
+  select.addEventListener("change", () => { localStorage.setItem("leadsites:design", select.value); showDesc(); });
   showDesc();
 
   const genButton = node.querySelector("#generate");
   if (!state.meta.generationReady) {
     genButton.disabled = true;
     node.querySelector('[data-slot="genHint"]').textContent =
-      "Set ANTHROPIC_API_KEY in apps/shingle/.env and restart to enable generation.";
+      "Set ANTHROPIC_API_KEY in apps/leadsites/.env and restart to enable generation.";
   } else {
     node.querySelector('[data-slot="genHint"]').textContent =
       "One click. Streams for a minute or two, then lands in the preview below.";

@@ -1,7 +1,7 @@
 import { config } from "../config.js";
 import { classifyByHost, hostOf, looksParked, socialPlatform, isDirectory } from "./classify.js";
 
-const UA = "Mozilla/5.0 (compatible; shingle/0.1; +local lead research)";
+const UA = "Mozilla/5.0 (compatible; leadsites/0.1; +local lead research)";
 const TIMEOUT_MS = 10_000;
 
 async function fetchWithTimeout(url, init = {}, ms = TIMEOUT_MS) {
