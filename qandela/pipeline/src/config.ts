@@ -26,7 +26,7 @@ loadEnvFile();
 export const config = {
   userAgent:
     process.env.CRAWL_USER_AGENT ??
-    "us-eastern-churches/0.1 (+https://github.com/YOURORG/us-eastern-churches)",
+    "qandela/0.1 (+https://github.com/YOURORG/qandela)",
   concurrency: Number(process.env.CRAWL_CONCURRENCY ?? 4),
   /** Per-host politeness delay. Church sites are small; do not hammer them. */
   delayMs: Number(process.env.CRAWL_DELAY_MS ?? 1500),

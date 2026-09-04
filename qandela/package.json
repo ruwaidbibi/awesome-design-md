@@ -1,0 +1,19 @@
+{
+  "name": "qandela",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Directory of Eastern Catholic, Eastern Orthodox, Oriental Orthodox and Church of the East parishes in the United States, with their social accounts and events.",
+  "workspaces": ["pipeline", "web"],
+  "scripts": {
+    "pipeline": "npm run -w @qandela/pipeline start --",
+    "harvest": "npm run -w @qandela/pipeline start -- harvest",
+    "enrich": "npm run -w @qandela/pipeline start -- enrich",
+    "events": "npm run -w @qandela/pipeline start -- events",
+    "build:data": "npm run -w @qandela/pipeline start -- build",
+    "refresh": "npm run -w @qandela/pipeline start -- refresh",
+    "dev": "npm run -w @qandela/web dev",
+    "build": "npm run -w @qandela/web build",
+    "typecheck": "npm run -w @qandela/pipeline typecheck && npm run -w @qandela/web typecheck"
+  },
+  "engines": { "node": ">=20.11" }
+}

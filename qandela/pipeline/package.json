@@ -1,10 +1,10 @@
 {
-  "name": "@churches/pipeline",
+  "name": "@qandela/pipeline",
   "version": "0.1.0",
   "private": true,
   "type": "module",
   "bin": {
-    "churches": "./src/cli.ts"
+    "qandela": "./src/cli.ts"
   },
   "scripts": {
     "start": "tsx src/cli.ts",

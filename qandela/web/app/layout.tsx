@@ -4,7 +4,7 @@ import "./globals.css";
 import { getDataset } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Eastern Christian Churches in the United States",
+  title: { default: "Qandela", template: "%s · Qandela" },
   description:
     "A directory of Maronite, Chaldean, Melkite, Greek Orthodox, Coptic Orthodox, Syriac Orthodox and Assyrian Church of the East parishes in the US, with their social accounts and upcoming events.",
 };
@@ -31,8 +31,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <header className="border-b border-[var(--color-line)] bg-[var(--color-surface)]">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-8 gap-y-3 px-4 py-4">
-            <Link href="/" className="serif text-lg font-semibold tracking-tight">
-              Eastern Christian Churches <span className="text-[var(--color-ink-faint)]">· US</span>
+            <Link href="/" className="serif text-lg font-semibold tracking-tight" title="qandēlā — the hanging lamp that burns before the sanctuary">
+              Qandela{" "}
+              <span className="text-[var(--color-ink-faint)]">· Eastern Christian parishes in the US</span>
             </Link>
             <nav className="flex gap-5 text-sm">
               {NAV.map((item) => (
@@ -55,6 +56,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <footer className="mt-16 border-t border-[var(--color-line)] px-4 py-8 text-xs text-[var(--color-ink-faint)]">
           <div className="mx-auto max-w-7xl space-y-1">
+            <p>
+              <span className="text-[var(--color-ink-soft)]">Qandela</span> — Classical Syriac{" "}
+              <span lang="syc">ܩܢܕܝܠܐ</span> <i>qandēlā</i>, the hanging lamp before the sanctuary; from Greek{" "}
+              <i>kándēla</i>, and the source of Arabic <i>qandīl</i>.
+            </p>
             <p>
               Compiled from official eparchy and archdiocese directories, parish websites, and OpenStreetMap.
               Dataset generated {new Date(generatedAt).toLocaleDateString("en-US", { dateStyle: "medium" })}.

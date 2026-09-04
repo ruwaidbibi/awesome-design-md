@@ -1,8 +1,19 @@
-# Eastern Christian Churches in the United States
+# Qandela
+
+**Eastern Christian parishes in the United States — who they are, where they are, and what is
+happening this week.**
 
 A directory of Maronite, Chaldean, Melkite, Greek Orthodox, Coptic Orthodox, Syriac Orthodox and
-Assyrian Church of the East parishes in the US, with the social accounts and upcoming events found
-on their own websites.
+Assyrian Church of the East congregations, with the social accounts and upcoming events found on
+their own websites.
+
+### The name
+
+Classical Syriac ܩܢܕܝܠܐ *qandēlā*, the hanging oil lamp that burns before the sanctuary — present
+in all seven of these traditions. The word itself travelled the same route the project covers:
+Greek *kándēla* → Syriac *qandēlā* → Arabic *qandīl*, the three liturgical language families of the
+churches in scope. A lamp is also the obvious thing to name a directory after: it is what you carry
+to find your way to somewhere.
 
 Two pieces:
 
@@ -17,7 +28,7 @@ Two pieces:
 ## Quick start
 
 ```bash
-cd church-directory
+cd qandela
 npm install
 cp .env.example .env          # optional; see Configuration below
 
@@ -149,7 +160,7 @@ npm run pipeline -- build      Emit web/data/dataset.json     [--include-unplace
 npm run pipeline -- refresh    All of the above, in order
 npm run pipeline -- report     Coverage and flags
 
-npm run -w @churches/pipeline test    Extractor tests
+npm run -w @qandela/pipeline test    Extractor tests
 npm run typecheck                     Both workspaces
 ```
 
