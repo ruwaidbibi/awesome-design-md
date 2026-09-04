@@ -7,7 +7,7 @@ any of the 74 `DESIGN.md` files in this repo.
 ```
 search Google Places  →  drop anyone under N reviews  →  prove the website gap
       →  find their socials  →  score & rank  →  pick one  →  pull their reviews
-      →  generate  →  review  →  publish
+      →  plan the content from evidence  →  render the pages  →  review  →  publish
 ```
 
 Zero build step. `@anthropic-ai/sdk` is the only dependency; the store is
@@ -148,13 +148,88 @@ put what you learn in the **operator notes** box on the lead. Those notes go int
 the generation prompt as verified fact, on the same footing as the address and
 phone number.
 
+### Photos: read once, never republished
+
+Google place photos - the customer-uploaded shots of the storefront, the room,
+the food - are the richest signal about what a business actually looks like. They
+also cannot go on the generated site, and that is not a judgment call:
+
+- Google's terms exempt **only `place_id`** from the no-caching rule. Photo names
+  and photo bytes may not be stored.
+- Photos must be **fetched live and displayed with author attribution**.
+
+A static HTML file published to a folder can do neither. So the site never shows
+them. What it can do is *learn* from them: with `PHOTO_VISION=true`, the app
+fetches a few photos, has the model report only what is visible, and throws the
+images away. What persists is our own derived text:
+
+```
+scene    A single-story brick storefront with a striped pole beside the door and
+         a hand-painted sign above the window.
+signals  hand-painted sign · barber pole · brick facade · vintage chairs
+palette  #8c3b2a on brick facade · #f2ead6 on painted signage
+```
+
+That description becomes evidence the planner can cite, so copy can say "the
+brick shopfront on Edgewood" because the photos showed a brick shopfront. Photo
+names and bytes are never written to disk or the database - the code has a
+comment where they are deliberately dropped.
+
+**One honest caveat.** Sending Google photos to a model for analysis is a use
+those terms do not clearly address. That is why it is off by default. Read the
+terms, or ask someone who reads them for a living, before turning it on. The
+palette is also the model's estimate by eye, not a measurement of the pixels.
+
+## Planning before building
+
+Generation is two stages, and the split is the whole point.
+
+**Stage one produces a content plan**, not HTML: which pages the site should
+have, what each section says, and - for every section - which piece of evidence
+entitles it to say that. The plan is small enough to read in thirty seconds:
+
+```
+Services  —  services.html
+  What we do                                     high    [review: review 1] [review: review 3] [review: review 2]
+  Our story                                      low     [category-norm]  ← nothing specific supports this
+```
+
+Each section is tagged `high`, `medium` or `low`, and anything resting only on
+`category-norm` - a safe generality about this kind of business, supported by
+nothing you were actually told - is flagged in the UI. You delete what is not
+earned, then rebuild from the edited plan without re-planning.
+
+The plan also reports two things worth reading:
+
+- **ownerTodos** - what the owner has to supply before the site is honest.
+- **claimsAvoided** - what a careless generator would have written here and this
+  one did not, with the reason. "No 'family owned since 1974' - nothing states
+  when the shop opened."
+
+**Pages are chosen from the evidence, not a template.** A business with five
+reviews naming distinct services earns a services page; one with no review text
+does not. There is always an `index`, never more than five pages, and menu,
+price-list, team and testimonials pages are forbidden outright because that
+information does not exist in any of our sources.
+
 ## Generating
 
-Pick one of the repo's `DESIGN.md` files, press Generate, and the model streams a
-single self-contained HTML document styled by that design system. Progress
-(reasoning summary, then kilobytes of HTML) streams into the UI over SSE.
+Pick one of the repo's `DESIGN.md` files and press Generate. The planner runs,
+the plan appears in the UI, and then each page is rendered.
 
-The generation prompt is built around one hard rule: **this is a real business
+**How a multi-page site stays consistent.** The home page is generated as a
+complete document and becomes the shell: its stylesheet, header and footer are
+reused verbatim, and every other page is generated as just a `<main>` fragment
+and assembled here. That guarantees five pages look like one site, keeps each
+request small enough to be reliable, and makes the navigation deterministic
+rather than something the model has to get right five times. If the home page
+comes back in a shape that cannot be taken apart, the remaining pages fall back
+to complete documents and the version is flagged for a styling check.
+
+The `DESIGN.md` is sent as a cached prefix, so the plan call pays for it once and
+each page render reads it from cache.
+
+Both the planner and the renderer are built around one hard rule: **this is a real business
 being described to real customers, so every factual claim must trace to a
 supplied fact.** The model may state the address, phone, hours, rating, and
 review count it was given. It is forbidden from inventing testimonials, staff
@@ -196,7 +271,8 @@ splits its requests across two tiers:
 | Call | When | Fields that set the tier | SKU |
 |---|---|---|---|
 | Text Search | once per page of a search | `websiteUri`, `userRatingCount`, `rating` | Enterprise (~$35/1k) |
-| Place Details | once per business you choose | `reviews`, `editorialSummary` | Enterprise + Atmosphere (~$40/1k) |
+| Place Details | once per business you choose | `reviews`, `editorialSummary`, `photos` | Enterprise + Atmosphere (~$40/1k) |
+| Place Photo | once per photo, only with `PHOTO_VISION=true` | n/a | Place Photo, billed per photo |
 
 Reviews are what push a call into the higher tier, which is exactly why they are
 **not** in the search field mask. Putting them there would charge the premium on
@@ -207,8 +283,20 @@ Google's ceiling (60 results per query). Results are cached in SQLite keyed by
 place ID, and Place Details is skipped entirely if fresh reviews are already on
 file, so the only thing that re-bills is a new search or an explicit re-fetch.
 
+Photo analysis re-fetches Place Details every time rather than storing photo
+names, because storing them is not allowed. That is one extra Details call per
+analysis, by design.
+
 Verify current rates before you budget - Google restructured Places pricing in
 March 2025 and the per-SKU free allowances no longer pool across products.
+
+### Model cost
+
+One site is one plan call plus one call per page, so a three-page site is four
+calls. The `DESIGN.md` (~8k tokens) is sent as a cached prefix on all of them, so
+only the first pays full price for it. Watch `cache_read_tokens` on the version
+row: if it stays at zero across pages, something is invalidating the prefix and
+the site is costing several times what it should.
 
 ## Layout
 
@@ -231,7 +319,13 @@ src/
     prospect.js          search → filter → validate → score → persist
   generate/
     designs.js           indexes ../../design-md
-    generator.js         the prompt, the stream, the HTML extraction
+    schema.js            the content plan's shape, and what counts as weak
+    planner.js           evidence -> content plan
+    renderer.js          content plan -> pages, and the shell reuse
+    vision.js            read photos once, keep only what was learned
+    evidence.js          the evidence blocks and truth rules both stages share
+    client.js            the shared Anthropic client and streaming
+    generator.js         orchestrates plan -> render -> disk
   publish.js             publish targets
 public/                  the UI (index.html, app.js, styles.css)
 data/                    gitignored: SQLite db, generated sites, published sites
@@ -247,8 +341,9 @@ data/                    gitignored: SQLite db, generated sites, published sites
 - Website probing needs unrestricted outbound HTTP. Behind a filtering proxy
   everything lands in `unreachable`, which is the honest answer but not a useful
   one.
-- Generated sites are one page. Multi-page output, a real contact form backend,
-  and custom domains are all out of scope here.
+- Sites are capped at five pages, with no contact form backend and no custom
+  domain. A page needs evidence to exist, so a business with no review text will
+  legitimately get two thin pages rather than five padded ones.
 - Place Details returns at most 5 reviews, and Google chooses which. That is
   enough to learn what a business is known for; it is not a representative
   sample.
@@ -263,7 +358,12 @@ minute of finding them. It is not obviously the right answer for a site a
 customer owns and edits for years. Deciding that means deciding who maintains it,
 which is a business-model question, not a technical one.
 
-**Whether the model should emit structured content alongside the HTML.** If it
-did, moving a site to WordPress, Astro, or anything else later would be a
-template swap rather than a regeneration. The cost is a slightly more constrained
-prompt; the benefit is that the platform decision above stops being a rewrite.
+The second open decision - whether to emit structured content alongside the HTML
+- is now settled by the content plan. The plan *is* the portable content, stored
+per version as `plan_json`, so moving a site to WordPress, Astro or anything else
+later is a template that reads the plan, not a regeneration.
+
+**Whether to show review pull-quotes with attribution.** Currently no review text
+reaches the page at all. Attributed quotes are permitted by Google's policies if
+you display the required attribution, and they are persuasive. That is a policy
+call plus a prompt change, not an architecture change.

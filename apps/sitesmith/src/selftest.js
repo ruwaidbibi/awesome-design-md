@@ -4,7 +4,8 @@
  */
 import assert from "node:assert/strict";
 import { classifyByHost, looksParked, scoreBusiness, socialPlatform } from "./pipeline/classify.js";
-import { extractHtml } from "./generate/generator.js";
+import { extractHtml, extractMain, extractShell } from "./generate/renderer.js";
+import { validatePlan, weakSections } from "./generate/schema.js";
 import { listDesigns, readDesign } from "./generate/designs.js";
 import { createRouter } from "./http.js";
 import { CATEGORIES, CITIES, findCity, METRO, withinMetro } from "./geo.js";
@@ -80,6 +81,68 @@ check("strips chatter around the document", () =>
   assert.equal(extractHtml("Sure:\n<!DOCTYPE html><html>b</html>\nEnjoy!"), "<!DOCTYPE html><html>b</html>"));
 check("passes a bare document through", () =>
   assert.equal(extractHtml("<html>c</html>"), "<html>c</html>"));
+
+console.log("\ncontent plans");
+const goodPlan = {
+  tagline: "t", voice: "v", primaryAction: { label: "Call", href: "tel:+19045550119" },
+  ownerTodos: [], claimsAvoided: [],
+  pages: [
+    { slug: "index", navLabel: "Home", title: "T", purpose: "p", sections: [
+      { kind: "hero", heading: "H", body: "b", confidence: "high",
+        evidence: [{ source: "google-fact", ref: "address", supports: "location" }] },
+      { kind: "about", heading: "Filler", body: "b", confidence: "low",
+        evidence: [{ source: "category-norm", supports: "generic" }] },
+    ] },
+    { slug: "visit", navLabel: "Visit", title: "V", purpose: "p", sections: [
+      { kind: "hours", heading: "Hours", body: "b", confidence: "high",
+        evidence: [{ source: "google-fact", ref: "hours", supports: "hours" }] },
+    ] },
+  ],
+};
+check("a well-formed plan passes", () => assert.deepEqual(validatePlan(goodPlan), []));
+check("a plan with no index page is rejected", () => {
+  const bad = structuredClone(goodPlan);
+  bad.pages[0].slug = "home";
+  assert.ok(validatePlan(bad).some((p) => p.includes("index")));
+});
+check("duplicate page slugs are rejected", () => {
+  const bad = structuredClone(goodPlan);
+  bad.pages[1].slug = "index";
+  assert.ok(validatePlan(bad).some((p) => p.includes("Duplicate")));
+});
+check("an empty page is rejected", () => {
+  const bad = structuredClone(goodPlan);
+  bad.pages[1].sections = [];
+  assert.ok(validatePlan(bad).some((p) => p.includes("no sections")));
+});
+check("a slug that would escape the site directory is rejected", () => {
+  const bad = structuredClone(goodPlan);
+  bad.pages[1].slug = "../../etc/passwd";
+  assert.ok(validatePlan(bad).some((p) => p.includes("unusable slug")));
+});
+check("sections resting only on category norms are flagged as weak", () => {
+  const weak = weakSections(goodPlan);
+  assert.equal(weak.length, 1);
+  assert.equal(weak[0].heading, "Filler");
+});
+check("evidence-backed sections are not flagged", () =>
+  assert.ok(!weakSections(goodPlan).some((w) => w.heading === "Hours")));
+
+console.log("\nmulti-page assembly");
+const homeDoc = `<!DOCTYPE html><html lang="en"><head><style>body{color:red}</style></head>
+<body><header><nav><a href="index.html">Home</a><a href="services.html">Services</a></nav></header>
+<main>home</main><footer>f</footer></body></html>`;
+check("the home page yields a reusable shell", () => {
+  const shell = extractShell(homeDoc);
+  assert.equal(shell.complete, true);
+  assert.match(shell.styles, /color:red/);
+  assert.match(shell.header, /services\.html/);
+});
+check("a home page without a footer is not a reusable shell", () =>
+  assert.equal(extractShell("<html><head><style>a{}</style></head><body><header>h</header></body></html>").complete, false));
+check("a main fragment is extracted from a reply", () =>
+  assert.equal(extractMain("Here:\n<main><h1>S</h1></main>\ndone"), "<main><h1>S</h1></main>"));
+check("a reply with no main returns null", () => assert.equal(extractMain("no main"), null));
 
 console.log("\ndesign systems");
 check("the repo's DESIGN.md collection is indexed", () =>

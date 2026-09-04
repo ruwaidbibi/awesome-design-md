@@ -9,10 +9,13 @@ import {
   listSearches,
   listSites,
   updateBusiness,
+  updateSite,
 } from "./db.js";
 import { CATEGORIES, CITIES, METRO } from "./geo.js";
 import { listDesigns } from "./generate/designs.js";
-import { generateSite } from "./generate/generator.js";
+import { generateSite, rebuildSite } from "./generate/generator.js";
+import { validatePlan, weakSections } from "./generate/schema.js";
+import { analyzePhotos } from "./generate/vision.js";
 import {
   createRouter,
   HttpError,
@@ -34,6 +37,7 @@ const hydrate = (b) => ({
   types: JSON.parse(b.types_json ?? "[]"),
   hours: JSON.parse(b.hours_json ?? "null"),
   socials: JSON.parse(b.socials_json ?? "null"),
+  vision: JSON.parse(b.vision_json ?? "null"),
   score_breakdown: JSON.parse(b.score_breakdown ?? "null"),
   content: contentContext(b),
 });
@@ -50,6 +54,7 @@ router.get("/api/meta", (req, res) => {
     maxPages: config.places.maxPages,
     socialSearchProvider: config.social.braveKey ? "brave" : config.social.serpApiKey ? "serpapi" : null,
     socialGuess: config.social.guess,
+    photoVision: config.gen.photoVision,
     metro: { id: METRO.id, label: METRO.label, bounds: METRO.bounds },
     cities: CITIES,
     categories: CATEGORIES,
@@ -95,10 +100,17 @@ router.get("/api/businesses", (req, res, params, url) => {
   sendJson(res, 200, { businesses: rows.map(hydrate) });
 });
 
+const hydrateSite = (site) => ({
+  ...site,
+  pages: JSON.parse(site.pages_json ?? "[]"),
+  plan: JSON.parse(site.plan_json ?? "null"),
+  weak: site.plan_json ? weakSections(JSON.parse(site.plan_json)) : [],
+});
+
 router.get("/api/businesses/:id", (req, res, { id }) => {
   const business = getBusiness(id);
   if (!business) throw new HttpError(404, "No such business");
-  sendJson(res, 200, { business: hydrate(business), sites: listSites(id) });
+  sendJson(res, 200, { business: hydrate(business), sites: listSites(id).map(hydrateSite) });
 });
 
 router.patch("/api/businesses/:id", async (req, res, { id }) => {
@@ -122,12 +134,47 @@ router.post("/api/businesses/:id/details", async (req, res, { id }) => {
   sendJson(res, 200, { business: hydrate(business), billedRequests, cached });
 });
 
+router.post("/api/businesses/:id/photos", async (req, res, { id }) => {
+  const business = getBusiness(id);
+  if (!business) throw new HttpError(404, "No such business");
+  const { vision, billedRequests } = await analyzePhotos(business);
+  updateBusiness(id, { vision_json: JSON.stringify(vision) });
+  sendJson(res, 200, { business: hydrate(getBusiness(id)), billedRequests });
+});
+
 router.post("/api/businesses/:id/revalidate", async (req, res, { id }) => {
   if (!getBusiness(id)) throw new HttpError(404, "No such business");
   sendJson(res, 200, { business: hydrate(await enrichBusiness(id)) });
 });
 
 /* ------------------------------ generation ------------------------------- */
+
+/**
+ * Forward a generation event to the browser, coalescing token deltas.
+ *
+ * The UI wants to see progress, not every chunk, and an SSE frame per token
+ * would cost more than the generation. State is kept per-channel on the sse
+ * object so concurrent generations cannot interleave each other's buffers.
+ */
+function streamEvent(sse, event) {
+  const buffer = (sse._pump ??= { pending: "", lastFlush: 0 });
+
+  if (event.type === "delta") {
+    buffer.pending += event.text;
+    if (Date.now() - buffer.lastFlush > 400) {
+      sse.send("progress", { type: "delta", bytes: event.bytes, chunk: buffer.pending });
+      buffer.pending = "";
+      buffer.lastFlush = Date.now();
+    }
+    return;
+  }
+
+  if (buffer.pending) {
+    sse.send("progress", { type: "delta", chunk: buffer.pending });
+    buffer.pending = "";
+  }
+  sse.send(event.type === "done" ? "result" : "progress", event);
+}
 
 router.get("/api/businesses/:id/generate/stream", async (req, res, { id }, url) => {
   const business = getBusiness(id);
@@ -142,27 +189,8 @@ router.get("/api/businesses/:id/generate/stream", async (req, res, { id }, url) 
     : null;
 
   const sse = openSse(res);
-  let pending = "";
-  let lastFlush = 0;
   try {
-    await generateSite({ business, designKey, feedback, previousSiteId }, (event) => {
-      if (event.type === "delta") {
-        // Coalesce token deltas: the browser wants progress, not every chunk.
-        pending += event.text;
-        const elapsed = Date.now() - lastFlush;
-        if (elapsed > 400) {
-          sse.send("progress", { type: "delta", bytes: event.bytes, chunk: pending });
-          pending = "";
-          lastFlush = Date.now();
-        }
-        return;
-      }
-      if (pending) {
-        sse.send("progress", { type: "delta", chunk: pending });
-        pending = "";
-      }
-      sse.send(event.type === "done" ? "result" : "progress", event);
-    });
+    await generateSite({ business, designKey, feedback, previousSiteId }, (event) => streamEvent(sse, event));
   } catch (err) {
     sse.send("error", { message: err.message, detail: err.detail ?? null });
   } finally {
@@ -173,27 +201,68 @@ router.get("/api/businesses/:id/generate/stream", async (req, res, { id }, url) 
 router.get("/api/sites/:id", (req, res, { id }) => {
   const site = getSite(Number(id));
   if (!site) throw new HttpError(404, "No such site");
-  sendJson(res, 200, { site });
+  sendJson(res, 200, { site: hydrateSite(site) });
 });
 
-router.get("/preview/:id", (req, res, { id }) => {
+router.patch("/api/sites/:id/plan", async (req, res, { id }) => {
   const site = getSite(Number(id));
-  if (!site?.html_path || !fs.existsSync(site.html_path)) throw new HttpError(404, "No generated file");
-  const html = fs.readFileSync(site.html_path, "utf8");
-  // Generated pages are self-contained by construction; the CSP makes that a rule.
+  if (!site) throw new HttpError(404, "No such site");
+  const body = await readJsonBody(req);
+  const problems = validatePlan(body.plan);
+  if (problems.length > 0) throw new HttpError(400, `Plan is not usable: ${problems.join("; ")}`);
+  updateSite(site.id, { plan_json: JSON.stringify(body.plan) });
+  sendJson(res, 200, { site: hydrateSite(getSite(site.id)) });
+});
+
+router.get("/api/sites/:id/rebuild/stream", async (req, res, { id }) => {
+  const site = getSite(Number(id));
+  if (!site) throw new HttpError(404, "No such site");
+  const business = getBusiness(site.business_id);
+  const sse = openSse(res);
+  try {
+    await rebuildSite({ site, business }, (event) => streamEvent(sse, event));
+  } catch (err) {
+    sse.send("error", { message: err.message, detail: err.detail ?? null });
+  } finally {
+    sse.close();
+  }
+});
+
+// Generated pages are self-contained by construction; the CSP makes it a rule,
+// so a page that reaches for an external asset breaks loudly instead of working.
+const PREVIEW_CSP =
+  "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; font-src data:; form-action 'none'";
+
+function previewFile(site, file) {
+  if (!site?.dir_path) throw new HttpError(404, "No generated files");
+  const name = file && file !== "/" ? file.replace(/^\/+/, "") : "index.html";
+  if (!/^[a-z0-9][a-z0-9-]*\.html$/i.test(name)) throw new HttpError(400, "Not a page of this site");
+  const target = path.resolve(site.dir_path, name);
+  if (!target.startsWith(path.resolve(site.dir_path) + path.sep)) throw new HttpError(403, "Forbidden");
+  if (!fs.existsSync(target)) throw new HttpError(404, `No such page: ${name}`);
+  return target;
+}
+
+const sendPreview = (res, target) => {
   res.writeHead(200, {
     "content-type": "text/html; charset=utf-8",
     "cache-control": "no-store",
-    "content-security-policy":
-      "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; font-src data:; form-action 'none'",
+    "content-security-policy": PREVIEW_CSP,
   });
-  res.end(html);
+  res.end(fs.readFileSync(target));
+};
+
+router.get("/preview/:id", (req, res, { id }) => {
+  sendPreview(res, previewFile(getSite(Number(id)), "index.html"));
 });
 
-router.get("/api/sites/:id/source", (req, res, { id }) => {
-  const site = getSite(Number(id));
-  if (!site?.html_path || !fs.existsSync(site.html_path)) throw new HttpError(404, "No generated file");
-  sendText(res, 200, fs.readFileSync(site.html_path, "utf8"));
+router.get("/preview/:id/:file", (req, res, { id, file }) => {
+  sendPreview(res, previewFile(getSite(Number(id)), file));
+});
+
+router.get("/api/sites/:id/source", (req, res, { id }, url) => {
+  const target = previewFile(getSite(Number(id)), url.searchParams.get("file") ?? "index.html");
+  sendText(res, 200, fs.readFileSync(target, "utf8"));
 });
 
 /* ------------------------------- publishing ------------------------------ */

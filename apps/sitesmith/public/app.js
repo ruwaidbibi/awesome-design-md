@@ -15,7 +15,7 @@ const append = (node, ...kids) => {
   return node;
 };
 
-const state = { meta: null, leads: [], selectedId: null, detail: null, activeSiteId: null, stream: null };
+const state = { meta: null, leads: [], selectedId: null, detail: null, activeSiteId: null, activePage: "index.html", stream: null };
 
 const STATUS_LABEL = {
   none: "no website",
@@ -297,6 +297,16 @@ function renderDetail() {
   }
   genButton.addEventListener("click", () => generate({ design: select.value }));
 
+  /* plan */
+  const active = sites.find((x) => x.id === state.activeSiteId) ?? sites[0];
+  if (active?.plan) {
+    node.querySelector('[data-slot="planCard"]').hidden = false;
+    node.querySelector('[data-slot="planMeta"]').textContent =
+      `v${active.version} · ${active.plan.pages.length} page(s)` +
+      (active.weak?.length ? ` · ${active.weak.length} weakly supported` : "");
+    node.querySelector('[data-slot="plan"]').replaceChildren(renderPlan(active));
+  }
+
   /* versions + preview */
   if (sites.length > 0) {
     node.querySelector('[data-slot="versionsCard"]').hidden = false;
@@ -305,6 +315,77 @@ function renderDetail() {
   }
 
   $("#detailCol").replaceChildren(node);
+}
+
+function renderPlan(site) {
+  const plan = site.plan;
+  const wrap = el("div", {});
+  if (!plan) return wrap;
+
+  const weakKeys = new Set((site.weak ?? []).map((w) => `${w.page}|${w.heading}`));
+
+  append(wrap,
+    el("p", { className: "evidence" }, `"${plan.tagline}"`),
+    el("p", { className: "hint" }, plan.voice),
+  );
+
+  plan.pages.forEach((page, pageIndex) => {
+    const sections = (page.sections ?? []).map((section, sectionIndex) =>
+      el("div", { className: "plan-section" },
+        el("h5", {},
+          section.heading,
+          el("span", { className: `conf-${section.confidence}` }, section.confidence),
+          el("button", {
+            className: "tiny",
+            title: "Remove this section from the plan",
+            onclick: () => removeSection(site, pageIndex, sectionIndex),
+          }, "remove"),
+          weakKeys.has(`${page.slug}|${section.heading}`)
+            ? el("span", { className: "conf-low" }, "nothing specific supports this")
+            : null,
+        ),
+        el("p", {}, section.body),
+        section.items?.length
+          ? el("ul", {}, ...section.items.map((i) =>
+              el("li", {}, i.detail ? `${i.name} - ${i.detail}` : i.name)))
+          : null,
+        section.placeholders?.length
+          ? el("p", { className: "hint" }, `Owner supplies: ${section.placeholders.join("; ")}`)
+          : null,
+        el("div", { className: "ev" }, ...(section.evidence ?? []).map((e) =>
+          el("span", { className: e.source, title: e.supports },
+            e.ref ? `${e.source}: ${e.ref}` : e.source))),
+      ));
+
+    append(wrap,
+      el("div", { className: "plan-page" },
+        el("h4", {}, `${page.navLabel} — ${page.slug}.html`),
+        el("p", { className: "purpose" }, page.purpose),
+        ...sections),
+    );
+  });
+
+  if (plan.ownerTodos?.length) {
+    append(wrap,
+      el("h4", { style: "font-size:12px;color:var(--muted);margin:14px 0 2px;text-transform:uppercase;letter-spacing:.06em" }, "The owner still has to supply"),
+      el("ul", { className: "plan-list" }, ...plan.ownerTodos.map((t) => el("li", {}, t))));
+  }
+  if (plan.claimsAvoided?.length) {
+    append(wrap,
+      el("h4", { style: "font-size:12px;color:var(--muted);margin:14px 0 2px;text-transform:uppercase;letter-spacing:.06em" }, "Deliberately not claimed"),
+      el("ul", { className: "plan-list" }, ...plan.claimsAvoided.map((t) => el("li", {}, t))));
+  }
+
+  append(wrap,
+    el("div", { className: "row", style: "margin-top:12px" },
+      el("button", {
+        disabled: !state.meta.generationReady,
+        onclick: () => rebuild(site.id),
+      }, "Rebuild the site from this plan")),
+    el("p", { className: "hint" },
+      "Removing a section takes it out of the plan. Rebuilding re-renders every page from the plan without planning again."));
+
+  return wrap;
 }
 
 function renderContent(business) {
@@ -353,6 +434,25 @@ function renderContent(business) {
     placeholder: "Anything you know that Google doesn't: what you saw on their Facebook page, what they told you on the phone, services they offer. Treated as verified fact by the generator.",
   });
 
+  const v = business.vision;
+  if (state.meta.photoVision) {
+    append(wrap,
+      el("h4", { style: "font-size:12px;color:var(--muted);margin:16px 0 4px;text-transform:uppercase;letter-spacing:.06em" }, "What their photos show"),
+      v?.usable
+        ? el("div", {},
+            el("p", { className: "evidence" }, v.scene),
+            v.signals?.length ? el("p", { className: "hint" }, v.signals.join(" · ")) : null,
+            v.palette?.length
+              ? el("div", { className: "ev" }, ...v.palette.map((c) =>
+                  el("span", { title: c.where, style: `border-left:10px solid ${c.hex}` }, `${c.hex} · ${c.where}`)))
+              : null)
+        : el("p", { className: "hint" }, v ? `No usable photos: ${v.reason ?? "unreadable"}` : "Not analysed yet."),
+      el("div", { className: "row", style: "margin-top:8px" },
+        el("button", { className: "tiny", onclick: analyzePhotos }, v ? "Re-read photos" : "Read their photos")),
+      el("p", { className: "hint" },
+        "Photos are read once and discarded. They never reach the generated site: Google's terms require photos to be fetched live with attribution, which a static page cannot do."));
+  }
+
   append(wrap,
     el("div", { className: "field", style: "margin-top:14px" },
       el("label", { htmlFor: "ownerNotes" }, "Your own notes on this business"),
@@ -372,6 +472,7 @@ function renderVersion(site) {
     el("span", { className: "grow sub" },
       [site.design_key,
        site.status,
+       site.pages?.length ? `${site.pages.length} page(s)` : null,
        site.bytes ? kb(site.bytes) : null,
        site.output_tokens ? `${site.output_tokens} out tok` : null,
        site.feedback ? "revision" : null,
@@ -390,12 +491,28 @@ function renderPreview() {
   const site = state.detail.sites.find((s) => s.id === state.activeSiteId);
   if (!site?.html_path) return el("p", { className: "hint" }, "No generated file to preview.");
 
+  const pages = site.pages?.length ? site.pages : [{ slug: "index", file: "index.html", title: site.title }];
+  const current = pages.find((p) => p.file === state.activePage) ?? pages[0];
+
   const frame = el("iframe", {
     className: "preview",
-    src: `/preview/${site.id}`,
-    title: `Preview of ${state.detail.business.name} website`,
+    src: `/preview/${site.id}/${current.file}`,
+    title: `Preview of ${state.detail.business.name} website, ${current.file}`,
   });
   frame.dataset.vp = "desktop";
+
+  const tabs = el("div", { className: "page-tabs" }, ...pages.map((page) => {
+    const button = el("button", {
+      className: "tiny",
+      onclick: () => {
+        state.activePage = page.file;
+        frame.src = `/preview/${site.id}/${page.file}`;
+        for (const b of tabs.children) b.setAttribute("aria-current", String(b === button));
+      },
+    }, page.slug === "index" ? "Home" : page.slug);
+    button.setAttribute("aria-current", String(page.file === current.file));
+    return button;
+  }));
 
   const vpButton = (id, label) =>
     el("button", { className: "tiny", onclick: () => { frame.dataset.vp = id; } }, label);
@@ -405,11 +522,12 @@ function renderPreview() {
   });
 
   return el("div", {},
+    pages.length > 1 ? el("div", { className: "preview-bar" }, tabs) : null,
     el("div", { className: "preview-bar" },
       vpButton("desktop", "Desktop"), vpButton("tablet", "Tablet"), vpButton("phone", "Phone"),
       el("span", { className: "spacer" }),
-      el("a", { href: `/preview/${site.id}`, target: "_blank", rel: "noreferrer noopener" }, "open"),
-      el("a", { href: `/api/sites/${site.id}/source`, target: "_blank", rel: "noreferrer noopener" }, "source"),
+      el("a", { href: `/preview/${site.id}/${current.file}`, target: "_blank", rel: "noreferrer noopener" }, "open"),
+      el("a", { href: `/api/sites/${site.id}/source?file=${current.file}`, target: "_blank", rel: "noreferrer noopener" }, "source"),
     ),
     el("div", { className: "frame-wrap" }, frame),
     el("div", { style: "margin-top:14px" },
@@ -441,6 +559,36 @@ function renderPreview() {
 }
 
 /* -------------------------------- actions -------------------------------- */
+
+async function analyzePhotos() {
+  const id = state.selectedId;
+  try {
+    log("#genLog", "reading their photos...");
+    const { business, billedRequests } = await api(`/api/businesses/${encodeURIComponent(id)}/photos`, { method: "POST" });
+    state.detail.business = business;
+    renderDetail();
+    log("#genLog", `photos read (${billedRequests} billed request(s))`);
+  } catch (err) {
+    log("#genLog", `photo analysis failed: ${err.message}`, "err");
+  }
+}
+
+async function removeSection(site, pageIndex, sectionIndex) {
+  const plan = structuredClone(site.plan);
+  plan.pages[pageIndex].sections.splice(sectionIndex, 1);
+  if (plan.pages[pageIndex].sections.length === 0) plan.pages.splice(pageIndex, 1);
+  try {
+    await api(`/api/sites/${site.id}/plan`, { method: "PATCH", body: JSON.stringify({ plan }) });
+    state.detail = await api(`/api/businesses/${encodeURIComponent(state.selectedId)}`);
+    renderDetail();
+  } catch (err) {
+    log("#genLog", `could not update the plan: ${err.message}`, "err");
+  }
+}
+
+function rebuild(siteId) {
+  runGenerationStream(`/api/sites/${siteId}/rebuild/stream`, "Rebuilding...");
+}
 
 async function loadDetails(force = false) {
   const id = state.selectedId;
@@ -489,23 +637,41 @@ async function setStatus(status) {
 }
 
 function generate({ design, feedback = null, previousSiteId = null }) {
+  const params = new URLSearchParams({ design });
+  if (feedback) params.set("feedback", feedback);
+  if (previousSiteId) params.set("previousSiteId", String(previousSiteId));
+  runGenerationStream(
+    `/api/businesses/${encodeURIComponent(state.selectedId)}/generate/stream?${params}`,
+    feedback ? "Revising..." : "Generating...",
+  );
+}
+
+/**
+ * Drive one generation stream. Shared by "generate", "regenerate with changes"
+ * and "rebuild from plan" - they differ only in the URL they open.
+ */
+function runGenerationStream(url, busyLabel) {
   const id = state.selectedId;
   clearLog("#genLog");
   const button = $("#generate");
   button.disabled = true;
-  button.textContent = feedback ? "Revising..." : "Generating...";
+  button.textContent = busyLabel;
 
-  const params = new URLSearchParams({ design });
-  if (feedback) params.set("feedback", feedback);
-  if (previousSiteId) params.set("previousSiteId", String(previousSiteId));
-
-  const source = new EventSource(`/api/businesses/${encodeURIComponent(id)}/generate/stream?${params}`);
+  const source = new EventSource(url);
   let thinkingLine = null;
 
   source.addEventListener("progress", (e) => {
     const d = JSON.parse(e.data);
     if (d.type === "start") log("#genLog", `v${d.version} · ${d.design} · ${d.model}`);
     if (d.type === "note") log("#genLog", d.message);
+    if (d.type === "stage") {
+      thinkingLine = null;
+      log("#genLog", d.stage === "planning" ? "planning what the site should say..." : "building the pages...");
+    }
+    if (d.type === "plan") {
+      log("#genLog", `plan ready: ${d.pages} page(s)${d.weak.length ? `, ${d.weak.length} weakly supported` : ""}`);
+    }
+    if (d.type === "page") log("#genLog", `  page ${d.index}/${d.total}: ${d.slug}`);
     if (d.type === "thinking") {
       if (!thinkingLine) { thinkingLine = el("div", { style: "color:var(--dim)" }); $("#genLog").append(thinkingLine); }
       thinkingLine.textContent += d.chunk ?? d.text ?? "";
@@ -522,12 +688,13 @@ function generate({ design, feedback = null, previousSiteId = null }) {
 
   source.addEventListener("result", async (e) => {
     const d = JSON.parse(e.data);
-    log("#genLog", `done: v${d.site.version}, ${kb(d.site.bytes)}, ${d.site.output_tokens} output tokens`);
+    log("#genLog", `done: v${d.site.version}, ${d.pages.length} page(s), ${kb(d.site.bytes)}, ${d.site.output_tokens} output tokens`);
     source.close();
     button.disabled = false;
     button.textContent = "Generate website";
     state.detail = await api(`/api/businesses/${encodeURIComponent(id)}`);
     state.activeSiteId = d.site.id;
+    state.activePage = "index.html";
     renderDetail();
   });
 

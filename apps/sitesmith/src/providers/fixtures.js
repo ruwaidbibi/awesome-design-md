@@ -126,11 +126,19 @@ export async function searchPlaces({ query, location }) {
   };
 }
 
+/** A tiny generated checkerboard, so the photo-analysis path is exercisable offline. */
+const SAMPLE_PNG = "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAAYklEQVR4nO3PQQkAMBADwZNT/1RgNSRQuMdEwJKZG+6E+90fAAAAAAAAAAAAAIAasO1Q2gcAAAAAAAAAAAAA6AHbDqV9AAAAAAAAAAAAAIAesO1Q2gcAAAAAAAAAAAAAqPsPWZ+hLfZmcTEAAAAASUVORK5CYII=";
+
+export async function fetchPhotoMedia() {
+  return { bytes: Buffer.from(SAMPLE_PNG, "base64"), mediaType: "image/png", billedRequests: 0 };
+}
+
 export async function fetchPlaceDetails(placeId) {
   const fixture = FIXTURES.find((f) => f.id === placeId);
   if (!fixture) throw new Error(`No fixture for ${placeId}`);
   return {
     reviews: REVIEWS[placeId] ?? [],
+    photoNames: REVIEWS[placeId] ? [`places/${placeId}/photos/sample-1`, `places/${placeId}/photos/sample-2`] : [],
     editorialSummary: REVIEWS[placeId]
       ? null
       : "Sample data has no reviews for this business - try Murray Hill Barber Co, Vera's Tortilleria, or Third Street Nail Spa.",

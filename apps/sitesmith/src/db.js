@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS businesses (
   editorial_summary   TEXT,
   price_level         TEXT,
   details_fetched_at  TEXT,
+  vision_json         TEXT,
   score               REAL NOT NULL DEFAULT 0,
   score_breakdown     TEXT,
   status              TEXT NOT NULL DEFAULT 'new',
@@ -71,10 +72,14 @@ CREATE TABLE IF NOT EXISTS sites (
   design_key    TEXT NOT NULL,
   model         TEXT NOT NULL,
   feedback      TEXT,
+  plan_json     TEXT,
+  dir_path      TEXT,
   html_path     TEXT,
+  pages_json    TEXT,
   bytes         INTEGER,
   input_tokens  INTEGER,
   output_tokens INTEGER,
+  cache_read_tokens INTEGER,
   status        TEXT NOT NULL DEFAULT 'generating',
   error         TEXT,
   published_at  TEXT,
@@ -104,8 +109,15 @@ addMissingColumns("businesses", {
   editorial_summary: "TEXT",
   price_level: "TEXT",
   details_fetched_at: "TEXT",
+  vision_json: "TEXT",
 });
 addMissingColumns("searches", { city: "TEXT" });
+addMissingColumns("sites", {
+  plan_json: "TEXT",
+  dir_path: "TEXT",
+  pages_json: "TEXT",
+  cache_read_tokens: "INTEGER",
+});
 
 /** INSERT ... ON CONFLICT UPDATE that never clobbers enrichment we already did. */
 export function upsertBusiness(row) {

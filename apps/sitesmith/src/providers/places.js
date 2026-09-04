@@ -4,6 +4,8 @@ import { HttpError } from "../http.js";
 
 const ENDPOINT = "https://places.googleapis.com/v1/places:searchText";
 const DETAILS_ENDPOINT = "https://places.googleapis.com/v1/places";
+// Photo names already start with "places/", so they hang off /v1 directly.
+const MEDIA_BASE = "https://places.googleapis.com/v1";
 
 // Every field here is billed. websiteUri and userRatingCount are what put this
 // request on the Enterprise SKU, and they are exactly the two the whole app is
@@ -119,6 +121,10 @@ const DETAILS_FIELD_MASK = [
   "priceLevel",
   "regularOpeningHours",
   "primaryTypeDisplayName",
+  // Same SKU as reviews, so no extra tier cost. Photo *names* are returned to
+  // the caller and deliberately never persisted: Google's terms exempt only
+  // place_id from the no-caching rule.
+  "photos",
 ].join(",");
 
 const normalizeReview = (review) => ({
@@ -154,10 +160,35 @@ export async function fetchPlaceDetails(placeId) {
 
   return {
     reviews: (json.reviews ?? []).map(normalizeReview).filter((r) => r.text),
+    photoNames: (json.photos ?? []).map((p) => p.name).filter(Boolean),
     editorialSummary: json.editorialSummary?.text ?? null,
     priceLevel: json.priceLevel ?? null,
     typeDisplayName: json.primaryTypeDisplayName?.text ?? null,
     hours: json.regularOpeningHours?.weekdayDescriptions ?? null,
     billedRequests: 1,
   };
+}
+
+/**
+ * Fetch one photo's bytes.
+ *
+ * The caller must treat the result as transient. Google's terms forbid caching
+ * photo names or media; this exists so a photo can be looked at once and thrown
+ * away, never so it can be stored or served.
+ */
+export async function fetchPhotoMedia(photoName, { maxWidthPx = 1024 } = {}) {
+  if (!config.places.apiKey) throw new HttpError(400, "GOOGLE_MAPS_API_KEY is not set");
+
+  const url = new URL(`${MEDIA_BASE}/${photoName}/media`);
+  url.searchParams.set("maxWidthPx", String(maxWidthPx));
+
+  const res = await fetch(url, {
+    headers: { "X-Goog-Api-Key": config.places.apiKey },
+    redirect: "follow",
+  });
+  if (!res.ok) throw new HttpError(502, `Place Photo returned ${res.status}`);
+
+  const mediaType = res.headers.get("content-type")?.split(";")[0] ?? "image/jpeg";
+  const bytes = Buffer.from(await res.arrayBuffer());
+  return { bytes, mediaType, billedRequests: 1 };
 }

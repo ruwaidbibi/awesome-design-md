@@ -36,6 +36,8 @@ export const config = {
     apiKey: process.env.ANTHROPIC_API_KEY || "",
     model: process.env.GEN_MODEL || "claude-opus-5",
     effort: process.env.GEN_EFFORT || "high",
+    photoVision: bool(process.env.PHOTO_VISION, false),
+    photoVisionMax: Math.min(Math.max(int(process.env.PHOTO_VISION_MAX, 4), 1), 8),
   },
 
   social: {
