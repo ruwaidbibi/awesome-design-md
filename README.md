@@ -18,7 +18,7 @@ Zero build step. `@anthropic-ai/sdk` is the only dependency; the store is
 ## Quick start
 
 ```bash
-git clone https://github.com/ruwaidbibi/leadsites.git
+git clone https://github.com/thedigitalbrain/leadsites.git
 cd leadsites
 npm install
 cp .env.example .env      # optional - it runs on sample data without keys
