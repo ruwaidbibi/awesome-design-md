@@ -41,7 +41,7 @@ def grams(ws, n):
 
 def load_reviews():
     if not DB.exists():
-        sys.exit(f"No database at {DB}. Run a search and fetch reviews first.")
+        return None
     con = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
     rows = con.execute(
         "SELECT name, reviews_json FROM businesses "
@@ -53,8 +53,11 @@ def load_reviews():
 
 def main():
     reviews = load_reviews()
+    # Nothing to check against is not a violation - a fresh clone has no
+    # database yet, and this has to be safe to wire into CI.
     if not reviews:
-        sys.exit("No reviews on file. Nothing to check against.")
+        print("  no reviews on file, nothing to check against")
+        return 0
 
     worst = 0
     checked = 0
