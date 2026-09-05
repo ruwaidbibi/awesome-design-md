@@ -1,0 +1,162 @@
+{
+  "tagline": "A local coffee shop on Gate Parkway, open at half six with the lights already on.",
+  "voice": "Homey and unhurried, with a bit of dry humour about the decor. Talks like a neighbourhood place that knows its regulars, not a chain.",
+  "primaryAction": { "label": "Call (904) 928-0048", "href": "tel:+19049280048" },
+  "pages": [
+    {
+      "slug": "index",
+      "navLabel": "Home",
+      "title": "Sippers Coffeehouse | Gate Parkway, Jacksonville FL",
+      "purpose": "Convince someone deciding where to get their morning coffee on the Southside that this is worth the stop, and get them through the door.",
+      "sections": [
+        {
+          "kind": "hero",
+          "heading": "Open at 6:30. Coffee made by people who know your name.",
+          "body": "A local coffee house on Gate Parkway North, six mornings a week. Come for the latte, stay because nobody is rushing you out.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "opening hours", "supports": "opens at 6:30 AM on weekdays" },
+            { "source": "google-fact", "ref": "address", "supports": "on Gate Pkwy N in Jacksonville" },
+            { "source": "review", "ref": "review 3", "supports": "the owner remembers regulars by name after years" },
+            { "source": "review", "ref": "review 1", "supports": "the latte is what people mention first" }
+          ]
+        },
+        {
+          "kind": "proof",
+          "heading": "4.4 stars across 744 Google reviews",
+          "body": "Seven hundred and forty-four people have stopped in and said something about it.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "rating", "supports": "a 4.4 average across 744 reviews" }
+          ]
+        },
+        {
+          "kind": "services",
+          "heading": "What people order",
+          "body": "Everything listed here is something a customer named themselves.",
+          "items": [
+            { "name": "Latte", "detail": "Hot or iced. The iced vanilla is the usual first order." },
+            { "name": "Dirty chai", "detail": "Asked for by name often enough to put on the wall." },
+            { "name": "Seasonal flavours", "detail": "They change. Ask what is on this month." },
+            { "name": "Breakfast sandwiches", "detail": "Made when you order, not sitting under a lamp." }
+          ],
+          "confidence": "high",
+          "evidence": [
+            { "source": "review", "ref": "review 1", "supports": "latte and a freshly made breakfast sandwich" },
+            { "source": "review", "ref": "review 2", "supports": "iced vanilla latte" },
+            { "source": "review", "ref": "review 3", "supports": "dirty chai and seasonal flavours" }
+          ]
+        },
+        {
+          "kind": "about",
+          "heading": "The room",
+          "body": "Small, warm and a bit vintage. Customers describe an old-time feel and decor that is very much its own thing rather than anybody's house style. There is proper seating, so it works if you want to sit for a while.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "review", "ref": "review 1", "supports": "homey with an old-time feel to the decor" },
+            { "source": "review", "ref": "review 2", "supports": "distinctive, idiosyncratic decor" },
+            { "source": "review", "ref": "review 5", "supports": "good seating options" }
+          ]
+        },
+        {
+          "kind": "about",
+          "heading": "Owner-run",
+          "body": "This is a small independent shop, not a franchise. Regulars get remembered years later.",
+          "confidence": "medium",
+          "evidence": [
+            { "source": "review", "ref": "review 3", "supports": "the owner remembers a customer's name after years" }
+          ]
+        },
+        {
+          "kind": "photos-placeholder",
+          "heading": "Inside",
+          "body": "Photographs of the room, the counter and the drinks belong here.",
+          "confidence": "low",
+          "placeholders": ["[[ADD PHOTO: the counter]]", "[[ADD PHOTO: the seating area]]", "[[ADD PHOTO: a drink and a breakfast sandwich]]"],
+          "evidence": [
+            { "source": "category-norm", "supports": "people choosing a coffee shop want to see the room first" }
+          ]
+        },
+        {
+          "kind": "cta",
+          "heading": "Six mornings a week",
+          "body": "Weekdays from 6:30, Saturdays from 7. Closed Sundays.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "opening hours", "supports": "the posted hours, including Sunday closed" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "visit",
+      "navLabel": "Visit",
+      "title": "Hours & Directions | Sippers Coffeehouse, Jacksonville",
+      "purpose": "Hours, address and phone, with the Sunday closure impossible to miss.",
+      "sections": [
+        {
+          "kind": "hours",
+          "heading": "Hours",
+          "body": "Weekdays from 6:30 in the morning, Saturdays from 7. Closed on Sundays.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "opening hours", "supports": "the posted hours exactly as Google lists them" }
+          ]
+        },
+        {
+          "kind": "location",
+          "heading": "Finding the shop",
+          "body": "7643 Gate Parkway North, Jacksonville FL 32256, on the Southside.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "address", "supports": "the street address" },
+            { "source": "google-fact", "ref": "google_maps_url", "supports": "the map link" }
+          ]
+        },
+        {
+          "kind": "faq",
+          "heading": "Before you come in",
+          "body": "",
+          "items": [
+            { "name": "How early are you open?", "detail": "6:30 AM Monday to Friday, 7 AM Saturday." },
+            { "name": "Are you open Sundays?", "detail": "No. Closed all day Sunday." },
+            { "name": "Can I sit and work?", "detail": "There is real seating, and people do." },
+            { "name": "What does it cost?", "detail": "[[ADD: your current prices]]" },
+            { "name": "Do you have wifi?", "detail": "[[ADD: yes or no, and the password policy]]" }
+          ],
+          "confidence": "medium",
+          "placeholders": ["[[ADD: your current prices]]", "[[ADD: yes or no, and the password policy]]"],
+          "evidence": [
+            { "source": "google-fact", "ref": "opening hours", "supports": "the opening times and the Sunday closure" },
+            { "source": "review", "ref": "review 5", "supports": "good seating options" }
+          ]
+        },
+        {
+          "kind": "cta",
+          "heading": "Call the shop",
+          "body": "Quickest way to ask what is on this month.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "phone", "supports": "the listed phone number" }
+          ]
+        }
+      ]
+    }
+  ],
+  "ownerTodos": [
+    "Send your drinks and food menu with prices. Two of the questions on the Visit page cannot be answered without it.",
+    "Confirm whether you have wifi, and whether customers can work there for a while.",
+    "Send photos: the counter, the seating, and a couple of drinks.",
+    "Tell us when the shop opened if you want that on the site.",
+    "If you post seasonal flavours anywhere, send the handle so it can be linked."
+  ],
+  "claimsAvoided": [
+    "Nothing about service quality or friendliness. Reviews disagree sharply on it, and a site that promises a warm welcome is exactly what an unhappy customer quotes back at you.",
+    "No response to any criticism. One review complains at length; the site neither repeats it nor argues with it.",
+    "No prices. Not one source mentions a figure.",
+    "No wifi claim. Coffee shop sites always say it; no review here actually mentions it.",
+    "No founding year or 'serving Jacksonville since'. A review mentions a years-long relationship, which says nothing about when the shop opened.",
+    "No owner named, and no description of who they are beyond that the shop is owner-run.",
+    "No testimonials or review quotes. Review text is research, not copy."
+  ]
+}

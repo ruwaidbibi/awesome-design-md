@@ -1,0 +1,166 @@
+{
+  "tagline": "A West Loop barber parlor where the owner checks the cut before you leave.",
+  "voice": "Assured and unhurried. Lets a perfect rating and a room full of regulars speak; no hype, no hard sell.",
+  "primaryAction": { "label": "Call (773) 617-0289", "href": "tel:+17736170289" },
+  "pages": [
+    {
+      "slug": "index",
+      "navLabel": "Home",
+      "title": "Blessed Hands Barber Parlor | Jovanni The Barber, Chicago",
+      "purpose": "Convince someone choosing a barber in Chicago that this chair is worth booking, and get them to call or book.",
+      "sections": [
+        {
+          "kind": "hero",
+          "heading": "Nobody leaves this chair until it is right",
+          "body": "A barber parlor on West Roosevelt Road, open seven days a week. Jovanni checks the work before you walk out.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "address", "supports": "on W Roosevelt Rd in Chicago" },
+            { "source": "google-fact", "ref": "opening hours", "supports": "open every day of the week" },
+            { "source": "review", "ref": "review 1", "supports": "Jovanni checked the cut was right before the customer left" },
+            { "source": "review", "ref": "review 3", "supports": "Jovanni followed up the day after a cut to check the customer was happy" }
+          ]
+        },
+        {
+          "kind": "proof",
+          "heading": "A perfect five, 282 times",
+          "body": "Two hundred and eighty-two people have rated this shop on Google and not one has pulled the average below five stars.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "rating", "supports": "a 5.0 average across 282 reviews" }
+          ]
+        },
+        {
+          "kind": "services",
+          "heading": "In the chair",
+          "body": "Every service here is one customers named themselves.",
+          "items": [
+            { "name": "Full fade", "detail": "The cut people come back for." },
+            { "name": "Beard trim and line up", "detail": "On its own or with a cut." },
+            { "name": "Cut and style", "detail": "Bring a reference, or ask what would suit you." }
+          ],
+          "confidence": "high",
+          "evidence": [
+            { "source": "review", "ref": "review 2", "supports": "a full fade and a beard cleaned up" },
+            { "source": "review", "ref": "review 4", "supports": "the fade specifically" },
+            { "source": "review", "ref": "review 1", "supports": "cut styled to the customer's ask plus the barber's suggestions" },
+            { "source": "review", "ref": "review 5", "supports": "listens to what you want and suggests" }
+          ]
+        },
+        {
+          "kind": "about",
+          "heading": "More than one chair",
+          "body": "There is a team here, not just one barber. Whoever sits you down, the standard is the same, because the work gets checked.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "review", "ref": "review 1", "supports": "cut by one barber, checked by Jovanni" },
+            { "source": "review", "ref": "review 3", "supports": "an associate barber and Jovanni are distinct people" }
+          ]
+        },
+        {
+          "kind": "about",
+          "heading": "Nobody is rushing you",
+          "body": "Appointments run at the pace the work needs. Expect to be asked what you actually want, to get an honest opinion on what will suit you, and to have a decent conversation while it happens.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "review", "ref": "review 2", "supports": "took his time, never rushed, calm and easy to talk to" },
+            { "source": "review", "ref": "review 4", "supports": "good conversation, comfortable throughout" },
+            { "source": "review", "ref": "review 5", "supports": "listens and makes suggestions" }
+          ]
+        },
+        {
+          "kind": "photos-placeholder",
+          "heading": "The parlor",
+          "body": "Photographs of the room and the work belong here.",
+          "confidence": "low",
+          "placeholders": ["[[ADD PHOTO: the shop front on Roosevelt Rd]]", "[[ADD PHOTO: the chairs]]", "[[ADD PHOTO: four or five finished cuts]]"],
+          "evidence": [
+            { "source": "category-norm", "supports": "people choosing a barber want to see the work before booking" }
+          ]
+        },
+        {
+          "kind": "cta",
+          "heading": "Open seven days",
+          "body": "Call the shop, or book online.",
+          "confidence": "medium",
+          "placeholders": ["[[ADD: your booking link]]"],
+          "evidence": [
+            { "source": "google-fact", "ref": "phone", "supports": "the listed phone number" },
+            { "source": "google-fact", "ref": "opening hours", "supports": "open every day" },
+            { "source": "review", "ref": "review 1", "supports": "a customer praised the ease of booking, so a booking system exists - but no source says where" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "visit",
+      "navLabel": "Visit",
+      "title": "Hours & Directions | Blessed Hands Barber Parlor, Chicago",
+      "purpose": "Hours, address, phone and booking, for someone deciding whether they can get in today.",
+      "sections": [
+        {
+          "kind": "hours",
+          "heading": "Hours",
+          "body": "Open every day. Eight in the morning until seven, Monday to Friday. Eight until five on Saturday, nine until five on Sunday.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "opening hours", "supports": "the posted hours exactly as Google lists them" }
+          ]
+        },
+        {
+          "kind": "location",
+          "heading": "Finding the parlor",
+          "body": "558 W Roosevelt Road, Chicago IL 60607, just west of the South Loop.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "address", "supports": "the street address" },
+            { "source": "google-fact", "ref": "google_maps_url", "supports": "the map link" }
+          ]
+        },
+        {
+          "kind": "faq",
+          "heading": "Before you come in",
+          "body": "",
+          "items": [
+            { "name": "Do you take appointments?", "detail": "Yes. [[ADD: your booking link]]" },
+            { "name": "Can I get in the same day?", "detail": "Sometimes. Call and ask what has opened up." },
+            { "name": "Can I ask for a specific barber?", "detail": "Yes. There is more than one chair." },
+            { "name": "What does a cut cost?", "detail": "[[ADD: your current prices]]" }
+          ],
+          "confidence": "medium",
+          "placeholders": ["[[ADD: your booking link]]", "[[ADD: your current prices]]"],
+          "evidence": [
+            { "source": "review", "ref": "review 1", "supports": "booking is easy, so a booking system exists" },
+            { "source": "review", "ref": "review 4", "supports": "a customer was fitted in after a last-minute cancellation" },
+            { "source": "review", "ref": "review 3", "supports": "more than one barber works here" }
+          ]
+        },
+        {
+          "kind": "cta",
+          "heading": "Call the parlor",
+          "body": "The quickest way to ask about a service or check what is open today.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "phone", "supports": "the listed phone number" }
+          ]
+        }
+      ]
+    }
+  ],
+  "ownerTodos": [
+    "Send your booking link. Two places on this site are waiting for it, and a review already praises how easy booking is.",
+    "Send your prices, or say if you would rather not publish them.",
+    "Send photos: the shop front on Roosevelt, the chairs, and four or five finished cuts.",
+    "Confirm your barbers' names if you want the team listed by name.",
+    "If you have Instagram, send the handle. Google lists no social profile and none was found."
+  ],
+  "claimsAvoided": [
+    "No years of experience. A review mentions Jovanni saying how long he has been barbering, but never says the number.",
+    "No redo or satisfaction guarantee. One review describes a cut being redone, which is one owner doing right by one customer, not a policy this site can promise on his behalf.",
+    "No barber named except Jovanni, and only because 'Jovanni The Barber' is part of the registered business name. A second barber is named once in a review and is not on the site.",
+    "No prices. Two reviews call it good value, which is an opinion about price, not a price.",
+    "No mention that one customer was initially unhappy with an associate's cut. The follow-up is the story; the complaint is not repeated.",
+    "No testimonials or review quotes. Review text is research, not copy.",
+    "No claim about the booking system beyond that one exists, since no source says which one."
+  ]
+}

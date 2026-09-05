@@ -1,0 +1,156 @@
+{
+  "tagline": "A Beach Boulevard barbershop people drive across Jacksonville for.",
+  "voice": "Direct and quietly proud. Lets the work and the rating speak; no hard sell, no superlatives it cannot back.",
+  "primaryAction": { "label": "Call (787) 247-6260", "href": "tel:+17872476260" },
+  "pages": [
+    {
+      "slug": "index",
+      "navLabel": "Home",
+      "title": "K Cuts Barbershop | Beach Blvd, Jacksonville FL",
+      "purpose": "Convince someone comparing barbers on their phone that this is the one, and get them to call or walk in today.",
+      "sections": [
+        {
+          "kind": "hero",
+          "heading": "Walk in. Leave with the cut you asked for.",
+          "body": "A barbershop on Beach Boulevard, open seven days a week. Bring a photo of what you want and it gets matched.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "address", "supports": "the shop is on Beach Blvd in Jacksonville" },
+            { "source": "google-fact", "ref": "opening hours", "supports": "open seven days a week" },
+            { "source": "review", "ref": "review 1", "supports": "a customer brought in a reference image and it was matched accurately" },
+            { "source": "review", "ref": "review 3", "supports": "walk-ins are taken care of quickly" }
+          ]
+        },
+        {
+          "kind": "proof",
+          "heading": "5.0 stars. 317 reviews. No rounding.",
+          "body": "Three hundred and seventeen people have rated this shop on Google and it has not dropped below five stars.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "rating", "supports": "a 5.0 average across 317 reviews" }
+          ]
+        },
+        {
+          "kind": "about",
+          "heading": "Barbers people follow",
+          "body": "Customers here talk about their barber by name, and keep going to them for years. Several of the chairs have their own regulars. Ask who is free, or ask for the one you saw last time.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "review", "ref": "review 2", "supports": "a customer followed their barber across town and has used them for years" },
+            { "source": "review", "ref": "review 3", "supports": "a customer names the barber they book with" },
+            { "source": "review", "ref": "review 4", "supports": "a third customer names a different barber" }
+          ]
+        },
+        {
+          "kind": "about",
+          "heading": "What to expect in the chair",
+          "body": "Bring a reference photo if you have one. Expect to be asked what you actually want, and to get an opinion on what will grow out well. The room is modern and clean, and the people in it are easy to be around.",
+          "confidence": "medium",
+          "evidence": [
+            { "source": "review", "ref": "review 1", "supports": "matched a reference image and advised on preparing for future styles" },
+            { "source": "review", "ref": "review 3", "supports": "the shop is described as modern, clean and friendly" }
+          ]
+        },
+        {
+          "kind": "about",
+          "heading": "Kids welcome",
+          "body": "Plenty of people bring their sons and nephews here alongside their own appointment.",
+          "confidence": "medium",
+          "evidence": [
+            { "source": "review", "ref": "review 2", "supports": "a customer brings his nephews" },
+            { "source": "review", "ref": "review 3", "supports": "a customer brings his son" }
+          ]
+        },
+        {
+          "kind": "photos-placeholder",
+          "heading": "The shop",
+          "body": "Photographs of the room, the chairs and finished cuts belong here.",
+          "confidence": "low",
+          "placeholders": ["[[ADD PHOTO: the shop front on Beach Blvd]]", "[[ADD PHOTO: inside the shop]]", "[[ADD PHOTO: three or four finished cuts]]"],
+          "evidence": [
+            { "source": "category-norm", "supports": "people choosing a barber want to see the work before they book" }
+          ]
+        },
+        {
+          "kind": "cta",
+          "heading": "Open seven days",
+          "body": "Call the shop, or come by Beach Boulevard and ask who is free.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "phone", "supports": "the listed phone number" },
+            { "source": "google-fact", "ref": "opening hours", "supports": "open every day of the week" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "visit",
+      "navLabel": "Visit",
+      "title": "Hours & Directions | K Cuts Barbershop, Jacksonville",
+      "purpose": "Get someone from their phone to the door: hours, suite number, phone, map.",
+      "sections": [
+        {
+          "kind": "hours",
+          "heading": "Hours",
+          "body": "Open every day. Nine in the morning until eight at night, Monday through Saturday, and until six on Sunday.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "opening hours", "supports": "the posted hours exactly as Google lists them" }
+          ]
+        },
+        {
+          "kind": "location",
+          "heading": "Finding the shop",
+          "body": "10771 Beach Blvd, Suite 302, Jacksonville FL 32246. It is a suite, so look for the unit number rather than a shopfront on the road.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "address", "supports": "the street address including the suite number" },
+            { "source": "google-fact", "ref": "google_maps_url", "supports": "the map link" }
+          ]
+        },
+        {
+          "kind": "faq",
+          "heading": "Before you come in",
+          "body": "",
+          "items": [
+            { "name": "Do I need an appointment?", "detail": "Walk in. People report being seen quickly." },
+            { "name": "Can I ask for a specific barber?", "detail": "Yes. Customers here have barbers they stay with." },
+            { "name": "Is it good for kids?", "detail": "Sons and nephews come in regularly." },
+            { "name": "What does a cut cost?", "detail": "[[ADD: your current prices]]" }
+          ],
+          "confidence": "medium",
+          "placeholders": ["[[ADD: your current prices]]"],
+          "evidence": [
+            { "source": "review", "ref": "review 3", "supports": "walk-ins are taken care of quickly" },
+            { "source": "review", "ref": "review 2", "supports": "customers stay with one barber over years" },
+            { "source": "review", "ref": "review 2", "supports": "nephews come along" }
+          ]
+        },
+        {
+          "kind": "cta",
+          "heading": "Call the shop",
+          "body": "The quickest way to check how busy it is before you drive over.",
+          "confidence": "high",
+          "evidence": [
+            { "source": "google-fact", "ref": "phone", "supports": "the listed phone number" }
+          ]
+        }
+      ]
+    }
+  ],
+  "ownerTodos": [
+    "Send your service list and prices. Without them there is no services page and the cost question cannot be answered.",
+    "Send photos: the shop front, the room, and three or four finished cuts.",
+    "Confirm your barbers' names if you want them on the site, and whether customers can request one.",
+    "Confirm whether you take appointments at all, or walk-in only.",
+    "If you have Instagram, send the handle so it can be linked."
+  ],
+  "claimsAvoided": [
+    "No services page. The reviews praise the barbers, not a list of services, so there is no evidence for one. Cuts, beard work and prices would all have been guesses.",
+    "No prices. One review says the prices are good, which is an opinion about prices, not a price.",
+    "No barber named. Four reviews name what appear to be four different barbers; a wrong or departed name on the homepage is worse than none.",
+    "No founding year or 'serving Jacksonville since'. A review mentions a nine-year relationship with a barber, which says nothing about when this shop opened.",
+    "No testimonials or review quotes. Review text is research, not copy.",
+    "No email, booking link, or social profiles. Google lists none and none were found."
+  ]
+}

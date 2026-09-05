@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hours & Directions | Sippers Coffeehouse, Jacksonville</title>
+<meta name="description" content="Sippers Coffeehouse on Gate Parkway North, Jacksonville. Open at 6:30 AM weekdays. Lattes, dirty chai, seasonal flavours and breakfast sandwiches made to order.">
+<style>
+:root{
+  --ink:#111111; --muted:#626260; --subtle:#7b7b78; --tertiary:#9c9fa5;
+  --canvas:#f5f1ec; --surface:#ffffff; --surface2:#ebe7e1;
+  --hair:#d3cec6; --hair-soft:#ebe7e1;
+  --accent:#ff5600; --on-dark:#ffffff; --dark:#000000; --dark-surface:#313130;
+  --font:Saans,-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--canvas);color:var(--muted);font-family:var(--font);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{color:var(--ink);margin:0;font-weight:500}
+h1{font-size:clamp(38px,6.4vw,72px);line-height:1.05;letter-spacing:-2px}
+h2{font-size:clamp(28px,3.8vw,40px);line-height:1.15;letter-spacing:-.8px}
+h3{font-size:19px;line-height:1.3;letter-spacing:-.2px;font-weight:500}
+p{margin:0 0 1em}
+a{color:var(--ink)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0 0 16px}
+
+header.site{border-bottom:1px solid var(--hair);background:var(--canvas);position:sticky;top:0;z-index:10}
+header.site .wrap{display:flex;align-items:center;gap:24px;min-height:72px;flex-wrap:wrap}
+.brand{font-weight:500;font-size:20px;letter-spacing:-.5px;color:var(--ink);text-decoration:none;margin-right:auto}
+header.site nav{display:flex;gap:22px}
+header.site nav a{font-size:15px;color:var(--muted);text-decoration:none;padding:5px 0;border-bottom:1px solid transparent}
+header.site nav a:hover{color:var(--ink)}
+header.site nav a[aria-current="page"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+.btn{display:inline-block;background:var(--ink);color:var(--on-dark);text-decoration:none;font-weight:500;font-size:15px;
+  padding:13px 24px;border-radius:999px;transition:opacity .15s}
+.btn:hover{opacity:.82;color:var(--on-dark)}
+.btn.ghost{background:transparent;border:1px solid var(--hair);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--ink);opacity:1}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.hero{padding:88px 0 76px}
+.hero .wrap{max-width:940px}
+.hero p.lead{font-size:20px;max-width:34em;margin:24px 0 34px;color:var(--muted)}
+.actions{display:flex;gap:11px;flex-wrap:wrap}
+
+.rating{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;padding:30px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.rating .num{font-size:60px;font-weight:500;color:var(--ink);line-height:1;letter-spacing:-2px}
+.rating .cap{font-size:16px;color:var(--subtle);max-width:26em}
+
+section.band{padding:72px 0;border-bottom:1px solid var(--hair)}
+.grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:32px}
+.card{background:var(--surface);border:1px solid var(--hair-soft);border-radius:14px;padding:26px}
+.card h3{margin-bottom:8px}
+.card p:last-child{margin-bottom:0;font-size:15px}
+.prose{max-width:34em;margin-top:16px}
+
+dl.hours{display:grid;grid-template-columns:auto 1fr;margin:26px 0 0;max-width:420px}
+dl.hours dt,dl.hours dd{padding:13px 0;border-bottom:1px solid var(--hair-soft);margin:0}
+dl.hours dt{color:var(--ink);font-weight:500;font-size:15px}
+dl.hours dd{text-align:right;font-variant-numeric:tabular-nums}
+dl.hours .closed{color:var(--accent)}
+
+.faq{max-width:720px;margin-top:26px;border-top:1px solid var(--hair)}
+.faq div{border-bottom:1px solid var(--hair);padding:20px 0}
+.faq h3{margin-bottom:6px}
+.faq p{margin:0;font-size:15px}
+
+.leadsites-todo,.leadsites-photo{outline:2px dashed var(--accent);outline-offset:3px;color:var(--accent);
+  background:rgba(255,86,0,.06);font-weight:500;font-size:14px}
+.leadsites-todo{display:inline-block;padding:2px 8px;border-radius:4px}
+.leadsites-photo{display:block;padding:54px 20px;text-align:center;border-radius:12px}
+
+footer.site{padding:56px 0 66px;color:var(--subtle);font-size:15px;background:var(--surface2)}
+footer.site .wrap{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+footer.site strong{color:var(--ink);display:block;margin-bottom:8px;font-weight:500;font-size:16px}
+footer.site a{color:var(--muted);text-decoration:none}
+footer.site a:hover{color:var(--ink)}
+.legal{border-top:1px solid var(--hair);margin-top:12px;padding-top:22px;font-size:13px;color:var(--tertiary)}
+@media (max-width:640px){.hero{padding:56px 0 48px}section.band{padding:50px 0}}
+</style>
+</head>
+<body>
+
+<header class="site"><div class="wrap">
+  <a class="brand" href="index.html">Sippers Coffeehouse</a>
+  <nav aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="visit.html" aria-current="page">Visit</a>
+  </nav>
+  <a class="btn" href="tel:+19049280048">Call the shop</a>
+</div></header>
+
+<main>
+  <section class="band" style="padding-top:72px"><div class="wrap">
+    <p class="eyebrow">Visit</p>
+    <h1 style="font-size:clamp(34px,5vw,56px);letter-spacing:-1.4px">Hours &amp; directions</h1>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <h2>Hours</h2>
+    <p class="prose">Weekdays from 6:30 in the morning, Saturdays from 7. Closed on Sundays.</p>
+    <dl class="hours">
+      <dt>Monday</dt><dd>6:30 AM &ndash; 7:00 PM</dd>
+      <dt>Tuesday</dt><dd>6:30 AM &ndash; 7:00 PM</dd>
+      <dt>Wednesday</dt><dd>6:30 AM &ndash; 7:00 PM</dd>
+      <dt>Thursday</dt><dd>6:30 AM &ndash; 7:00 PM</dd>
+      <dt>Friday</dt><dd>6:30 AM &ndash; 7:00 PM</dd>
+      <dt>Saturday</dt><dd>7:00 AM &ndash; 7:00 PM</dd>
+      <dt>Sunday</dt><dd class="closed">Closed</dd>
+    </dl>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <h2>Finding the shop</h2>
+    <p class="prose">7643 Gate Parkway North, Jacksonville FL 32256, on the Southside.</p>
+    <div class="actions" style="margin-top:22px">
+      <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Sippers+Coffeehouse+7643+Gate+Pkwy+N+Jacksonville+FL" target="_blank" rel="noreferrer noopener">Open in Google Maps</a>
+    </div>
+  </div></section>
+
+  <section class="band"><div class="wrap">
+    <h2>Before you come in</h2>
+    <div class="faq">
+      <div><h3>How early are you open?</h3><p>6:30 AM Monday to Friday, 7 AM Saturday.</p></div>
+      <div><h3>Are you open Sundays?</h3><p>No. Closed all day Sunday.</p></div>
+      <div><h3>Can I sit and work?</h3><p>There is real seating, and people do.</p></div>
+      <div><h3>What does it cost?</h3><p><span class="leadsites-todo">[[ADD: your current prices]]</span></p></div>
+      <div><h3>Do you have wifi?</h3><p><span class="leadsites-todo">[[ADD: yes or no, and the password policy]]</span></p></div>
+    </div>
+  </div></section>
+
+  <section class="band" style="border-bottom:0"><div class="wrap">
+    <h2>Call the shop</h2>
+    <p class="prose">Quickest way to ask what is on this month.</p>
+    <div class="actions" style="margin-top:24px"><a class="btn" href="tel:+19049280048">Call (904) 928-0048</a></div>
+  </div></section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div><strong>Sippers Coffeehouse</strong>7643 Gate Pkwy N<br>Jacksonville, FL 32256</div>
+    <div><strong>Get in touch</strong><a href="tel:+19049280048">(904) 928-0048</a><br>
+      <a href="https://www.google.com/maps/search/?api=1&query=Sippers+Coffeehouse+7643+Gate+Pkwy+N+Jacksonville+FL" target="_blank" rel="noreferrer noopener">Open in Google Maps</a></div>
+    <div><strong>Hours</strong>Mon&ndash;Fri 6:30 AM &ndash; 7:00 PM<br>Saturday 7:00 AM &ndash; 7:00 PM<br>Sunday closed</div>
+  </div>
+  <div class="wrap"><p class="legal">Rated 4.4 from 744 Google reviews. Hours as listed on Google; call ahead to confirm.</p></div>
+</footer>
+</body>
+</html>

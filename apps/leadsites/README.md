@@ -191,6 +191,14 @@ those terms do not clearly address. That is why it is off by default. Read the
 terms, or ask someone who reads them for a living, before turning it on. The
 palette is also the model's estimate by eye, not a measurement of the pixels.
 
+## Where to look
+
+- `examples/` — three real businesses taken through the pipeline, with their
+  plans, pages and the reasoning behind what each site refused to claim. Start
+  with `examples/README.md`.
+- `docs/pipeline-plan.md` — the design record for taking this from two stages to
+  an agency-grade six. Not built; a plan to argue with.
+
 ## Nothing is generated unless you ask for it
 
 Prospecting and generating are deliberately separate, and no code path crosses
