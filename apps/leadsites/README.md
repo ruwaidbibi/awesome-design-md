@@ -35,6 +35,16 @@ Requires Node 22.9+.
 
 ## Geography
 
+### Adding one business by name
+
+The fence below applies to prospecting sweeps. Looking up a business you already
+know - a referral, a shop someone mentioned - is the opposite situation, so
+`POST /api/lookup` with `{"query": "..."}` searches unfenced and adds the
+matches. Those rows carry no city, which keeps them out of the metro hit-rate
+statistics they would otherwise distort. It validates and scores them like any
+other lead; it does not generate anything.
+
+
 The POC covers the Jacksonville metro and nothing else. That is enforced twice:
 
 - the **city name goes into the text query**, because Google geocodes
@@ -180,6 +190,27 @@ comment where they are deliberately dropped.
 those terms do not clearly address. That is why it is off by default. Read the
 terms, or ask someone who reads them for a living, before turning it on. The
 palette is also the model's estimate by eye, not a measurement of the pixels.
+
+## Nothing is generated unless you ask for it
+
+Prospecting and generating are deliberately separate, and no code path crosses
+from one to the other. A search can return sixty businesses; it will never write
+a word for any of them.
+
+Exactly three entry points produce a site, and each takes one business:
+
+| Entry point | Scope |
+|---|---|
+| `generateSite` | one business, one design system, one explicit request |
+| `rebuildSite` | one existing version, re-rendered from its stored plan |
+| `importSite` | one business, from a plan and pages generated elsewhere |
+
+`runProspect` - the only thing that handles businesses in bulk - searches,
+validates, scores and returns. It does not import the generator.
+
+Keep it that way. Generating for a business you have not chosen costs money per
+site, and puts a page carrying a real company's name into the world without
+anyone deciding it should exist.
 
 ## Planning before building
 

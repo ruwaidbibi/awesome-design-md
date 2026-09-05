@@ -59,6 +59,51 @@ export async function enrichBusiness(id) {
  *
  * `onProgress` receives {phase, ...} events so the UI can stream the run.
  */
+/**
+ * Add one named business, wherever it is.
+ *
+ * The metro fence exists so a prospecting sweep cannot wander; it has no place
+ * here. Someone hands you a shop by name - a referral, a shop you walked past -
+ * and you already know who you want. So this searches unfenced, and records the
+ * business with no city, which is what keeps it out of the metro hit-rate
+ * statistics it would otherwise distort.
+ */
+export async function addByName({ query, limit = 3 }, onProgress = () => {}) {
+  const provider = getProvider();
+  const searchId = createSearch({ query, location: null, city: null, minReviews: 0, provider: provider.name });
+
+  onProgress({ phase: "searching", provider: provider.name, query, unfenced: true });
+
+  const { places, pages, requestCount } = await provider.searchPlaces({
+    query,
+    location: null,
+    maxPages: 1,
+    fenced: false,
+  });
+  onProgress({ phase: "searched", found: places.length, pages, billedRequests: requestCount });
+
+  const chosen = places.slice(0, limit);
+  const timestamp = now();
+  for (const place of chosen) {
+    upsertBusiness({ ...place, city: null, search_id: searchId, created_at: timestamp, updated_at: timestamp });
+  }
+
+  const enriched = [];
+  for (const place of chosen) {
+    try {
+      enriched.push(await enrichBusiness(place.id));
+      onProgress({ phase: "validated", done: enriched.length, total: chosen.length, name: place.name });
+    } catch (err) {
+      onProgress({ phase: "validated", done: enriched.length, total: chosen.length, name: place.name, error: err.message });
+    }
+  }
+
+  finishSearch(searchId, { pagesFetched: pages, rawCount: places.length, keptCount: enriched.length });
+  onProgress({ phase: "done", searchId, matches: enriched.length });
+
+  return { searchId, provider: provider.name, matches: enriched };
+}
+
 export async function runProspect(
   { query, city, minReviews = 200, includeLiveSites = false, concurrency = 6 },
   onProgress = () => {},

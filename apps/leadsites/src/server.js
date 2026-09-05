@@ -28,7 +28,7 @@ import {
   serveStatic,
 } from "./http.js";
 import { contentContext, DETAILS_TTL_DAYS, fetchDetails } from "./pipeline/content.js";
-import { enrichBusiness, runProspect } from "./pipeline/prospect.js";
+import { addByName, enrichBusiness, runProspect } from "./pipeline/prospect.js";
 import { listTargets, publishSite } from "./publish.js";
 
 const publicDir = path.join(config.appRoot, "public");
@@ -90,6 +90,14 @@ router.get("/api/prospect/stream", async (req, res, params, url) => {
   } finally {
     sse.close();
   }
+});
+
+router.post("/api/lookup", async (req, res) => {
+  const body = await readJsonBody(req);
+  const query = String(body.query ?? "").trim();
+  if (!query) throw new HttpError(400, "query is required");
+  const result = await addByName({ query, limit: Math.min(Number(body.limit ?? 3), 5) });
+  sendJson(res, 200, { ...result, matches: result.matches.map(hydrate) });
 });
 
 router.get("/api/businesses", (req, res, params, url) => {

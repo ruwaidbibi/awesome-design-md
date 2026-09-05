@@ -53,7 +53,7 @@ export function normalizePlace(place) {
  * Text Search (New), paginated. Google caps a text search at 20 results per
  * page and 3 pages, so 60 places is the hard ceiling for one query.
  */
-export async function searchPlaces({ query, location, maxPages = config.places.maxPages }) {
+export async function searchPlaces({ query, location, maxPages = config.places.maxPages, fenced = true }) {
   if (!config.places.apiKey) {
     throw new HttpError(400, "GOOGLE_MAPS_API_KEY is not set", {
       hint: "Set it in .env, or set PLACES_PROVIDER=fixtures to explore with sample data.",
@@ -71,10 +71,11 @@ export async function searchPlaces({ query, location, maxPages = config.places.m
       pageSize: 20,
       languageCode: "en",
       regionCode: "US",
-      // Hard fence: nothing outside the metro can come back, whatever the
-      // text query gets geocoded to.
-      locationRestriction: { rectangle: METRO.bounds },
     };
+    // Hard fence for prospecting sweeps: nothing outside the metro can come
+    // back, whatever the text query gets geocoded to. A lookup by name is the
+    // opposite situation - you already know who you want - so it opts out.
+    if (fenced) body.locationRestriction = { rectangle: METRO.bounds };
     if (pageToken) body.pageToken = pageToken;
 
     const res = await fetch(ENDPOINT, {
