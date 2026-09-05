@@ -1,5 +1,5 @@
 import { config } from "../config.js";
-import { classifyByHost, hostOf, looksParked, socialPlatform, isDirectory } from "./classify.js";
+import { alternateUrl, classifyByHost, hostOf, looksParked, socialPlatform, isDirectory } from "./classify.js";
 
 const UA = "Mozilla/5.0 (compatible; leadsites/0.1; +local lead research)";
 const TIMEOUT_MS = 10_000;
@@ -52,21 +52,47 @@ export async function validateWebsite(websiteUri) {
   if (byHost) return { ...base, ...byHost, final_url: websiteUri ?? null };
 
   let res;
+  let probedUrl = websiteUri;
+  let listedUrlBroken = false;
+
   try {
     res = await fetchWithTimeout(websiteUri);
   } catch (err) {
-    return { ...base, ...classifyNetworkError(err), final_url: websiteUri };
+    const failure = classifyNetworkError(err);
+
+    // A DNS failure on one host form proves nothing until the other form has
+    // failed too: a missing www record is not a dead business.
+    const alternate = failure.status === "dead" ? alternateUrl(websiteUri) : null;
+    if (!alternate) return { ...base, ...failure, final_url: websiteUri };
+
+    try {
+      res = await fetchWithTimeout(alternate);
+      probedUrl = alternate;
+      listedUrlBroken = true;
+    } catch {
+      return {
+        ...base,
+        ...failure,
+        reason: `${failure.reason} (neither ${hostOf(websiteUri)} nor ${hostOf(alternate)} resolves)`,
+        final_url: websiteUri,
+      };
+    }
   }
 
-  const finalUrl = res.url || websiteUri;
+  const finalUrl = res.url || probedUrl;
+  const brokenNote = listedUrlBroken
+    ? ` The URL Google lists (${websiteUri}) does not resolve, so anyone clicking through from Maps gets nothing.`
+    : "";
+
   const landed = classifyByHost(finalUrl);
   if (landed && landed.status !== "none") {
     return {
       ...base,
       ...landed,
-      reason: `${landed.reason} after redirect from ${hostOf(websiteUri)}`,
+      reason: `${landed.reason} after redirect from ${hostOf(websiteUri)}.${brokenNote}`,
       http_status: res.status,
       final_url: finalUrl,
+      listed_url_broken: listedUrlBroken,
     };
   }
 
@@ -77,11 +103,12 @@ export async function validateWebsite(websiteUri) {
     return {
       ...base,
       status: blocked || res.status >= 500 ? "unreachable" : "dead",
-      reason: blocked
-        ? `Site refused our request (HTTP ${res.status}) - it likely exists behind a bot filter, check manually`
-        : `Server returned HTTP ${res.status}`,
+      reason: (blocked
+        ? `Site refused our request (HTTP ${res.status}) - it likely exists behind a bot filter, check manually.`
+        : `Server returned HTTP ${res.status}.`) + brokenNote,
       http_status: res.status,
       final_url: finalUrl,
+      listed_url_broken: listedUrlBroken,
     };
   }
 
@@ -97,18 +124,20 @@ export async function validateWebsite(websiteUri) {
     return {
       ...base,
       status: "parked",
-      reason: `Domain resolves but the page is a placeholder - ${parked.evidence}`,
+      reason: `Domain resolves but the page is a placeholder - ${parked.evidence}.${brokenNote}`,
       http_status: res.status,
       final_url: finalUrl,
+      listed_url_broken: listedUrlBroken,
     };
   }
 
   return {
     ...base,
     status: "live",
-    reason: `Real website found at ${hostOf(finalUrl)} (HTTP ${res.status})`,
+    reason: `Real website found at ${hostOf(finalUrl)} (HTTP ${res.status}).${brokenNote}`,
     http_status: res.status,
     final_url: finalUrl,
+    listed_url_broken: listedUrlBroken,
   };
 }
 

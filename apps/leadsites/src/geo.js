@@ -58,9 +58,14 @@ export function withinMetro(lat, lng) {
  */
 export const CATEGORIES = [
   "barber shops",
+  "restaurants",
+  "cafes",
+  "coffee shops",
+  "diners",
+  "pizza restaurants",
+  "auto repair shops",
   "hair salons",
   "nail salons",
-  "auto repair shops",
   "tire shops",
   "plumbers",
   "electricians",

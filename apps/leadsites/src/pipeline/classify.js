@@ -45,6 +45,24 @@ const PARKED_MARKERS = [
   "index of /", "apache2 ubuntu default page", "welcome to nginx",
 ];
 
+/**
+ * The other spelling of a host: www.x.com <-> x.com.
+ *
+ * A missing www CNAME is common and is not the same thing as a dead domain, so
+ * a DNS failure on one form is only conclusive once the other has failed too.
+ */
+export function alternateUrl(url) {
+  try {
+    const u = new URL(url);
+    u.hostname = u.hostname.toLowerCase().startsWith("www.")
+      ? u.hostname.slice(4)
+      : `www.${u.hostname}`;
+    return u.toString();
+  } catch {
+    return null;
+  }
+}
+
 export function hostOf(url) {
   try {
     return new URL(url).hostname.toLowerCase().replace(/^www\./, "");

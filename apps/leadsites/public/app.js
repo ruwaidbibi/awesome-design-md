@@ -252,6 +252,10 @@ function renderDetail() {
           : el("em", {}, "empty")),
       el("dt", {}, "Verdict"), el("dd", {}, badge(business.website_status)),
     ),
+    business.listed_url_broken
+      ? el("p", { className: "notice" },
+          "The website Google lists for this business does not load. Anyone clicking through from Maps gets nothing - which is worth telling them even if you sell them nothing else.")
+      : null,
     el("p", { className: "evidence" },
       business.website_reason ?? "Not validated yet.",
       business.website_http_status ? ` (HTTP ${business.website_http_status})` : "",

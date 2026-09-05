@@ -43,6 +43,7 @@ export async function enrichBusiness(id) {
     website_http_status: website.http_status,
     website_final_url: website.final_url,
     website_checked_at: website.checked_at,
+    listed_url_broken: website.listed_url_broken ? 1 : 0,
     socials_json: JSON.stringify({ socials, notes }),
     socials_checked_at: now(),
     score,

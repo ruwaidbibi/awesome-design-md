@@ -3,7 +3,7 @@
  * Run with: npm run check
  */
 import assert from "node:assert/strict";
-import { classifyByHost, looksParked, scoreBusiness, socialPlatform } from "./pipeline/classify.js";
+import { alternateUrl, classifyByHost, looksParked, scoreBusiness, socialPlatform } from "./pipeline/classify.js";
 import { extractHtml, extractMain, extractShell } from "./generate/renderer.js";
 import { validatePlan, weakSections } from "./generate/schema.js";
 import { listDesigns, readDesign } from "./generate/designs.js";
@@ -39,6 +39,12 @@ check("an ordering funnel is not a website", () =>
   assert.equal(classifyByHost("https://order.online/x").status, "directory_only"));
 check("an unknown host has to be fetched before judging", () =>
   assert.equal(classifyByHost("https://verastortilleria.com"), null));
+
+check("a www host has its apex tried as the alternate", () =>
+  assert.equal(alternateUrl("https://www.example.com/x"), "https://example.com/x"));
+check("an apex host has its www tried as the alternate", () =>
+  assert.equal(alternateUrl("https://example.com/"), "https://www.example.com/"));
+check("a malformed URL has no alternate", () => assert.equal(alternateUrl("not a url"), null));
 
 console.log("\nparked-page detection");
 check("a for-sale title is parked", () =>

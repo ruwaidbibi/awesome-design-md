@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS businesses (
   website_http_status INTEGER,
   website_final_url   TEXT,
   website_checked_at  TEXT,
+  listed_url_broken   INTEGER NOT NULL DEFAULT 0,
   socials_json        TEXT,
   socials_checked_at  TEXT,
   city                TEXT,
@@ -110,6 +111,7 @@ addMissingColumns("businesses", {
   price_level: "TEXT",
   details_fetched_at: "TEXT",
   vision_json: "TEXT",
+  listed_url_broken: "INTEGER NOT NULL DEFAULT 0",
 });
 addMissingColumns("searches", { city: "TEXT" });
 addMissingColumns("sites", {
