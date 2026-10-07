@@ -27,7 +27,17 @@ Give .leadsites-todo and .leadsites-photo a dashed outline so unfinished spots a
 
 ## Design fidelity
 
-Use the DESIGN.md as a real design system: its colour tokens, type scale, spacing, radii, and component patterns, adapted to this business's category and tone. Borrow the visual language only. Never copy the source brand's name, logo, wordmark, product names, or marketing copy onto the site, and never imply any affiliation with it.`;
+Use the DESIGN.md as a real design system: its colour tokens, type scale, spacing, radii, and component patterns, adapted to this business's category and tone. Declare its tokens as CSS custom properties on :root and build from them rather than hard-coding values throughout. Borrow the visual language only. Never copy the source brand's name, logo, wordmark, product names, or marketing copy onto the site, and never imply any affiliation with it.
+
+## Art direction, when the brief supplies it
+
+The brief's artDirection is a decision, not a suggestion, and it overrides your own instinct.
+
+- \`paletteOverride\` replaces that role's token in the system. Use the exact hex. Each one was chosen for a stated reason - usually a colour actually observed at the premises, or because the system's own colour is what every local rival already uses.
+- \`layoutArchetype\` is the structure of the home page. Build that structure.
+- \`imageStrategy\` decides what fills the frame, and there are no real photographs of this business available to you. "type-and-colour-only" means the typography and palette carry the page. "css-texture" means gradients, patterns and shapes built in CSS. "marked-photo-slots" means visible, labelled slots the owner fills later. "abstract-generated" means inline SVG that is abstract or textural - never a depiction of these premises, because a customer can walk in and disprove it.
+- \`wordmark\` is how the business's name is set, using the chosen type system. Never draw a logo mark or monogram unless the wordmark treatment asks for one.
+- The primary action from the plan belongs above the fold on every page, and it is the single most prominent interactive element.`;
 
 const fileFor = (slug) => (slug === "index" ? "index.html" : `${slug}.html`);
 
@@ -107,7 +117,10 @@ export function extractMain(raw) {
  * be reliable. If the home page comes back in a shape we cannot take apart, the
  * remaining pages fall back to complete documents.
  */
-export async function renderSite({ business, design, plan, feedback = null, previousHome = null }, onEvent = () => {}) {
+export async function renderSite(
+  { business, design, plan, brief = null, feedback = null, previousHome = null },
+  onEvent = () => {},
+) {
   const evidence = buildEvidence(business);
   const usage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
   const accumulate = (u) => {
@@ -123,6 +136,13 @@ export async function renderSite({ business, design, plan, feedback = null, prev
   };
 
   const planContext =
+    (brief
+      ? `# Art direction and strategy from the brief (already decided - follow it)\n\n\`\`\`json\n${JSON.stringify(
+          { conversionGoal: brief.conversionGoal, positioning: brief.positioning, voice: brief.voice, artDirection: brief.artDirection },
+          null,
+          2,
+        )}\n\`\`\`\n\n`
+      : "") +
     `# The content plan (already decided - follow it)\n\n\`\`\`json\n${JSON.stringify(plan, null, 2)}\n\`\`\`` +
     `\n\n# Site navigation (use these exact hrefs)\n\n${navSpec(plan)}`;
 

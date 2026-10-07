@@ -14,9 +14,12 @@ import {
 import { CATEGORIES, CITIES, METRO } from "./geo.js";
 import { listDesigns } from "./generate/designs.js";
 import { generateSite, rebuildSite } from "./generate/generator.js";
-import { buildBrief } from "./generate/brief.js";
+import { runResearch } from "./generate/creative-brief.js";
+import { buildHandoff } from "./generate/handoff.js";
 import { importSite } from "./generate/importer.js";
-import { validatePlan, weakSections } from "./generate/schema.js";
+import { QA_GATE_IDS, runQa } from "./generate/qa.js";
+import { buildSeo } from "./generate/seo.js";
+import { planHonoursBrief, validatePlan, weakSections } from "./generate/schema.js";
 import { analyzePhotos } from "./generate/vision.js";
 import {
   createRouter,
@@ -62,6 +65,8 @@ router.get("/api/meta", (req, res) => {
     categories: CATEGORIES,
     detailsTtlDays: DETAILS_TTL_DAYS,
     designs: listDesigns(),
+    qaGates: QA_GATE_IDS,
+    publishBaseUrl: config.publish.baseUrl || null,
     publishTargets: listTargets(),
     searches: listSearches(),
   });
@@ -110,12 +115,21 @@ router.get("/api/businesses", (req, res, params, url) => {
   sendJson(res, 200, { businesses: rows.map(hydrate) });
 });
 
-const hydrateSite = (site) => ({
-  ...site,
-  pages: JSON.parse(site.pages_json ?? "[]"),
-  plan: JSON.parse(site.plan_json ?? "null"),
-  weak: site.plan_json ? weakSections(JSON.parse(site.plan_json)) : [],
-});
+const hydrateSite = (site) => {
+  const plan = JSON.parse(site.plan_json ?? "null");
+  const brief = JSON.parse(site.brief_json ?? "null");
+  return {
+    ...site,
+    pages: JSON.parse(site.pages_json ?? "[]"),
+    plan,
+    brief,
+    research: JSON.parse(site.research_json ?? "null"),
+    seo: JSON.parse(site.seo_json ?? "null"),
+    qa: JSON.parse(site.qa_json ?? "null"),
+    weak: plan ? weakSections(plan) : [],
+    drift: plan && brief ? planHonoursBrief(plan, brief) : [],
+  };
+};
 
 router.get("/api/businesses/:id", (req, res, { id }) => {
   const business = getBusiness(id);
@@ -144,34 +158,55 @@ router.post("/api/businesses/:id/details", async (req, res, { id }) => {
   sendJson(res, 200, { business: hydrate(business), billedRequests, cached });
 });
 
-router.get("/api/businesses/:id/brief", (req, res, { id }, url) => {
+/** Stage 1 on its own. Deterministic, so it is safe to call without a key. */
+router.get("/api/businesses/:id/research", async (req, res, { id }, url) => {
   const business = getBusiness(id);
   if (!business) throw new HttpError(404, "No such business");
-  const designKey = url.searchParams.get("design");
-  if (!designKey) throw new HttpError(400, "design is required");
-  const brief = buildBrief({
+  const research = await runResearch(business, {
+    fetchRivals: url.searchParams.get("rivals") === "false" ? 0 : 3,
+  });
+  sendJson(res, 200, { research });
+});
+
+/**
+ * The handoff document: everything the generator would send to the model.
+ *
+ * `design` is optional now - without it the document carries the catalogue and
+ * the brief stage chooses, which is what the app itself does.
+ */
+router.get("/api/businesses/:id/handoff", async (req, res, { id }, url) => {
+  const business = getBusiness(id);
+  if (!business) throw new HttpError(404, "No such business");
+  const designKey = url.searchParams.get("design") || null;
+  const research = url.searchParams.get("research") === "false"
+    ? null
+    : await runResearch(business, { fetchRivals: url.searchParams.get("rivals") === "false" ? 0 : 3 });
+
+  const doc = buildHandoff({
     business,
+    research,
     designKey,
     includeDesign: url.searchParams.get("design_md") !== "false",
   });
   res.writeHead(200, {
     "content-type": "text/markdown; charset=utf-8",
-    "content-disposition": `attachment; filename="brief-${id}-${designKey}.md"`,
+    "content-disposition": `attachment; filename="handoff-${id}${designKey ? `-${designKey}` : ""}.md"`,
     "cache-control": "no-store",
   });
-  res.end(brief);
+  res.end(doc);
 });
 
 router.post("/api/sites/import", async (req, res) => {
   const body = await readJsonBody(req, 8_000_000);
-  const site = importSite({
+  const { site, qa, drift } = importSite({
     businessId: body.businessId,
-    designKey: body.designKey,
+    designKey: body.designKey ?? null,
+    brief: body.brief ?? null,
     plan: body.plan,
     pages: body.pages ?? [],
     model: body.model ?? "external",
   });
-  sendJson(res, 200, { site: hydrateSite(site) });
+  sendJson(res, 200, { site: hydrateSite(site), qa, drift });
 });
 
 router.post("/api/businesses/:id/photos", async (req, res, { id }) => {
@@ -220,8 +255,9 @@ router.get("/api/businesses/:id/generate/stream", async (req, res, { id }, url) 
   const business = getBusiness(id);
   if (!business) throw new HttpError(404, "No such business");
 
-  const designKey = url.searchParams.get("design");
-  if (!designKey) throw new HttpError(400, "design is required");
+  // No design parameter means the brief chooses one and justifies it, which is
+  // the default. Passing one is an explicit operator override.
+  const designKey = url.searchParams.get("design") || null;
 
   const feedback = url.searchParams.get("feedback") || null;
   const previousSiteId = url.searchParams.has("previousSiteId")
@@ -230,7 +266,16 @@ router.get("/api/businesses/:id/generate/stream", async (req, res, { id }, url) 
 
   const sse = openSse(res);
   try {
-    await generateSite({ business, designKey, feedback, previousSiteId }, (event) => streamEvent(sse, event));
+    await generateSite(
+      {
+        business,
+        designKey,
+        feedback,
+        previousSiteId,
+        fetchRivals: url.searchParams.get("rivals") === "false" ? 0 : 3,
+      },
+      (event) => streamEvent(sse, event),
+    );
   } catch (err) {
     sse.send("error", { message: err.message, detail: err.detail ?? null });
   } finally {
@@ -252,6 +297,33 @@ router.patch("/api/sites/:id/plan", async (req, res, { id }) => {
   if (problems.length > 0) throw new HttpError(400, `Plan is not usable: ${problems.join("; ")}`);
   updateSite(site.id, { plan_json: JSON.stringify(body.plan) });
   sendJson(res, 200, { site: hydrateSite(getSite(site.id)) });
+});
+
+/**
+ * Re-run the gates against what is on disk now.
+ *
+ * Deterministic and free, so the UI can offer it after any plan edit without
+ * spending a model call, and a gate change can be checked against an existing
+ * version rather than only against the next build.
+ */
+router.post("/api/sites/:id/qa", (req, res, { id }) => {
+  const site = getSite(Number(id));
+  if (!site) throw new HttpError(404, "No such site");
+  const business = getBusiness(site.business_id);
+  const plan = JSON.parse(site.plan_json ?? "null");
+  if (!plan) throw new HttpError(409, "That version has no plan to check against");
+  if (!site.dir_path || !fs.existsSync(site.dir_path)) throw new HttpError(409, "That version has no files on disk");
+
+  const brief = JSON.parse(site.brief_json ?? "null");
+  const pages = JSON.parse(site.pages_json ?? "[]")
+    .map((p) => ({ ...p, full: path.join(site.dir_path, p.file) }))
+    .filter((p) => fs.existsSync(p.full))
+    .map((p) => ({ ...p, html: fs.readFileSync(p.full, "utf8") }));
+
+  const seo = JSON.parse(site.seo_json ?? "null") ?? buildSeo({ business, plan, brief });
+  const qa = runQa({ business, plan, brief, seo, pages });
+  updateSite(site.id, { qa_json: JSON.stringify(qa) });
+  sendJson(res, 200, { qa, site: hydrateSite(getSite(site.id)) });
 });
 
 router.get("/api/sites/:id/rebuild/stream", async (req, res, { id }) => {
@@ -312,7 +384,13 @@ router.post("/api/sites/:id/publish", async (req, res, { id }) => {
   if (!site) throw new HttpError(404, "No such site");
   const business = getBusiness(site.business_id);
   const body = await readJsonBody(req);
-  const result = await publishSite({ business, site, target: body.target ?? "local" });
+  const result = await publishSite({
+    business,
+    site,
+    target: body.target ?? "local",
+    // Overriding a hard QA gate is a decision, so it has to be asked for.
+    force: body.force === true,
+  });
   updateBusiness(business.id, { status: "shortlisted" });
   sendJson(res, 200, { ...result, site: getSite(site.id) });
 });

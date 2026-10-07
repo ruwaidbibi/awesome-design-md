@@ -59,6 +59,13 @@ export const config = {
     photoVisionMax: Math.min(Math.max(int(process.env.PHOTO_VISION_MAX, 4), 1), 8),
   },
 
+  publish: {
+    // The public origin this app is reachable at. Only set it if it is true:
+    // a canonical tag pointing at a URL that does not serve the page is worse
+    // than no canonical tag, so an unset value means those tags are omitted.
+    baseUrl: process.env.PUBLIC_BASE_URL || "",
+  },
+
   social: {
     braveKey: process.env.BRAVE_SEARCH_KEY || "",
     serpApiKey: process.env.SERPAPI_KEY || "",

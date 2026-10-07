@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { config } from "./config.js";
 import { now, updateSite } from "./db.js";
+import { applySeoToPages, buildSeo, robotsTxt, sitemapXml } from "./generate/seo.js";
 import { HttpError } from "./http.js";
 
 export const slugify = (name) =>
@@ -72,7 +73,18 @@ export const listTargets = () =>
     describe: t.describe(),
   }));
 
-export async function publishSite({ business, site, target = "local" }) {
+/**
+ * Publish, gated on QA.
+ *
+ * The hard gates in `src/generate/qa.js` exist to stop a page that reuses a
+ * customer's words, names a reviewer, or states a credential nobody gave us
+ * from reaching a real business's customers. Blocking here rather than warning
+ * is the point: a warning in a log is not a gate.
+ *
+ * `force` exists because the operator may know something the gates do not, but
+ * it is an explicit decision, and what was overridden is recorded.
+ */
+export async function publishSite({ business, site, target = "local", force = false }) {
   const impl = targets[target];
   if (!impl) throw new HttpError(400, `Unknown publish target: ${target}`);
   if (!impl.available()) throw new HttpError(400, `Publish target "${target}" is not configured`);
@@ -80,16 +92,61 @@ export async function publishSite({ business, site, target = "local" }) {
     throw new HttpError(409, "That version has no generated files to publish");
   }
 
+  const qa = JSON.parse(site.qa_json ?? "null");
+  if (qa && !qa.publishable && !force) {
+    throw new HttpError(409, `QA blocked this version: ${qa.hardFails.map((f) => f.label).join("; ")}`, {
+      hardFails: qa.hardFails,
+      hint: "Fix the plan and re-render, or publish with force to override deliberately.",
+    });
+  }
+
   const summary = JSON.parse(site.pages_json ?? "[]");
-  const pages = summary
+  let pages = summary
     .map((page) => ({ ...page, path: path.join(site.dir_path, page.file) }))
     .filter((page) => fs.existsSync(page.path))
     .map((page) => ({ ...page, html: fs.readFileSync(page.path, "utf8") }));
 
   if (pages.length === 0) throw new HttpError(409, "None of that version's pages are on disk");
 
-  const { url, detail } = await impl.publish({ business, site, pages });
+  // Canonical, Open Graph and the sitemap all need the real URL, which only
+  // exists now. The SEO block is written to be replaced, so re-applying it
+  // here is safe and leaves nothing duplicated.
+  const plan = JSON.parse(site.plan_json ?? "null");
+  const brief = JSON.parse(site.brief_json ?? "null");
+  const siteUrl = absoluteUrlFor(business, target);
+  let extras = [];
+  if (siteUrl && plan) {
+    const seo = buildSeo({ business, plan, brief, siteUrl });
+    pages = applySeoToPages(pages, { business, seo });
+    extras = [
+      { file: "sitemap.xml", html: sitemapXml(siteUrl, seo.pages) },
+      { file: "robots.txt", html: robotsTxt(siteUrl) },
+    ];
+  }
+
+  const { url, detail } = await impl.publish({ business, site, pages: [...pages, ...extras] });
 
   updateSite(site.id, { status: "published", published_at: now(), published_url: url });
-  return { url, target, detail };
+  return {
+    url,
+    target,
+    detail,
+    forced: Boolean(qa && !qa.publishable && force),
+    sitemap: extras.length > 0,
+    note: siteUrl ? null : "PUBLIC_BASE_URL is not set, so canonical URLs, Open Graph URLs and the sitemap were omitted.",
+  };
+}
+
+/**
+ * The absolute URL the site will actually be served from.
+ *
+ * The local target writes into a folder served by this app, so the absolute
+ * form only exists if the operator has told us the public origin. Guessing one
+ * would put a wrong canonical tag on a real site, which is worse than none.
+ */
+function absoluteUrlFor(business, target) {
+  if (!config.publish.baseUrl) return null;
+  if (target !== "local") return null;
+  const slug = `${slugify(business.name)}-${business.id.slice(-6)}`;
+  return `${config.publish.baseUrl.replace(/\/+$/, "")}/published/${slug}`;
 }

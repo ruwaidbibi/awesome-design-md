@@ -73,7 +73,11 @@ CREATE TABLE IF NOT EXISTS sites (
   design_key    TEXT NOT NULL,
   model         TEXT NOT NULL,
   feedback      TEXT,
+  research_json TEXT,
+  brief_json    TEXT,
   plan_json     TEXT,
+  seo_json      TEXT,
+  qa_json       TEXT,
   dir_path      TEXT,
   html_path     TEXT,
   pages_json    TEXT,
@@ -119,6 +123,10 @@ addMissingColumns("sites", {
   dir_path: "TEXT",
   pages_json: "TEXT",
   cache_read_tokens: "INTEGER",
+  research_json: "TEXT",
+  brief_json: "TEXT",
+  seo_json: "TEXT",
+  qa_json: "TEXT",
 });
 
 /** INSERT ... ON CONFLICT UPDATE that never clobbers enrichment we already did. */

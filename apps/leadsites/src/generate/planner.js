@@ -2,17 +2,27 @@ import { config } from "../config.js";
 import { HttpError } from "../http.js";
 import { genConfig, send, textOf, usageOf } from "./client.js";
 import { buildEvidence, evidenceText, TRUTH_RULES } from "./evidence.js";
-import { CONTENT_PLAN_SCHEMA, validatePlan } from "./schema.js";
+import { CONTENT_PLAN_SCHEMA, planHonoursBrief, validatePlan } from "./schema.js";
 
 export const PLANNER_SYSTEM = `You plan small marketing websites for local businesses, from evidence.
 
-You are given what is actually known about one real business: verified facts from Google, what its customers say in reviews, sometimes what its photos show, and sometimes notes from the person running this tool. You return a content plan: which pages the site should have, what each section says, and - for every section - which piece of evidence entitles you to say it.
+You are given what is actually known about one real business: verified facts from Google, what its customers say in reviews, sometimes what its photos show, and sometimes notes from the person running this tool. Usually you are also given a creative brief that has already decided the strategy. You return a content plan: which pages the site should have, what each section says, and - for every section - which piece of evidence entitles you to say it.
 
 ${TRUTH_RULES}
 
+## The brief, when you have one
+
+The brief is a decision already made. It is not a suggestion.
+
+- Plan exactly the pages its navigation lists, with those slugs. If the evidence genuinely cannot fill one, drop it and say so in ownerTodos rather than padding it.
+- \`tagline\` and \`voice\` come from the brief. Do not invent your own.
+- \`primaryAction\` must be the brief's conversionGoal. A goal of "call" means a tel: link.
+- The positioning claim is what the site leads with. The parity list is the opposite: those things are true but every rival says them, so they never get a heading, a hero, or a section of their own.
+- Nothing in mustNotSay may appear anywhere in your plan, including in a paraphrase.
+
 ## Choosing pages
 
-Let the evidence decide, not a template. A business with five reviews naming distinct services earns a services page; one with no review text does not. Rules:
+Where there is no brief, let the evidence decide, not a template. A business with five reviews naming distinct services earns a services page; one with no review text does not. Rules:
 
 - There is always an "index" page.
 - Add a page only when you have enough evidence to fill it. Two strong pages beat five thin ones.
@@ -45,8 +55,18 @@ In claimsAvoided, list what a careless generator would have written here and you
  * small enough for a human to read, every section says what it rests on, and
  * anything unearned can be removed before a line of HTML exists.
  */
-export async function planSite({ business, design }, onEvent = () => {}) {
+export async function planSite({ business, design, brief = null }, onEvent = () => {}) {
   const evidence = buildEvidence(business);
+
+  const briefBlock = brief
+    ? {
+        type: "text",
+        text:
+          "# The creative brief (already decided - follow it)\n\n```json\n" +
+          JSON.stringify(brief, null, 2) +
+          "\n```",
+      }
+    : null;
 
   const message = await send(
     {
@@ -69,11 +89,11 @@ export async function planSite({ business, design }, onEvent = () => {}) {
               text: "# The design system this site will be built in\n\n" + design.markdown,
               cache_control: { type: "ephemeral" },
             },
+            { type: "text", text: evidenceText(evidence) },
+            ...(briefBlock ? [briefBlock] : []),
             {
               type: "text",
-              text:
-                evidenceText(evidence) +
-                `\n\n---\n\nPlan the website for ${business.name}. Return the content plan.`,
+              text: `Plan the website for ${business.name}. Return the content plan.`,
             },
           ],
         },
@@ -97,5 +117,11 @@ export async function planSite({ business, design }, onEvent = () => {}) {
   // index first, then plan order: nav and rendering both depend on it.
   plan.pages.sort((a, b) => (a.slug === "index" ? -1 : b.slug === "index" ? 1 : 0));
 
-  return { plan, usage: usageOf(message), model: config.gen.model };
+  // Where the plan departed from the brief. Not fatal - dropping a page the
+  // evidence cannot fill is correct behaviour - but it has to be visible, or
+  // the brief is decoration.
+  const drift = brief ? planHonoursBrief(plan, brief) : [];
+  if (drift.length > 0) onEvent({ type: "drift", problems: drift });
+
+  return { plan, drift, usage: usageOf(message), model: config.gen.model };
 }
