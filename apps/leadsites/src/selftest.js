@@ -571,9 +571,14 @@ check("a clean site passes every hard gate", () => {
   assert.deepEqual(qa.hardFails.map((f) => f.id), [], JSON.stringify(qa.hardFails, null, 2));
   assert.equal(qa.publishable, true);
 });
-check("a clean site reports an advisory score", () => {
+// A deliberately correct fixture has to score 100, not "mostly fine". Two
+// false positives hid behind a weaker version of this assertion: `[^>]+\slang=`
+// could not match `<html lang="en">`, and the map-link check missed a cid-style
+// maps.google.com URL. A gate that fires on correct input is worse than no gate.
+check("a clean site passes every advisory gate too", () => {
   const qa = qaOf(cleanPages);
-  assert.ok(qa.score != null && qa.score >= 0 && qa.score <= 100);
+  assert.deepEqual(qa.warnings.map((w) => `${w.id}: ${w.detail}`), []);
+  assert.equal(qa.score, 100);
 });
 check("review wording on a page is a hard fail", () => {
   const dirty = [cleanPage("index", "<main><h1>K Cuts</h1><p>I have been coming here for years and the lineup is always sharp.</p></main>"), cleanPages[1]];
@@ -590,6 +595,19 @@ check("a credential nobody gave us is a hard fail", () => {
   const g = gate(qaOf(dirty), "unsupported-claims");
   assert.equal(g.pass, false);
   assert.ok(g.items.some((i) => i.id === "credentials"), JSON.stringify(g.items));
+});
+// A phrase in mustNotSay must still be caught by the claim gate on its own.
+// Listing the banned phrases in the evidence haystack would have exempted every
+// one of them from it, leaving the two gates quietly entangled.
+check("an award claim fires the claim gate as well as mustNotSay", () => {
+  const dirty = [cleanPage("index", "<main><h1>K Cuts</h1><p>Our award-winning barbers.</p></main>"), cleanPages[1]];
+  const qa = qaOf(dirty);
+  assert.ok(gate(qa, "unsupported-claims").items.some((i) => i.id === "awards"), JSON.stringify(gate(qa, "unsupported-claims").items));
+  assert.equal(gate(qa, "mustnotsay").pass, false);
+});
+check("the brief's own positioning claim is allowed on the page", () => {
+  const page = [cleanPage("index", `<main><h1>K Cuts</h1><p>${briefFixture.positioning.proof}</p></main>`), cleanPages[1]];
+  assert.equal(gate(qaOf(page), "unsupported-claims").pass, true);
 });
 check("a founding year nobody gave us is a hard fail", () => {
   const dirty = [cleanPage("index", "<main><h1>K Cuts</h1><p>Cutting hair since 1974.</p></main>"), cleanPages[1]];

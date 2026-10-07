@@ -97,6 +97,8 @@ section.card > h2 {
 
 .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
 .field label { font-size: 12px; color: var(--muted); }
+.field label.inline { display: flex; flex-direction: row; align-items: center; gap: 7px; color: var(--ink); font-size: 13px; cursor: pointer; }
+.field select:disabled { opacity: .5; cursor: not-allowed; }
 .row { display: flex; gap: 10px; flex-wrap: wrap; }
 .row > .field { flex: 1 1 140px; }
 

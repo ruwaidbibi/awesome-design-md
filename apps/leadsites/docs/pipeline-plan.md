@@ -1,24 +1,37 @@
 # Raising the site builder to agency quality
 
-## Scope of this approval — documentation only
+## Status — built
 
-**None of the pipeline below gets built.** This document is a design record to
-review later. Approving it authorises exactly three things:
+This started as a design record that was explicitly **not** to be acted on.
+That changed: it has now been implemented, and this document is kept as the
+reasoning behind the code rather than a proposal.
 
-1. Commit this document into the repo at `apps/leadsites/docs/pipeline-plan.md`
-   so it is versioned alongside the code it describes.
-2. Commit the three generated example sites (K Cuts, Sippers, Blessed Hands) to
-   `apps/leadsites/examples/` — plan JSON and pages. They currently live only in
-   gitignored `data/`, so they are invisible locally, and they are the regression
-   baseline the QA stage would be tested against.
-3. Push, so everything is visible on a local clone.
+What is built, and where:
+
+| Stage | Files | Model calls |
+|---|---|---|
+| 1a competitive set | `src/research/competitors.js` | 0 |
+| 1b brand understanding | `src/research/brand.js` | 0 |
+| 1c local SEO | `src/research/localseo.js` | 0 |
+| 2 creative brief | `src/generate/creative-brief.js` | 1 |
+| 3 content plan | `src/generate/planner.js` (rewired to consume the brief) | 1 |
+| 4 render | `src/generate/renderer.js` (honours art direction) | 1 per page |
+| 5 SEO application | `src/generate/seo.js` | 0 |
+| 6 QA | `src/generate/qa.js` | 0 |
+
+Two things in the plan below were **not** built, both deliberately:
+
+- **The scored model pass in stage 6.** The twelve deterministic gates turned
+  out to carry the weight, and a model score that never blocks anything is a
+  number nobody acts on. `npm run qa` prints the deterministic table across
+  every stored site, which is what the "judge a prompt change against the
+  corpus" argument actually needed.
+- **`src/generate/rubric.js`**, for the same reason.
 
 **Deliberately not committed:** the interactive demo page. It embeds full Google
 review text, and committing that to a repository is exactly the caching Google's
 terms forbid. The example sites are safe because they contain our own original
 copy — no review text reaches them by design.
-
-No source file under `src/` or `public/` is touched.
 
 ## Context
 
@@ -171,36 +184,71 @@ their name well set in the chosen type system. A wordmark derived from the type
 register is what a good agency ships here. Cheap, better, and it cannot look
 uncanny.
 
+## What the gates actually check
+
+Twelve of them, six blocking and six advisory. The split is the whole design:
+blocking means the site is wrong or dangerous, advisory means it is worse than
+it should be. Mixing the two produces a score that nobody can act on.
+
+Blocking: review wording (n-gram overlap against the source reviews, threshold
+five words), reviewer names, claims present in neither the plan nor the
+evidence, a phone number that is not theirs, external resources, anything from
+the brief's `mustNotSay`.
+
+Advisory: the conversion action on every page and above the fold, planned
+placeholders surviving as placeholders, accessibility (landmarks, heading
+order, labelled controls, focus), the technical head budget, JSON-LD presence
+and validity, and whether the design system's tokens were actually used rather
+than approximated.
+
+`npm run qa` re-runs all of it across every stored site and prints the table.
+It is deterministic, so it costs nothing and runs in CI.
+
+## Three bugs this found in its own first draft
+
+Worth recording, because each one is a category of mistake rather than a typo.
+
+1. The claim detector ran on word-level text, which strips every character that
+   is not a letter or a digit. A price is `$25` and an email address is
+   punctuation held together by letters, so the two most obviously dangerous
+   patterns could never match anything. A gate that cannot fail looks exactly
+   like a gate that passes.
+2. "Family-owned" on the page did not match "family owned" in the plan, so a
+   claim the plan had properly made *with evidence attached* was reported as
+   invented. A provenance check defeated by a hyphen is not a provenance check.
+3. The hue buckets put `#c9a227` and `#b8860b` on opposite sides of a boundary.
+   Two shades of gold are precisely the case "do the rivals look alike" exists
+   to catch.
+
 ## Files
 
-- New: `src/research/competitors.js`, `src/research/localseo.js`,
-  `src/generate/creative-brief.js`, `src/generate/seo.js`,
-  `src/generate/qa.js`, `src/generate/rubric.js`, `src/cli/eval.js`
-- Modified: `src/generate/schema.js` (brief schema; plan validation gains a
-  conversion-goal trace check), `planner.js` (consume the brief),
-  `renderer.js` (`paletteOverride`, inject SEO block), `generator.js`
-  (orchestrate research → brief → plan → render → SEO → QA), `brief.js`
-  (manual export gains the new stages so it cannot drift)
-- Modified: `src/db.js` (`brief_json`, `research_json`, `qa_json` on `sites` via
-  the existing `addMissingColumns` helper), `src/server.js` (expose all three;
-  publish blocked on hard fails)
-- Modified: `public/app.js`, `public/index.html` (research and brief panels above
-  the plan, design rationale visible, QA report beside the preview, design
-  dropdown demoted to an override)
-- Modified: `src/selftest.js`, `README.md`
+- New: `src/research/competitors.js`, `src/research/brand.js`,
+  `src/research/localseo.js`, `src/generate/creative-brief.js`,
+  `src/generate/seo.js`, `src/generate/qa.js`, `src/cli/qa.js`
+- Renamed: `src/generate/brief.js` → `handoff.js`, `src/cli/brief.js` →
+  `handoff.js`. Two things called "brief" in a codebase about briefs was going
+  to cause an accident: one is the strategy document the model writes, the
+  other is the handoff for generating by hand without a key.
+- Modified: `schema.js` (brief schema, `validateBrief`, `planHonoursBrief`),
+  `planner.js`, `renderer.js`, `generator.js`, `importer.js` (imported sites go
+  through stages 5 and 6 too), `db.js`, `publish.js`, `server.js`,
+  `public/*`, `selftest.js`
 
 ## Verification
 
-1. `npm run check` — extend the 51 assertions: verbatim detector catches a
-   copied sentence and clears original prose; evidence-integrity catches an
-   injected claim; competitor percentile maths is correct against a fixture set.
-2. Re-render K Cuts, Sippers and Blessed Hands from stored plans via
-   `rebuildSite`; all three must pass the hard gates. They were written by hand
-   under the same rules, so they are the regression baseline.
-3. Inject a verbatim review sentence into one page; confirm publish is blocked
-   and the offending span named.
-4. Validate emitted JSON-LD against schema.org for one generated site.
-5. `npm run eval` across all stored sites; check the table reads sensibly.
-6. One fresh site, one click, on a lead with no site: confirm no design was
-   chosen by hand, the brief cites the competitive set in its design rationale,
-   and every page traces to the stated conversion goal.
+1. `npm run check` — 114 assertions, 63 of them new. The verbatim detector
+   catches a copied sentence and clears original prose about the same subject;
+   the claim gate catches an injected credential, founding year, price and
+   email address and allows through a claim the plan actually made; the
+   competitive set excludes a peer 30 km away and reports "insufficient" below
+   four peers.
+2. `npm run qa` across all stored sites; the table reads sensibly and exits
+   non-zero when any site is blocked.
+3. Stage 1 verified end to end against a seeded set of eight barbershops: six
+   peers inside the radius, one excluded at 30 km, percentile and rank correct.
+
+Still outstanding, needing an `ANTHROPIC_API_KEY` this environment does not
+have: re-rendering K Cuts, Sippers and Blessed Hands through the full six
+stages and confirming the brief cites the competitive set in its design
+rationale. The examples in `examples/` predate the brief stage, so they are a
+baseline for the QA gates but not yet for the brief.

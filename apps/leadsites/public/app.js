@@ -15,7 +15,12 @@ const append = (node, ...kids) => {
   return node;
 };
 
-const state = { meta: null, leads: [], selectedId: null, detail: null, activeSiteId: null, activePage: "index.html", stream: null };
+const state = {
+  meta: null, leads: [], selectedId: null, detail: null, activeSiteId: null,
+  activePage: "index.html", stream: null,
+  // Research run on its own, before any version exists, keyed by business id.
+  research: {},
+};
 
 const STATUS_LABEL = {
   none: "no website",
@@ -35,6 +40,22 @@ const kb = (bytes) => {
 
 const badge = (status) =>
   el("span", { className: `badge ${status}` }, STATUS_LABEL[status] ?? status);
+
+const STAGE_LABEL = {
+  research: "researching the market (no model call)...",
+  briefing: "writing the creative brief...",
+  planning: "planning what the site should say...",
+  rendering: "building the pages...",
+  seo: "applying SEO (no model call)...",
+  qa: "running the QA gates (no model call)...",
+};
+
+// The planner and the brief stream JSON, the renderer streams HTML; say which.
+const DELTA_LABEL = {
+  briefing: "deciding the strategy",
+  planning: "drafting the plan",
+  rendering: "writing HTML",
+};
 
 function log(target, message, cls) {
   const node = $(target);
@@ -298,43 +319,91 @@ function renderDetail() {
   /* content */
   node.querySelector('[data-slot="content"]').replaceChildren(renderContent(business));
 
+  const active = sites.find((x) => x.id === state.activeSiteId) ?? sites[0];
+
+  /* research */
+  const research = state.research?.[business.id] ?? active?.research ?? null;
+  node.querySelector('[data-slot="researchMeta"]').textContent = research
+    ? `· ${research.competitors.basis === "scanned-set" ? `${research.competitors.setSize} in the set` : "no usable set"}`
+    : "";
+  node.querySelector('[data-slot="research"]').replaceChildren(renderResearch(business, research));
+
+  /* brief */
+  if (active?.brief) {
+    node.querySelector('[data-slot="briefCard"]').hidden = false;
+    node.querySelector('[data-slot="briefMeta"]').textContent =
+      `· v${active.version} · goal: ${active.brief.conversionGoal}`;
+    node.querySelector('[data-slot="brief"]').replaceChildren(renderBrief(active));
+  }
+
   /* generation */
   const select = node.querySelector("#design");
+  const auto = node.querySelector("#autoDesign");
   select.replaceChildren(...state.meta.designs.map((d) => el("option", { value: d.key }, d.label)));
   select.value = localStorage.getItem("leadsites:design") ?? state.meta.designs[0]?.key ?? "";
+  auto.checked = localStorage.getItem("leadsites:autoDesign") !== "false";
+  select.disabled = auto.checked;
+
   const descNode = node.querySelector('[data-slot="designDesc"]');
   const showDesc = () => {
-    const d = state.meta.designs.find((x) => x.key === select.value);
-    descNode.textContent = d?.description ?? "";
+    if (auto.checked) {
+      descNode.textContent = "The chosen system and the reasoning appear in the brief above once it is written.";
+      return;
+    }
+    descNode.textContent = state.meta.designs.find((x) => x.key === select.value)?.description ?? "";
   };
-  select.addEventListener("change", () => { localStorage.setItem("leadsites:design", select.value); showDesc(); });
+  const designOrNull = () => (auto.checked ? null : select.value);
+
+  auto.addEventListener("change", () => {
+    localStorage.setItem("leadsites:autoDesign", String(auto.checked));
+    select.disabled = auto.checked;
+    showDesc();
+    if (!state.meta.generationReady) renderDetail();
+  });
+  select.addEventListener("change", () => {
+    localStorage.setItem("leadsites:design", select.value);
+    showDesc();
+    if (!state.meta.generationReady) renderDetail();
+  });
   showDesc();
 
   const genButton = node.querySelector("#generate");
   const genHint = node.querySelector('[data-slot="genHint"]');
   if (!state.meta.generationReady) {
     genButton.disabled = true;
+    const designParam = designOrNull() ? `&design=${designOrNull()}` : "";
     genHint.replaceChildren(
-      document.createTextNode("No ANTHROPIC_API_KEY, so this app cannot generate. You can still do it by hand: take the "),
-      el("a", { href: `/api/businesses/${encodeURIComponent(business.id)}/brief?design=${select.value}` }, "generation brief"),
+      document.createTextNode("No ANTHROPIC_API_KEY, so this app cannot write the brief, the plan or the pages. You can still do it by hand: take the "),
+      el("a", { href: `/api/businesses/${encodeURIComponent(business.id)}/handoff?x=1${designParam}` }, "handoff document"),
       document.createTextNode(" to any Claude session, then run "),
-      el("code", {}, `npm run import -- ${business.id} --design ${select.value} --dir <dir>`),
-      document.createTextNode(". The result behaves exactly like a generated one."),
+      el("code", {}, `npm run import -- ${business.id} --dir <dir>`),
+      document.createTextNode(". It carries the research above and the same prompts, and the import re-runs the SEO and QA stages, so the result behaves exactly like a generated one."),
     );
-    select.addEventListener("change", () => renderDetail());
   } else {
-    genHint.textContent = "One click. Streams for a minute or two, then lands in the preview below.";
+    genHint.textContent =
+      "One click, six stages. Research is instant, the brief and the plan take a few seconds each, then one render call per page.";
   }
-  genButton.addEventListener("click", () => generate({ design: select.value }));
+  genButton.addEventListener("click", () => generate({ design: designOrNull() }));
 
   /* plan */
-  const active = sites.find((x) => x.id === state.activeSiteId) ?? sites[0];
   if (active?.plan) {
     node.querySelector('[data-slot="planCard"]').hidden = false;
     node.querySelector('[data-slot="planMeta"]').textContent =
       `v${active.version} · ${active.plan.pages.length} page(s)` +
       (active.weak?.length ? ` · ${active.weak.length} weakly supported` : "");
     node.querySelector('[data-slot="plan"]').replaceChildren(renderPlan(active));
+    if (active.drift?.length) {
+      node.querySelector('[data-slot="planMeta"]').textContent += ` · ${active.drift.length} departure(s) from the brief`;
+    }
+  }
+
+  /* QA */
+  if (active?.qa) {
+    node.querySelector('[data-slot="qaCard"]').hidden = false;
+    node.querySelector('[data-slot="qaMeta"]').textContent = active.qa.publishable
+      ? `· publishable${active.qa.score == null ? "" : ` · ${active.qa.score}% advisory`}`
+      : `· blocked by ${active.qa.hardFails.length} hard gate(s)`;
+    node.querySelector('[data-slot="qa"]').replaceChildren(renderQa(active));
   }
 
   /* versions + preview */
@@ -345,6 +414,225 @@ function renderDetail() {
   }
 
   $("#detailCol").replaceChildren(node);
+}
+
+const subhead = (text) =>
+  el("h3", { style: "font-size:12px;color:var(--muted);margin:16px 0 6px;text-transform:uppercase;letter-spacing:.06em" }, text);
+
+/**
+ * Stage 1, on screen.
+ *
+ * It costs nothing to run, so there is a button for it on its own: seeing the
+ * competitive set before spending anything on a brief is the point.
+ */
+function renderResearch(business, research) {
+  const wrap = el("div", {});
+
+  if (!research) {
+    append(wrap,
+      el("p", { className: "hint" },
+        "Where this business sits among its rivals, what their sites look like, and what customers call things. " +
+        "No model call and no Places request - it runs off data already on file, so it is free."),
+      el("div", { className: "row", style: "margin-top:10px" },
+        el("button", { className: "tiny", onclick: () => runResearchFor(business.id) }, "Run research")),
+    );
+    return wrap;
+  }
+
+  const set = research.competitors;
+  if (set.basis === "scanned-set") {
+    append(wrap,
+      el("dl", { className: "facts" },
+        el("dt", {}, "Set"), el("dd", {}, `${set.setSize} ${(set.category ?? "businesses").replace(/_/g, " ")} within ${set.radiusKm} km`),
+        el("dt", {}, "Rank"), el("dd", {}, `#${set.rank} by review count · ${set.reviewPercentile}th percentile`),
+        el("dt", {}, "Reviews"), el("dd", {}, `${set.reviews.mine} here · median ${set.reviews.median} · best ${set.reviews.max}`),
+        el("dt", {}, "Rating"), el("dd", {},
+          set.rating.mine == null ? "—" : `${set.rating.mine}★ · beats ${set.rating.beats} of ${set.rating.rated} rated rivals`),
+        el("dt", {}, "Rival sites"), el("dd", {}, `${set.websites.live} live · ${set.websites.missingOrBroken} missing or broken`),
+      ),
+      el("p", { className: "hint" },
+        "The percentile is sayable on the homepage only because the set was scanned. Nothing outside this box may be implied."),
+    );
+  } else {
+    append(wrap, el("p", { className: "notice" }, set.note));
+  }
+
+  const rivals = research.rivals;
+  append(wrap, subhead("What the rivals' sites look like"));
+  if (rivals.basis === "observed") {
+    append(wrap,
+      el("p", { className: "evidence" }, `Read ${rivals.read} homepage(s)${rivals.failed ? `, ${rivals.failed} could not be read` : ""}.`),
+      rivals.tableStakes.length
+        ? el("ul", { className: "plain" }, ...rivals.tableStakes.map((t) =>
+            el("li", {}, el("strong", {}, "table stakes"), `${t.label} - ${t.count} of ${t.of} have it`)))
+        : el("p", { className: "hint" }, "Nothing a majority of them share."),
+      rivals.crowdedHues.length
+        ? el("p", { className: "notice" },
+            `Crowded locally: ${rivals.crowdedHues.map((h) => `${h.name} (${h.count}/${h.of})`).join(", ")}` +
+            (rivals.crowdedFonts.length ? ` and ${rivals.crowdedFonts.map((f) => f.name).join(", ")}` : "") +
+            ". Taking the same look is how a business becomes invisible on a phone screen showing three tabs.")
+        : null,
+    );
+  } else {
+    append(wrap, el("p", { className: "hint" }, rivals.note));
+  }
+
+  append(wrap, subhead("Brand signals"));
+  append(wrap,
+    el("p", { className: "evidence" }, research.brand.name.trading + (research.brand.name.suffix ? ` · ${research.brand.name.suffix}` : "")),
+    research.brand.name.signals.length
+      ? el("ul", { className: "plain" }, ...research.brand.name.signals.map((s) => el("li", {}, s)))
+      : el("p", { className: "hint" }, "The name itself signals nothing in particular."),
+    research.brand.vocabulary.length
+      ? el("p", { className: "hint" },
+          "Customers' own words: " +
+          research.brand.vocabulary.slice(0, 12).map((v) => `${v.word} (${v.reviewsMentioning})`).join(", "))
+      : el("p", { className: "hint" }, research.brand.vocabularyBasis),
+  );
+
+  append(wrap, subhead("Local search"));
+  append(wrap,
+    el("dl", { className: "facts" },
+      el("dt", {}, "Schema"), el("dd", {}, research.localSeo.schemaType),
+      el("dt", {}, "Service area"), el("dd", {}, research.localSeo.serviceArea ?? "—"),
+    ),
+    el("p", { className: "hint" },
+      "Queries customers type: " + research.localSeo.queryPatterns.slice(0, 6).map((q) => `"${q.query}"`).join(", ") +
+      ". Patterns from category and geography - there are no search volumes here, because this tool has no keyword data."),
+    subhead("Worth more than the website"),
+    el("ul", { className: "plain" }, ...research.localSeo.gbp.slice(0, 6).map((r) =>
+      el("li", {}, el("strong", {}, r.priority), r.item))),
+  );
+
+  return wrap;
+}
+
+/** Stage 2, on screen: the decisions, with the design rationale visible. */
+function renderBrief(site) {
+  const brief = site.brief;
+  const wrap = el("div", {});
+  const art = brief.artDirection;
+
+  append(wrap,
+    el("dl", { className: "facts" },
+      el("dt", {}, "Goal"), el("dd", {}, `${brief.conversionGoal} — ${brief.conversionRationale}`),
+      el("dt", {}, "Claim"), el("dd", {}, brief.positioning.claim),
+      el("dt", {}, "Proof"), el("dd", {}, brief.positioning.proof),
+      el("dt", {}, "Tagline"), el("dd", {}, `"${brief.voice.tagline}"`),
+      el("dt", {}, "Voice"), el("dd", {}, brief.voice.register),
+    ),
+  );
+
+  append(wrap, subhead("Design system"));
+  append(wrap,
+    el("p", { className: "evidence" },
+      el("strong", {}, art.designKey),
+      art.designKeyOverridden ? ` (you overrode its choice of ${art.designKeyOverridden})` : "",
+    ),
+    el("p", {}, art.designRationale),
+    el("dl", { className: "facts" },
+      el("dt", {}, "Type"), el("dd", {}, art.typeRegister),
+      el("dt", {}, "Layout"), el("dd", {}, art.layoutArchetype),
+      el("dt", {}, "Images"), el("dd", {}, art.imageStrategy),
+      el("dt", {}, "Wordmark"), el("dd", {}, art.wordmark.treatment),
+    ),
+    (art.paletteOverride ?? []).length
+      ? el("ul", { className: "plain" }, ...art.paletteOverride.map((o) =>
+          el("li", {},
+            el("span", { style: `display:inline-block;width:11px;height:11px;border-radius:2px;background:${o.hex};margin-right:6px` }),
+            el("strong", {}, `${o.role} ${o.hex}`), o.why)))
+      : null,
+    (art.rejected ?? []).length
+      ? el("p", { className: "hint" }, "Considered and rejected: " + art.rejected.map((r) => `${r.designKey} (${r.why})`).join("; "))
+      : null,
+  );
+
+  if (brief.positioning.parity?.length) {
+    append(wrap, subhead("True but not differentiating"),
+      el("ul", { className: "plain" }, ...brief.positioning.parity.map((p) => el("li", {}, p))),
+      el("p", { className: "hint" }, "These never get a hero or a heading. Every rival can say them too."));
+  }
+  if (brief.positioning.mustNotSay?.length) {
+    append(wrap, subhead("Must not say"),
+      el("ul", { className: "plain" }, ...brief.positioning.mustNotSay.map((p) => el("li", {}, p))),
+      el("p", { className: "hint" }, "A hard QA gate; a page containing any of these cannot be published."));
+  }
+  if (brief.tableStakes?.length) {
+    append(wrap, subhead("Table stakes"),
+      el("ul", { className: "plain" }, ...brief.tableStakes.map((t) =>
+        el("li", {}, el("strong", {}, t.status), t.item))));
+  }
+  if (brief.risks?.length) {
+    append(wrap, subhead("Risks"), el("ul", { className: "plain" }, ...brief.risks.map((r) => el("li", {}, r))));
+  }
+
+  return wrap;
+}
+
+/** Stage 6, on screen. Hard gates first, because they are what blocks publish. */
+function renderQa(site) {
+  const qa = site.qa;
+  const wrap = el("div", {});
+
+  append(wrap,
+    el("p", { className: qa.publishable ? "evidence" : "notice" },
+      qa.publishable
+        ? `All hard gates passed. ${qa.score == null ? "" : `${qa.score}% of the advisory checks are clean.`} Checked ${qa.pages} page(s).`
+        : `Publishing is blocked: ${qa.hardFails.length} hard gate(s) failed. Fix the plan and rebuild.`,
+    ),
+    el("div", { className: "bars", style: "margin-top:10px" }, ...qa.gates.map((g) =>
+      el("div", { className: "bar" },
+        el("span", { className: "lbl", title: g.detail ?? "" }, g.label),
+        el("span", { className: "val", style: g.pass ? "" : g.level === "hard" ? "color:var(--bad,#c0392b)" : "color:var(--muted)" },
+          g.pass ? "pass" : g.level === "hard" ? "FAIL" : "warn")))),
+  );
+
+  for (const group of [
+    { items: qa.hardFails, title: "Blocking" },
+    { items: qa.warnings, title: "Advisory" },
+  ]) {
+    if (group.items.length === 0) continue;
+    append(wrap, subhead(group.title),
+      el("ul", { className: "plain" }, ...group.items.map((f) =>
+        el("li", {},
+          el("strong", {}, f.label),
+          f.detail,
+          (f.items ?? []).length
+            ? el("div", { className: "hint" }, (f.items ?? []).slice(0, 4).map((i) =>
+                typeof i === "string" ? i : (i.problem ?? i.phrase ?? i.sample ?? JSON.stringify(i))).join(" · "))
+            : null))));
+  }
+
+  append(wrap,
+    el("div", { className: "row", style: "margin-top:12px" },
+      el("button", { className: "tiny", onclick: () => recheck(site.id) }, "Re-run the gates")),
+    el("p", { className: "hint" },
+      "Every gate here is deterministic, so re-running costs nothing. The hard ones are what stop a page that reuses a customer's words or states a credential nobody gave us from reaching their customers."),
+  );
+
+  return wrap;
+}
+
+async function runResearchFor(businessId) {
+  log("#genLog", "researching the market...");
+  try {
+    const { research } = await api(`/api/businesses/${encodeURIComponent(businessId)}/research`);
+    (state.research ??= {})[businessId] = research;
+    keepingLog("#genLog", renderDetail);
+    log("#genLog", "research done");
+  } catch (err) {
+    log("#genLog", `research failed: ${err.message}`, "err");
+  }
+}
+
+async function recheck(siteId) {
+  try {
+    await api(`/api/sites/${siteId}/qa`, { method: "POST" });
+    state.detail = await api(`/api/businesses/${encodeURIComponent(state.selectedId)}`);
+    renderDetail();
+  } catch (err) {
+    log("#genLog", `could not re-run the gates: ${err.message}`, "err");
+  }
 }
 
 function renderPlan(site) {
@@ -666,8 +954,10 @@ async function setStatus(status) {
   renderDetail();
 }
 
-function generate({ design, feedback = null, previousSiteId = null }) {
-  const params = new URLSearchParams({ design });
+function generate({ design = null, feedback = null, previousSiteId = null }) {
+  const params = new URLSearchParams();
+  // No design parameter means the brief chooses, which is the default.
+  if (design) params.set("design", design);
   if (feedback) params.set("feedback", feedback);
   if (previousSiteId) params.set("previousSiteId", String(previousSiteId));
   runGenerationStream(
@@ -698,10 +988,33 @@ function runGenerationStream(url, busyLabel) {
     if (d.type === "stage") {
       thinkingLine = null;
       stage = d.stage;
-      log("#genLog", d.stage === "planning" ? "planning what the site should say..." : "building the pages...");
+      log("#genLog", STAGE_LABEL[d.stage] ?? `${d.stage}...`);
+    }
+    if (d.type === "research") {
+      for (const line of d.summary) log("#genLog", `  ${line}`);
+    }
+    if (d.type === "brief") {
+      log("#genLog", `brief ready: goal "${d.brief.conversionGoal}", design "${d.design}"${d.chosenByModel ? " (chosen)" : " (your override)"}`);
+      log("#genLog", `  ${d.brief.artDirection.designRationale}`);
     }
     if (d.type === "plan") {
       log("#genLog", `plan ready: ${d.pages} page(s)${d.weak.length ? `, ${d.weak.length} weakly supported` : ""}`);
+      for (const problem of d.drift ?? []) log("#genLog", `  departed from the brief: ${problem}`);
+    }
+    if (d.type === "seo") {
+      log("#genLog", `SEO applied: ${d.seo.schemaType} schema, ${d.seo.pages.length} page(s) titled`);
+      if (d.seo.note) log("#genLog", `  ${d.seo.note}`);
+    }
+    if (d.type === "qa") {
+      for (const fail of d.qa.hardFails) log("#genLog", `  BLOCKED: ${fail.label} - ${fail.detail}`, "err");
+      for (const warn of d.qa.warnings) log("#genLog", `  warning: ${warn.label} - ${warn.detail}`);
+      log(
+        "#genLog",
+        d.qa.publishable
+          ? `QA passed${d.qa.score == null ? "" : `, ${d.qa.score}% of the advisory checks clean`}`
+          : `QA blocked this version: ${d.qa.hardFails.length} hard gate(s)`,
+        d.qa.publishable ? "" : "err",
+      );
     }
     if (d.type === "page") log("#genLog", `  page ${d.index}/${d.total}: ${d.slug}`);
     if (d.type === "thinking") {
@@ -714,7 +1027,7 @@ function runGenerationStream(url, busyLabel) {
       let counter = node.querySelector(".counter");
       if (!counter) { counter = el("div", { className: "counter" }); node.append(counter); }
       // The planner streams JSON, the renderer streams HTML; say which.
-      counter.textContent = `${stage === "planning" ? "drafting the plan" : "writing HTML"}... ${(d.bytes / 1024).toFixed(1)} kB`;
+      counter.textContent = `${DELTA_LABEL[stage] ?? "working"}... ${(d.bytes / 1024).toFixed(1)} kB`;
       node.scrollTop = node.scrollHeight;
     }
   });
@@ -740,17 +1053,30 @@ function runGenerationStream(url, busyLabel) {
   });
 }
 
-async function publish(siteId) {
+async function publish(siteId, { force = false } = {}) {
   try {
     const result = await api(`/api/sites/${siteId}/publish`, {
       method: "POST",
-      body: JSON.stringify({ target: "local" }),
+      body: JSON.stringify({ target: "local", force }),
     });
+    if (result.forced) log("#genLog", "published over a failing hard gate, on your instruction", "err");
+    if (result.note) log("#genLog", result.note);
     state.detail = await api(`/api/businesses/${encodeURIComponent(state.selectedId)}`);
     renderDetail();
     window.open(result.url, "_blank", "noopener");
   } catch (err) {
     log("#genLog", `publish failed: ${err.message}`, "err");
+    // A QA block is the one failure worth offering a way past, and only
+    // explicitly: the gates exist because a wrong claim reaches a real
+    // business's customers.
+    if (!force && /QA blocked/.test(err.message)) {
+      const node = $("#genLog");
+      node.append(el("div", {},
+        el("button", {
+          className: "tiny",
+          onclick: () => publish(siteId, { force: true }),
+        }, "Publish anyway, I have read the failures")));
+    }
   }
 }
 

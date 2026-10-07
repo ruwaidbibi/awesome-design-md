@@ -331,7 +331,9 @@ const GATES = [
       const problems = [];
       for (const page of pages) {
         const html = page.html;
-        if (!/<html[^>]+\slang=/i.test(html)) problems.push({ page: page.file, problem: "no lang on <html>" });
+        // [^>]* not [^>]+: in `<html lang="en">` the single space before lang
+        // is the only character there is, and a + would eat it.
+        if (!/<html\b[^>]*\slang=/i.test(html)) problems.push({ page: page.file, problem: "no lang on <html>" });
 
         const h1s = html.match(/<h1\b/gi)?.length ?? 0;
         if (h1s !== 1) problems.push({ page: page.file, problem: `${h1s} <h1> elements (want exactly 1)` });
@@ -389,8 +391,14 @@ const GATES = [
         else if (desc.length < 50 || desc.length > 160) problems.push({ page: page.file, problem: `meta description is ${desc.length} characters` });
 
         if (business.phone && !/href=["']tel:/i.test(html)) problems.push({ page: page.file, problem: "no tel: link" });
-        if (business.google_maps_uri && !/google\.[a-z.]+\/maps|maps\.app\.goo\.gl/i.test(html)) {
-          problems.push({ page: page.file, problem: "no map link" });
+        // The listing's own URL first. A cid link like maps.google.com/?cid=1
+        // has no /maps path, so a path-shaped pattern alone misses the exact
+        // link the plan was told to use.
+        if (business.google_maps_uri) {
+          const linked =
+            html.includes(business.google_maps_uri) ||
+            /maps\.google\.[a-z.]+|google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps/i.test(html);
+          if (!linked) problems.push({ page: page.file, problem: "no map link" });
         }
 
         const kb = Math.round(Buffer.byteLength(html) / 1024);
@@ -472,7 +480,17 @@ export function runQa({ business, plan, brief = null, seo = null, pages }) {
         evidence.content.editorialSummary ?? "",
         evidence.content.ownerNotes ?? "",
         reviews.map((r) => r.text).join("\n"),
-        brief ? JSON.stringify(brief.positioning ?? {}) : "",
+        // The claim and its proof, so the positioning the brief decided can
+        // appear on the page. Deliberately NOT mustNotSay: putting the banned
+        // phrases in the same haystack would exempt every one of them from the
+        // claim gate and leave the two checks entangled.
+        brief
+          ? JSON.stringify({
+              claim: brief.positioning?.claim,
+              proof: brief.positioning?.proof,
+              parity: brief.positioning?.parity,
+            })
+          : "",
       ].join("\n"),
     ),
   };

@@ -8,7 +8,8 @@ already said, with every claim on the page traceable to the evidence behind it.
 ```
 search Google Places  →  drop anyone under N reviews  →  prove the website gap
       →  find their socials  →  score & rank  →  pick one  →  pull their reviews
-      →  plan the content from evidence  →  render the pages  →  review  →  publish
+      →  research the market  →  write the brief  →  plan the content
+      →  render the pages  →  apply SEO  →  run the QA gates  →  review  →  publish
 ```
 
 Zero build step. `@anthropic-ai/sdk` is the only dependency; the store is
@@ -30,8 +31,12 @@ Requires Node 22.9+.
 | `GOOGLE_MAPS_API_KEY` | real prospecting | falls back to 14 sample businesses so the rest of the app is still usable |
 | `ANTHROPIC_API_KEY` | generating sites | the Generate button is disabled; everything else works |
 | `BRAVE_SEARCH_KEY` or `SERPAPI_KEY` | finding socials Google doesn't list | socials are only found when Google's own website field points at one |
+| `PUBLIC_BASE_URL` | canonical tags, Open Graph URLs and `sitemap.xml` | those are omitted, because a canonical pointing at a URL that does not serve the page is worse than none |
 
-`npm run check` runs the offline test suite (22 assertions, no keys, no network).
+```bash
+npm run check    # the offline test suite: 114 assertions, no keys, no network
+npm run qa       # re-run the QA gates across every stored site
+```
 
 ## Geography
 
@@ -209,22 +214,119 @@ Exactly three entry points produce a site, and each takes one business:
 
 | Entry point | Scope |
 |---|---|
-| `generateSite` | one business, one design system, one explicit request |
-| `rebuildSite` | one existing version, re-rendered from its stored plan |
-| `importSite` | one business, from a plan and pages generated elsewhere |
+| `generateSite` | one business, one explicit request |
+| `rebuildSite` | one existing version, re-rendered from its stored plan and brief |
+| `importSite` | one business, from a brief, plan and pages generated elsewhere |
 
 `runProspect` - the only thing that handles businesses in bulk - searches,
 validates, scores and returns. It does not import the generator.
+
+Stage 1 is the one exception, and only because it is free: `runResearch` and the
+`/research` endpoint can be run on a business without committing to anything,
+which is the point — seeing the competitive set before spending on a brief.
+They make no model call and write no page.
 
 Keep it that way. Generating for a business you have not chosen costs money per
 site, and puts a page carrying a real company's name into the world without
 anyone deciding it should exist.
 
-## Planning before building
+## Six stages, one click
 
-Generation is two stages, and the split is the whole point.
+The commodity AI site builders go from "here is a business" straight to "here is
+a page". That is why their output is interchangeable: nothing ever decided what
+the site is *for*, who it is *against*, or what it should *feel* like. They
+automate an agency's deliverables without automating its decisions, and they
+start from a single business in isolation.
 
-**Stage one produces a content plan**, not HTML: which pages the site should
+| | Stage | Cost |
+|---|---|---|
+| 1 | **Research** — the competitive set, brand signals, local search | no model call |
+| 2 | **Creative brief** — strategy and art direction, design system chosen | 1 call |
+| 3 | **Content plan** — what each section says, and on what evidence | 1 call |
+| 4 | **Render** — the HTML | 1 call per page |
+| 5 | **SEO** — titles, descriptions, JSON-LD, sitemap | no model call |
+| 6 | **QA** — the gates that decide whether it may publish | no model call |
+
+Four of the six cost milliseconds, which answers the obvious objection: adding
+research, strategy and QA to a one-click flow does not make it slow, because
+most of it is arithmetic over data already on file.
+
+`docs/pipeline-plan.md` is the reasoning behind the shape, including the two
+things in it that were deliberately not built.
+
+## 1 · Researching the market
+
+Three things, all deterministic, all free.
+
+**The competitive set** comes out of the businesses already scanned: where this
+one ranks by review count, what the median rival looks like, and how many of
+them have a live site. "317 reviews at 5.0 puts this shop in the top 17% of
+seven barbershops within 8 km" is a fact a homepage may state, and it is only
+sayable because the set was scanned. Below four peers it returns
+`basis: "insufficient"` rather than a percentile nobody should trust, and
+nothing downstream may then claim a ranking at all.
+
+Optionally it reads up to three rival homepages. That produces two different and
+equally useful answers:
+
+- **Table stakes** — what a majority of them have (booking, prices, a gallery).
+  Absent, our site looks amateur.
+- **Crowded hues and fonts** — what a majority of them *look like*. If four of
+  five local shops use gold on near-black with a script face, using it too makes
+  this business invisible in the one place it is compared: a phone screen with
+  three tabs open. This is the single best argument for doing competitor
+  research at all, and it feeds art direction directly.
+
+**Brand signals** are assembled, not invented: what the trading name already
+carries (*Blessed Hands Barber **Parlor*** is craft, faith and old-school
+refinement before anyone writes a word), the trade's conventions, and the words
+customers actually use. That last one is extracted as **single words with
+counts, never phrases**, and nothing said by only one reviewer survives. A word
+frequency is a derived statistic; a phrase is a fragment of someone's review,
+and the whole point of the no-verbatim rule is that those do not travel.
+
+**Local search** is almost entirely arithmetic: the right schema.org type, the
+parsed address, the query patterns customers actually type, and the NAP block
+that has to match the Google listing character for character. There are no
+search volumes, because this tool has no keyword data and will not pretend to.
+It also emits a Google Business Profile list — for a shop with three hundred
+reviews and no website, that list is plausibly worth more than the website.
+
+## 2 · The creative brief
+
+One model call. Strategy and art direction come back in one object because they
+are one decision made by one person in one sitting; splitting them is how copy
+and design end up arguing.
+
+- **conversionGoal** — one action: call, book, visit, quote or order. Not
+  "contact us". Someone whose car will not start is not going to fill in a form.
+  `book` and `order` are only available if the evidence contains a real place to
+  do it, because inventing a booking flow is inventing a fact.
+- **positioning** — the claim, its named proof, and its **parity items**: things
+  true of this business and equally true of every rival. "Experienced barbers",
+  "quality service", "friendly staff" — all true, all worthless in a hero,
+  because the shop next door says them too. Naming them is how the hero stops
+  being generic.
+- **mustNotSay** — anything unsupported, anything the reviews genuinely disagree
+  about, anything every rival claims. This is enforced, not advisory: a page
+  containing one of these phrases cannot be published.
+
+**The design system is chosen, not picked from a dropdown.** Selecting one of
+seventy-odd systems by vibe is input we should not be asking for, and it is
+exactly how four local barbershops end up with the same site. The brief chooses
+and has to justify it against the rivals it was shown — "dark editorial with a
+single hot accent: four of five local rivals use cream and script". The dropdown
+remains as an override, and the brief still has to say whether it agrees.
+
+No generated logo. For a business at this budget an AI mark is worse than their
+own name well set, so the brief specifies a *wordmark treatment* from the type
+system it chose. And there are no real photographs available to a published page
+(see *Photos: read once, never republished*), so `imageStrategy` decides what
+carries the frame instead.
+
+## 3 · Planning before building
+
+**Stage three produces a content plan**, not HTML: which pages the site should
 have, what each section says, and - for every section - which piece of evidence
 entitles it to say that. The plan is small enough to read in thirty seconds:
 
@@ -246,16 +348,22 @@ The plan also reports two things worth reading:
   one did not, with the reason. "No 'family owned since 1974' - nothing states
   when the shop opened."
 
-**Pages are chosen from the evidence, not a template.** A business with five
-reviews naming distinct services earns a services page; one with no review text
-does not. There is always an `index`, never more than five pages, and menu,
-price-list, team and testimonials pages are forbidden outright because that
-information does not exist in any of our sources.
+**Pages come from the brief's navigation, and the brief derived them from the
+conversion goal.** Every page has to answer "what does this do for the goal";
+if it cannot, it is not in the brief. There is always an `index`, never more
+than five pages, and menu, price-list, team and testimonials pages are
+forbidden outright because that information does not exist in any of our
+sources.
 
-## Generating
+Where the plan departs from the brief, that is reported as **drift** rather than
+failed. A planner that drops a page because the evidence genuinely cannot fill
+it is behaving correctly — but it has to be visible that it did, or the brief is
+decoration.
 
-Pick one of the repo's `DESIGN.md` files and press Generate. The planner runs,
-the plan appears in the UI, and then each page is rendered.
+## 4 · Generating
+
+Press Generate. Research runs instantly, the brief and the plan appear in the
+UI as they finish, and then each page is rendered.
 
 **How a multi-page site stays consistent.** The home page is generated as a
 complete document and becomes the shell: its stylesheet, header and footer are
@@ -292,32 +400,95 @@ Not happy with it? Type what to change and regenerate. Each run is a new
 version; the previous HTML and your notes go into the revision prompt, and every
 version stays previewable and publishable.
 
-## Generating without an API key
+## 5 · SEO, applied in code
 
-The generation half does not have to run inside this app. If you have no
-`ANTHROPIC_API_KEY` configured here - or you would simply rather do it in a
-Claude session where you can argue with the output - export the brief, generate
-by hand, and import the result:
+No model call, on purpose. Titles have a pixel budget, meta descriptions have a
+character budget, JSON-LD has a schema, and a model asked for "an SEO title"
+reliably writes seventy-eight characters of adjectives. The facts are already in
+the database.
+
+What it writes: a length-clamped `<title>` and description per page, a
+`LocalBusiness` JSON-LD node on the home page *only* (repeating the same entity
+on every page is a structured-data error, and a common generator mistake),
+Open Graph tags, and — once a real deployment URL exists — the canonical tag,
+`sitemap.xml` and `robots.txt`.
+
+`aggregateRating` is emitted only when Google gave us both the value and the
+count, since a rating without a count is rejected. If `PUBLIC_BASE_URL` is not
+set, the canonical and sitemap are simply omitted: a canonical tag pointing at a
+URL that does not serve the page is worse than none.
+
+The whole block is fenced in a comment and replaced wholesale, so re-applying it
+— which happens on every rebuild and again at publish — leaves nothing
+duplicated.
+
+## 6 · The QA gates
+
+Twelve checks, no model call, run before the files are even written. Six block
+publishing and six are advisory, and that split is the design: blocking means
+the site is *wrong*, advisory means it is *worse than it should be*. A score
+that mixes "this page names a reviewer" with "this meta description is four
+characters long" is a number nobody can act on.
+
+**Blocking.** Review wording, measured as the longest run of words shared with
+the source reviews (five is the threshold — shorter runs happen by chance
+between any two texts about the same subject). Reviewer names. Claims present
+in neither the plan nor the evidence, which is to say claims that appeared
+*during rendering*: founding years, credentials, guarantees, prices, email
+addresses, award claims, staff counts, second locations. A phone number that is
+not theirs. External resources. Anything from the brief's `mustNotSay`.
+
+**Advisory.** The conversion action on every page and above the fold. Planned
+placeholders surviving as placeholders rather than being quietly filled with
+plausible-sounding copy. Accessibility: landmarks, heading order, labelled
+controls, focus styles. The technical head budget. JSON-LD presence and
+validity. And whether the design system's tokens were actually used or merely
+approximated.
+
+"The generator never quotes a review" and "the generator never invents a
+credential" used to be prompt instructions that I asserted held. They are now
+measured per build. Publishing past a hard failure is possible and requires
+saying so explicitly; what was overridden is recorded.
 
 ```bash
-npm run brief -- <placeId> --design ferrari --out brief.md
-#   ... produce plan.json + one .html per page from that brief ...
-npm run import -- <placeId> --design ferrari --dir ./out --model claude-code
+npm run qa              # every stored site, as a table
+npm run qa -- --site 7  # one version
 ```
 
-`npm run brief` with no arguments lists your saved leads and their ids.
+Deterministic, so it costs nothing, runs in CI, and is how a prompt change gets
+judged against the whole corpus instead of one lucky output.
 
-The brief is one self-contained document containing both system prompts, the
-plan schema, every piece of evidence, and the full `DESIGN.md`. Nothing else
-about the business is needed, and nothing else about it is true.
+## Generating without an API key
+
+The three model-call stages do not have to run inside this app. If you have no
+`ANTHROPIC_API_KEY` configured here - or you would simply rather do it in a
+Claude session where you can argue with the output - export the handoff
+document, generate by hand, and import the result:
+
+```bash
+npm run handoff -- <placeId> --out handoff.md
+#   ... produce brief.json + plan.json + one .html per page from it ...
+npm run import -- <placeId> --dir ./out --model claude-code
+```
+
+`npm run handoff` with no arguments lists your saved leads and their ids. Pass
+`--design <key>` to override the design choice; leave it off and the document
+carries the whole catalogue and the brief stage chooses, exactly as the app
+does.
+
+The handoff is one self-contained document: the research already computed, all
+three system prompts verbatim, the brief and plan schemas, every piece of
+evidence, and the `DESIGN.md` once a system is chosen. There is one source for
+those prompts and this document quotes it, so the two paths cannot drift.
 
 The import is not a dumb file copy. It refuses a plan that is structurally
-invalid, a page set that does not match the plan (either direction), a file that
-is not an HTML document, and any page that references an external stylesheet,
-script or image - because published pages must be self-contained. What lands is
-a normal site version: the plan panel, the page tabs, preview, revision and
-publish all work on it exactly as if this app had generated it. The `model`
-column records what actually produced it, so the versions list stays honest.
+invalid, a brief that is, a page set that does not match the plan (either
+direction), a file that is not an HTML document, and any page that references an
+external stylesheet, script or image. Then it runs stages 5 and 6 — so
+hand-generation is not a way around the SEO treatment or the QA gates, and the
+CLI exits non-zero if a hard gate fails. What lands is a normal site version:
+every panel, preview, revision and publish work on it exactly as if this app had
+generated it, and the `model` column records what actually produced it.
 
 ## Publishing
 
@@ -359,11 +530,19 @@ March 2025 and the per-SKU free allowances no longer pool across products.
 
 ### Model cost
 
-One site is one plan call plus one call per page, so a three-page site is four
-calls. The `DESIGN.md` (~8k tokens) is sent as a cached prefix on all of them, so
-only the first pays full price for it. Watch `cache_read_tokens` on the version
-row: if it stays at zero across pages, something is invalidating the prefix and
-the site is costing several times what it should.
+One site is one brief call, one plan call and one call per page, so a three-page
+site is five calls. Research, SEO and QA are free — they are code.
+
+Two different cached prefixes are at work. The brief call sends the design
+catalogue (~20k tokens), which is identical for every business, so the second
+brief of a session pays for it once. The plan and render calls send the chosen
+`DESIGN.md` (~8k tokens) as their prefix. Watch `cache_read_tokens` on the
+version row: if it stays at zero across pages, something is invalidating the
+prefix and the site is costing several times what it should.
+
+Adding research and the brief cost one extra call and a few hundred milliseconds
+against a flow that already spends four or five calls, which is the whole reason
+the expensive stages are the ones a human would also have had to think about.
 
 ## Layout
 
@@ -375,6 +554,14 @@ src/
   http.js                router, SSE, static serving, JSON helpers
   server.js              routes
   selftest.js            npm run check
+  cli/
+    handoff.js           npm run handoff - the document for generating by hand
+    import.js            npm run import - bring a hand-generated site back in
+    qa.js                npm run qa - re-run the gates across stored sites
+  research/              stage 1, all deterministic
+    competitors.js       the scanned set, and reading rival homepages
+    brand.js             name signals, trade conventions, customer vocabulary
+    localseo.js          schema type, query patterns, NAP, GBP advice
   providers/
     places.js            Google Places API (New) searchText
     fixtures.js          sample data, no key required
@@ -386,14 +573,19 @@ src/
     prospect.js          search → filter → validate → score → persist
   generate/
     designs.js           indexes ../../design-md
-    schema.js            the content plan's shape, and what counts as weak
-    planner.js           evidence -> content plan
-    renderer.js          content plan -> pages, and the shell reuse
+    schema.js            the brief's and the plan's shapes, and drift between them
+    creative-brief.js    stage 2: research -> strategy and art direction
+    planner.js           stage 3: brief + evidence -> content plan
+    renderer.js          stage 4: plan -> pages, and the shell reuse
+    seo.js               stage 5: titles, descriptions, JSON-LD, sitemap
+    qa.js                stage 6: twelve gates, six of them blocking
     vision.js            read photos once, keep only what was learned
-    evidence.js          the evidence blocks and truth rules both stages share
+    evidence.js          the evidence blocks and truth rules every stage shares
     client.js            the shared Anthropic client and streaming
-    generator.js         orchestrates plan -> render -> disk
-  publish.js             publish targets
+    generator.js         orchestrates all six stages -> disk
+    handoff.js           the same prompts, as one document, for manual runs
+    importer.js          bring a hand-generated site in through 5 and 6
+  publish.js             publish targets, gated on QA
 public/                  the UI (index.html, app.js, styles.css)
 data/                    gitignored: SQLite db, generated sites, published sites
 ```
@@ -414,6 +606,17 @@ data/                    gitignored: SQLite db, generated sites, published sites
 - Place Details returns at most 5 reviews, and Google chooses which. That is
   enough to learn what a business is known for; it is not a representative
   sample.
+- The competitive set is only as good as what has been scanned. Four peers is
+  the floor below which it reports `insufficient` rather than a percentile, and
+  "nearby" is a straight-line radius, not drive time or a trade area.
+- Rival homepages are read with a plain GET. Anything behind Cloudflare, a
+  consent wall or a JavaScript-rendered shell comes back unreadable, and the
+  research says so rather than guessing. The crowded-palette read is also
+  frequency over hex codes in the CSS, which is a decent proxy for "what this
+  site looks like" and not the same thing as looking at it.
+- The QA gates are static analysis. They can prove a sentence was not copied
+  from a review and that a credential has no source; they cannot tell you the
+  copy is any good, and nothing in them measures whether the page is beautiful.
 
 ## Open decisions
 

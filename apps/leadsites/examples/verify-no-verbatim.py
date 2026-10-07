@@ -12,8 +12,11 @@ Reads the reviews from the app's own SQLite database (data/leadsites.db) and
 checks every .html under examples/. Exits non-zero if any page shares a run of
 THRESHOLD or more words with a source review.
 
-This is the check the QA stage in docs/pipeline-plan.md turns into a publish
-gate. It lives here first because the example sites are the regression baseline.
+This measurement is now also a hard publish gate inside the app, in
+src/generate/qa.js, and `npm run qa` runs it across every stored site. This
+script is kept on purpose: it is a second, independent implementation in a
+different language, and a gate that only ever agrees with itself is not much of
+a check. If the two ever disagree, one of them has a bug.
 """
 import json
 import pathlib
