@@ -1,3 +1,7 @@
 node_modules/
 data/
 .env
+
+# Handoff documents written by `npm run site` / `npm run handoff`. They embed
+# review text, so they must never be committed.
+handoff-*.md
