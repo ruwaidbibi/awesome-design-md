@@ -105,7 +105,34 @@ async function resolve(input) {
   return chosen;
 }
 
-const business = await resolve(target);
+/**
+ * A rejected API key is an ordinary operating condition, not a crash.
+ *
+ * Node prints an unhandled rejection as a stack trace, which buries the one
+ * line that matters - Google's own explanation and what to do about it - under
+ * frames from this file. Every failure past this point gets the same treatment.
+ */
+function die(err) {
+  console.error(`\n${err.message}`);
+  const detail = err.detail ?? {};
+  if (detail.googleStatus === "PERMISSION_DENIED" || detail.status === 403) {
+    console.error(
+      "\nThe key reached Google and was refused. Usually that means Places API (New)\n" +
+        "is not enabled on the project, or the key's API restrictions exclude it.",
+    );
+  } else if (/API key not valid|API_KEY_INVALID/i.test(err.message) || detail.googleStatus === "INVALID_ARGUMENT") {
+    console.error(
+      "\nGoogle does not recognise GOOGLE_MAPS_API_KEY at all. If the key was rotated\n" +
+        "or deleted, put the new one in .env. If it is restricted by IP or referrer,\n" +
+        "this machine is not on the list.",
+    );
+  } else if (err.hint ?? detail.hint) {
+    console.error(`\n${err.hint ?? detail.hint}`);
+  }
+  process.exit(1);
+}
+
+const business = await resolve(target).catch(die);
 
 console.error(`
 ${business.name}
@@ -123,7 +150,7 @@ if (!has("no-details")) {
   if (before.usable) {
     console.error(`Reviews already on file (${before.reviews.length}, fetched ${before.ageDays} day(s) ago).`);
   } else {
-    const { business: updated, billedRequests, cached } = await fetchDetails(current.id);
+    const { business: updated, billedRequests, cached } = await fetchDetails(current.id).catch(die);
     current = updated;
     const after = contentContext(current);
     console.error(`Reviews: ${after.reviews.length} on file${cached ? " (cached)" : `, ${billedRequests} billed request(s)`}.`);
@@ -132,7 +159,7 @@ if (!has("no-details")) {
 
 /* Stage 1. Free. */
 console.error("\nResearching...");
-const research = await runResearch(current, { fetchRivals: has("no-rivals") ? 0 : 3 });
+const research = await runResearch(current, { fetchRivals: has("no-rivals") ? 0 : 3 }).catch(die);
 
 const set = research.competitors;
 console.error(
@@ -182,7 +209,7 @@ const site = await generateSite(
     if (event.type === "page") console.error(`  page ${event.index}/${event.total}: ${event.slug}`);
     if (event.type === "note") console.error(`  note: ${event.message}`);
   },
-);
+).catch(die);
 
 const qa = JSON.parse(site.qa_json ?? "null");
 console.error("");

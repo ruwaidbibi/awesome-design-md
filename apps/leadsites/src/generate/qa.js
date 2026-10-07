@@ -13,6 +13,7 @@
  * Nothing here needs the network or a key, so it runs on every build and in
  * the test suite.
  */
+import { regulationFor } from "../research/brand.js";
 import { buildEvidence } from "./evidence.js";
 
 const NGRAM_MIN = 5;
@@ -220,6 +221,39 @@ const GATES = [
       return hits.length === 0
         ? ok(`${CLAIM_PATTERNS.length} claim patterns checked against the plan and the evidence.`)
         : bad(`${hits.length} claim(s) on the page are in neither the plan nor the evidence.`, hits);
+    },
+  },
+  {
+    id: "regulated-claims",
+    level: "hard",
+    label: "No health or appeal claim in a regulated trade",
+    run({ pages, business }) {
+      const rule = regulationFor(business.primary_type);
+      if (!rule) return ok("Not a regulated category.");
+
+      // Unlike the general claim gate, there is no "unless the evidence says
+      // so" escape here. No evidence this tool can ever hold would support a
+      // health claim about tobacco or alcohol, so the plan having made the
+      // claim is not a defence.
+      const patterns = [
+        { id: "health", re: /\b(?:healthy|healthier|good for you|wellness|therapeutic|medicinal|detox|antioxidant|heart[-\s]healthy)\b/gi },
+        { id: "safety", re: /\b(?:safer|safe to|less harmful|harm[-\s]free|mild(?:er)? on|easy on the lungs|smoke[-\s]free benefits|no side effects)\b/gi },
+        { id: "performance", re: /\b(?:makes you more|boosts your|improves your (?:focus|performance|confidence)|unwind and heal|cures)\b/gi },
+        { id: "quantity", re: /\b(?:bottomless|unlimited (?:drinks|pours|refills)|all you can drink|drink (?:till|until) you)\b/gi },
+      ];
+
+      const hits = [];
+      for (const page of pages) {
+        const text = loose(visibleProse(page.html));
+        for (const { id, re } of patterns) {
+          for (const m of text.matchAll(re)) {
+            hits.push({ page: page.file, id, phrase: m[0], where: context(text, m.index) });
+          }
+        }
+      }
+      return hits.length === 0
+        ? ok(`Regulated as ${rule.label}; no health, safety or quantity claim found.`)
+        : bad(`A ${rule.label} business cannot make these claims, whatever the plan said.`, hits);
     },
   },
   {

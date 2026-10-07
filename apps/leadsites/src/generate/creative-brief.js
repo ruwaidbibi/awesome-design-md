@@ -58,7 +58,13 @@ No generated logo. For a business at this budget an AI mark is worse than their 
 
 Derive the pages from the conversion goal. Every page has to answer "what does this do for the goal"; if it cannot, do not include it. Five pages maximum, and two strong pages beat five thin ones. There is always an "index".
 
-Do not plan a menu, price list, team or testimonials page - we have none of that information and must not invent it. If rival sites all have one, that belongs in tableStakes as "cannot-supply" or "need-from-owner", which is an honest answer.`;
+Do not plan a menu, price list, team or testimonials page - we have none of that information and must not invent it. If rival sites all have one, that belongs in tableStakes as "cannot-supply" or "need-from-owner", which is an honest answer.
+
+## Regulated trades
+
+If the research marks this business as regulated, the listed claims go into mustNotSay verbatim-in-substance, and the owner's open questions go into risks. Do not soften them and do not decide them for the owner.
+
+For these trades the safe site describes the room, the hours and the people. It does not sell the effect of the product, and it makes no claim about health, safety, or what the product does for the customer - no evidence this tool could ever hold would support one.`;
 
 /** The catalogue, compact enough to send whole and stable enough to cache. */
 function designCatalogue() {
@@ -111,6 +117,9 @@ function researchText(research) {
   blocks.push(
     "# Brand signals\n\n" +
       "The trading name's own signals, the trade's conventions, and the words customers reach for (counts only - no phrase from a review reaches you or the site).\n\n" +
+      (research.brand.regulated
+        ? `**This is a ${research.brand.regulated.label} business.** The \`regulated\` block below is not advice to weigh: its mustNotSay entries are constraints, and its ownerDecides entries are questions for the owner that belong in risks. QA enforces the first list and does not accept the plan as a defence.\n\n`
+        : "") +
       "```json\n" + JSON.stringify(research.brand, null, 2) + "\n```",
   );
 

@@ -21,7 +21,7 @@ What is built, and where:
 
 Two things in the plan below were **not** built, both deliberately:
 
-- **The scored model pass in stage 6.** The twelve deterministic gates turned
+- **The scored model pass in stage 6.** The thirteen deterministic gates turned
   out to carry the weight, and a model score that never blocks anything is a
   number nobody acts on. `npm run qa` prints the deterministic table across
   every stored site, which is what the "judge a prompt change against the
@@ -186,7 +186,7 @@ uncanny.
 
 ## What the gates actually check
 
-Twelve of them, six blocking and six advisory. The split is the whole design:
+Thirteen of them, seven blocking and six advisory. The split is the whole design:
 blocking means the site is wrong or dangerous, advisory means it is worse than
 it should be. Mixing the two produces a score that nobody can act on.
 
@@ -237,7 +237,7 @@ Worth recording, because each one is a category of mistake rather than a typo.
 
 ## Verification
 
-1. `npm run check` — 123 assertions, 72 of them new. The verbatim detector
+1. `npm run check` — 132 assertions, 81 of them new. The verbatim detector
    catches a copied sentence and clears original prose about the same subject;
    the claim gate catches an injected credential, founding year, price and
    email address and allows through a claim the plan actually made; the

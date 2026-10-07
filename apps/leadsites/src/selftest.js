@@ -13,7 +13,7 @@ import { detailsAreStale, DETAILS_TTL_DAYS } from "./pipeline/freshness.js";
 import { slugify } from "./publish.js";
 import { parseMapsLink } from "./maps-link.js";
 import { distanceKm, profileHtml, summarizeRivals } from "./research/competitors.js";
-import { customerVocabulary, nameAnalysis } from "./research/brand.js";
+import { conventionsFor, customerVocabulary, nameAnalysis, regulationFor, researchBrand } from "./research/brand.js";
 import {
   localBusinessJsonLd,
   metaFor,
@@ -670,6 +670,56 @@ check("a hyphen does not defeat the plan-trace check", () => {
   assert.equal(gate(qaOf(page, { plan }), "unsupported-claims").pass, true);
 });
 
+console.log("\nregulated trades");
+const cigarBusiness = { ...fixtureBusiness, primary_type: "cigar_shop", name: "Johnny Cubano Cigar Lounge" };
+const regulatedQa = (pages, plan = planFixture) =>
+  runQa({ business: cigarBusiness, plan, brief: briefFixture, seo: seoFixture, pages });
+
+check("a cigar lounge is recognised as a tobacco business", () => {
+  assert.equal(regulationFor("cigar_shop").label, "tobacco");
+  assert.equal(regulationFor("bar").label, "alcohol");
+  assert.equal(regulationFor("barber_shop"), null);
+});
+check("a cigar lounge gets the right schema type", () =>
+  assert.equal(schemaTypeFor("cigar_shop"), "TobaccoShop"));
+check("its conventions name the category cliches", () => {
+  const c = conventionsFor("cigar_shop");
+  assert.ok(c.conventional.some((x) => /oxblood|gold/.test(x)));
+  assert.equal(c.conversion, "visit");
+});
+check("the research carries the regulation into the brief's inputs", () => {
+  const r = researchBrand(cigarBusiness, { reviews: [] });
+  assert.equal(r.regulated.label, "tobacco");
+  assert.ok(r.regulated.mustNotSay.length >= 4);
+  assert.ok(r.regulated.ownerDecides.length >= 1);
+});
+check("a health claim about tobacco is a hard fail", () => {
+  const dirty = [cleanPage("index", "<main><h1>Johnny Cubano</h1><p>A milder, heart-healthy smoke.</p></main>"), cleanPages[1]];
+  const g = gate(regulatedQa(dirty), "regulated-claims");
+  assert.equal(g.pass, false);
+  assert.ok(g.items.some((i) => i.id === "health"), JSON.stringify(g.items));
+});
+// The general claim gate lets a claim through when the plan made it with
+// evidence. This one must not: nothing we could ever be given supports it.
+check("the plan is not a defence for a health claim", () => {
+  const plan = structuredClone(planFixture);
+  plan.pages[0].sections[0].body = "A milder smoke, easy on the lungs.";
+  const dirty = [cleanPage("index", "<main><h1>Johnny Cubano</h1><p>A milder smoke, easy on the lungs.</p></main>"), cleanPages[1]];
+  assert.equal(gate(regulatedQa(dirty, plan), "regulated-claims").pass, false);
+});
+check("a bottomless-drinks promise is a hard fail for a bar", () => {
+  const dirty = [cleanPage("index", "<main><h1>Bar</h1><p>Bottomless pours every Sunday.</p></main>"), cleanPages[1]];
+  const qa = runQa({ business: { ...fixtureBusiness, primary_type: "bar" }, plan: planFixture, brief: briefFixture, seo: seoFixture, pages: dirty });
+  assert.equal(gate(qa, "regulated-claims").pass, false);
+});
+check("the gate is inert for an unregulated trade", () =>
+  assert.equal(gate(qaOf(cleanPages), "regulated-claims").pass, true));
+check("an ordinary cigar-lounge page passes", () => {
+  const fine = [cleanPage("index", "<main><h1>Johnny Cubano</h1><p>A room to sit in for two hours. Open late six nights a week.</p></main>"), cleanPages[1]];
+  assert.equal(gate(regulatedQa(fine), "regulated-claims").pass, true);
+});
+
+console.log("\nQA gates, continued");
 check("someone else's phone number is a hard fail", () => {
   const dirty = [cleanPage("index", '<main><h1>K Cuts</h1><p>Call <a href="tel:+18005551234">800-555-1234</a></p></main>'), cleanPages[1]];
   assert.equal(gate(qaOf(dirty), "phone-numbers").pass, false);

@@ -34,7 +34,7 @@ Requires Node 22.9+.
 | `PUBLIC_BASE_URL` | canonical tags, Open Graph URLs and `sitemap.xml` | those are omitted, because a canonical pointing at a URL that does not serve the page is worse than none |
 
 ```bash
-npm run check    # the offline test suite: 123 assertions, no keys, no network
+npm run check    # the offline test suite: 132 assertions, no keys, no network
 npm run qa       # re-run the QA gates across every stored site
 ```
 
@@ -447,7 +447,7 @@ duplicated.
 
 ## 6 · The QA gates
 
-Twelve checks, no model call, run before the files are even written. Six block
+Thirteen checks, no model call, run before the files are even written. Seven block
 publishing and six are advisory, and that split is the design: blocking means
 the site is *wrong*, advisory means it is *worse than it should be*. A score
 that mixes "this page names a reviewer" with "this meta description is four
@@ -459,7 +459,8 @@ between any two texts about the same subject). Reviewer names. Claims present
 in neither the plan nor the evidence, which is to say claims that appeared
 *during rendering*: founding years, credentials, guarantees, prices, email
 addresses, award claims, staff counts, second locations. A phone number that is
-not theirs. External resources. Anything from the brief's `mustNotSay`.
+not theirs. External resources. Anything from the brief's `mustNotSay`. And, in
+a regulated trade, a health, safety or quantity claim.
 
 **Advisory.** The conversion action on every page and above the fold. Planned
 placeholders surviving as placeholders rather than being quietly filled with
@@ -472,6 +473,25 @@ approximated.
 credential" used to be prompt instructions that I asserted held. They are now
 measured per build. Publishing past a hard failure is possible and requires
 saying so explicitly; what was overridden is recorded.
+
+### Regulated trades
+
+Some categories — cigar lounges, tobacco shops, bars, wine bars, night clubs —
+carry claims that are not merely unsupported but unsafe. `src/research/brand.js`
+marks them, and the marking does three things: the brief receives the forbidden
+claims as constraints rather than suggestions, the questions only the owner can
+answer go into the brief's `risks`, and a hard QA gate catches a health, safety,
+performance or quantity claim if one reaches the page anyway.
+
+That gate is stricter than the general claim gate in one specific way: **the
+plan is not a defence.** Elsewhere a claim is allowed if the plan made it with
+evidence attached. Here it is not, because no evidence this tool could ever hold
+would support "milder", "easy on the lungs" or "bottomless pours".
+
+This encodes no statute and names no jurisdiction, and it is not legal advice.
+Whether the site needs an age-affirmation step, a statutory warning, or is
+allowed to show prices at all is the owner's decision with their own counsel —
+so those are surfaced as questions in the brief, never answered.
 
 ```bash
 npm run qa              # every stored site, as a table
@@ -603,7 +623,7 @@ src/
     planner.js           stage 3: brief + evidence -> content plan
     renderer.js          stage 4: plan -> pages, and the shell reuse
     seo.js               stage 5: titles, descriptions, JSON-LD, sitemap
-    qa.js                stage 6: twelve gates, six of them blocking
+    qa.js                stage 6: thirteen gates, seven of them blocking
     vision.js            read photos once, keep only what was learned
     evidence.js          the evidence blocks and truth rules every stage shares
     client.js            the shared Anthropic client and streaming

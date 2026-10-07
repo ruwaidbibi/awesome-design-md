@@ -157,6 +157,95 @@ const CATEGORY_CONVENTIONS = {
     expects: ["what they alter", "turnaround", "where to drop off"],
     conversion: "visit",
   },
+  cigar_shop: {
+    customerDecides: "on the humidor's range and whether it is somewhere to sit for two hours",
+    conventional: [
+      "near-black with oxblood or gold",
+      "engraved or script wordmark, often with a crest",
+      "close-up smoke and leaf photography",
+      "Spanish-colonial or speakeasy styling",
+    ],
+    expects: ["what is in the humidor", "whether there is a bar", "how late it is open", "whether there is a members' or private room"],
+    conversion: "visit",
+    regulated: "tobacco",
+  },
+  tobacco_shop: {
+    customerDecides: "on range and proximity",
+    conventional: ["near-black with gold", "crest or seal", "leaf and smoke imagery"],
+    expects: ["what they stock", "hours", "where it is"],
+    conversion: "visit",
+    regulated: "tobacco",
+  },
+  bar: {
+    customerDecides: "on atmosphere, and on whether tonight is possible",
+    conventional: ["dark walls with neon or brass", "condensed display type", "low-light interior photography"],
+    expects: ["how late it is open", "what is on", "where it is"],
+    conversion: "visit",
+    regulated: "alcohol",
+  },
+  wine_bar: {
+    customerDecides: "on the list and the room",
+    conventional: ["warm neutrals and oxblood", "high-contrast serif", "glassware photography"],
+    expects: ["what is poured by the glass", "hours", "whether to reserve"],
+    conversion: "visit",
+    regulated: "alcohol",
+  },
+  night_club: {
+    customerDecides: "on who is playing and who else is going",
+    conventional: ["black with saturated accent", "heavy display type", "crowd photography"],
+    expects: ["who is on and when", "hours", "entry"],
+    conversion: "visit",
+    regulated: "alcohol",
+  },
+};
+
+/**
+ * Trades where some claims are not merely unsupported but unsafe.
+ *
+ * This is not legal advice and does not try to be: it encodes no statute and
+ * names no jurisdiction. It is the much narrower observation that a health or
+ * safety claim about tobacco or alcohol can never be supported by anything this
+ * tool could ever be given, so the brief should rule it out before anyone writes
+ * it, and QA should catch it if they do. Anything beyond that - an age gate, a
+ * required warning, promotional restrictions - is the owner's decision with
+ * their own counsel, and is surfaced as a question rather than an answer.
+ */
+export const REGULATED = {
+  tobacco: {
+    label: "tobacco",
+    mustNotSay: [
+      "any claim that a product is healthier, safer, milder, cleaner or less harmful",
+      "any medical, wellness or relaxation-as-therapy benefit",
+      "anything that would appeal to someone under the legal purchase age, including cartoon styling, sweets language or school or sports-team imagery",
+      "any suggestion that smoking improves performance, status, attractiveness or social success",
+      "any discount, bundle or free-product offer, which is restricted in many places",
+    ],
+    ownerDecides: [
+      "Whether the site needs an age-affirmation step before entry, and what your counsel requires it to say.",
+      "Whether any statutory warning text has to appear, and in what form.",
+      "Whether you may show products and prices online at all in your state.",
+    ],
+    note: "A site for this trade is safest describing the room, the hours and the people, and leaving the products to the humidor itself.",
+  },
+  alcohol: {
+    label: "alcohol",
+    mustNotSay: [
+      "any claim that drinking is healthy, therapeutic or restorative",
+      "any suggestion that drinking improves performance, status, attractiveness or social success",
+      "anything that would appeal to someone under the legal drinking age",
+      "any encouragement of quantity, speed or intoxication, including bottomless or unlimited framings",
+    ],
+    ownerDecides: [
+      "Whether the site needs an age-affirmation step before entry.",
+      "Whether your licence restricts how prices or promotions may be shown.",
+    ],
+    note: "Describe the room and the list. Do not sell the effect.",
+  },
+};
+
+export const regulationFor = (primaryType) => {
+  const key = conventionsFor(primaryType).regulated;
+  return key ? REGULATED[key] : null;
 };
 
 const DEFAULT_CONVENTION = {
@@ -196,6 +285,7 @@ export function researchBrand(business, { reviews = [], vision = null } = {}) {
   return {
     name: nameAnalysis(business.name),
     conventions: conventionsFor(business.primary_type),
+    regulated: regulationFor(business.primary_type),
     vocabulary: customerVocabulary(reviews),
     vocabularyBasis:
       reviews.length === 0

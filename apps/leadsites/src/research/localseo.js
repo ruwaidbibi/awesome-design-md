@@ -50,6 +50,11 @@ const SCHEMA_TYPES = {
   laundry: "DryCleaningOrLaundry",
   dry_cleaner: "DryCleaningOrLaundry",
   tailor: "ClothingStore",
+  cigar_shop: "TobaccoShop",
+  tobacco_shop: "TobaccoShop",
+  wine_bar: "BarOrPub",
+  night_club: "NightClub",
+  liquor_store: "LiquorStore",
   pet_store: "PetStore",
   veterinary_care: "VeterinaryCare",
   florist: "Florist",
@@ -117,6 +122,11 @@ const CATEGORY_WORDS = {
   dry_cleaner: ["dry cleaning", "laundry", "alterations"],
   tailor: ["tailor", "alterations", "hemming", "suit fitting"],
   pet_store: ["pet grooming", "dog grooming", "nail trim"],
+  cigar_shop: ["cigar lounge", "cigar bar", "humidor", "cigar shop"],
+  tobacco_shop: ["tobacco shop", "cigar shop", "humidor"],
+  bar: ["bar", "cocktail bar", "happy hour", "open late"],
+  wine_bar: ["wine bar", "wine by the glass", "happy hour"],
+  night_club: ["night club", "live music", "open late"],
 };
 
 const titleCase = (s) =>
