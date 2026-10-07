@@ -224,7 +224,8 @@ Worth recording, because each one is a category of mistake rather than a typo.
 
 - New: `src/research/competitors.js`, `src/research/brand.js`,
   `src/research/localseo.js`, `src/generate/creative-brief.js`,
-  `src/generate/seo.js`, `src/generate/qa.js`, `src/cli/qa.js`
+  `src/generate/seo.js`, `src/generate/qa.js`, `src/cli/qa.js`,
+  `src/cli/site.js`, `src/maps-link.js`
 - Renamed: `src/generate/brief.js` → `handoff.js`, `src/cli/brief.js` →
   `handoff.js`. Two things called "brief" in a codebase about briefs was going
   to cause an accident: one is the strategy document the model writes, the
@@ -236,7 +237,7 @@ Worth recording, because each one is a category of mistake rather than a typo.
 
 ## Verification
 
-1. `npm run check` — 114 assertions, 63 of them new. The verbatim detector
+1. `npm run check` — 123 assertions, 72 of them new. The verbatim detector
    catches a copied sentence and clears original prose about the same subject;
    the claim gate catches an injected credential, founding year, price and
    email address and allows through a claim the plan actually made; the

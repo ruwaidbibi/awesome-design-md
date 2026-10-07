@@ -11,6 +11,7 @@ import { createRouter } from "./http.js";
 import { CATEGORIES, CITIES, findCity, METRO, withinMetro } from "./geo.js";
 import { detailsAreStale, DETAILS_TTL_DAYS } from "./pipeline/freshness.js";
 import { slugify } from "./publish.js";
+import { parseMapsLink } from "./maps-link.js";
 import { distanceKm, profileHtml, summarizeRivals } from "./research/competitors.js";
 import { customerVocabulary, nameAnalysis } from "./research/brand.js";
 import {
@@ -206,6 +207,38 @@ check(`details older than ${DETAILS_TTL_DAYS} days are stale`, () =>
   assert.equal(detailsAreStale(new Date(Date.now() - (DETAILS_TTL_DAYS + 1) * 86400000).toISOString()), true));
 check("details just inside the window are still fresh", () =>
   assert.equal(detailsAreStale(new Date(Date.now() - (DETAILS_TTL_DAYS - 1) * 86400000).toISOString()), false));
+
+console.log("\nidentifying a business from a pasted link");
+check("a plain name passes through", () =>
+  assert.equal(parseMapsLink("K Cuts Barbershop, Jacksonville").query, "K Cuts Barbershop, Jacksonville"));
+check("the name comes out of a /maps/place/ URL", () =>
+  assert.equal(
+    parseMapsLink("https://www.google.com/maps/place/K+Cuts+Barbershop/@30.3,-81.6,17z/data=!3m1!1s0x88e5").query,
+    "K Cuts Barbershop",
+  ));
+check("an escaped name is decoded", () =>
+  assert.equal(parseMapsLink("https://www.google.com/maps/place/Kim%27s+Alterations+%26+Tailoring/@30.1,-81.6,17z").query,
+    "Kim's Alterations & Tailoring"));
+check("a place_id parameter is recognised as an id, not a name", () => {
+  const r = parseMapsLink("https://maps.google.com/?q=place_id:ChIJN1t_tDeuEmsRUsoyG83frY4");
+  assert.equal(r.placeId, "ChIJN1t_tDeuEmsRUsoyG83frY4");
+  assert.equal(r.query, undefined);
+});
+check("a q parameter that is only coordinates is not a business name", () =>
+  assert.ok(parseMapsLink("https://maps.google.com/?q=30.3322,-81.6557").error));
+// The ftid inside data= looks like an id and is not one; passing it to the
+// Places API would just produce a confusing rejection.
+check("the ftid in a maps URL is not mistaken for a place id", () => {
+  const r = parseMapsLink("https://www.google.com/maps/place/Shop/@1,2,17z/data=!4m5!3m4!1s0x88e5b7:0x9a1b!8m2");
+  assert.equal(r.placeId, undefined);
+  assert.equal(r.query, "Shop");
+});
+check("a share.google link says what to do with it", () => {
+  const r = parseMapsLink("https://share.google/ZKmeIBE98HVYtuEkB");
+  assert.ok(r.error);
+  assert.match(r.error, /short link/i);
+  assert.match(r.error, /open it in a browser/i);
+});
 
 console.log("\nplumbing");
 check("the router extracts params", () => {

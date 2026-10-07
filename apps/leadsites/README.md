@@ -34,20 +34,43 @@ Requires Node 22.9+.
 | `PUBLIC_BASE_URL` | canonical tags, Open Graph URLs and `sitemap.xml` | those are omitted, because a canonical pointing at a URL that does not serve the page is worse than none |
 
 ```bash
-npm run check    # the offline test suite: 114 assertions, no keys, no network
+npm run check    # the offline test suite: 123 assertions, no keys, no network
 npm run qa       # re-run the QA gates across every stored site
 ```
 
+## One business, start to finish
+
+Building a site for a business you already have in mind is a different job from
+prospecting, and it should not mean running a search sweep and clicking through
+sixty results. One command:
+
+```bash
+npm run site -- "Blessed Hands Barber Parlor, Chicago"
+npm run site -- "https://www.google.com/maps/place/K+Cuts+Barbershop/@30.3,-81.6,17z"
+npm run site -- fx-002 --design ferrari
+```
+
+It looks the business up unfenced (you already know who you want), validates the
+website gap, pulls the reviews, runs stage 1, and then either runs stages 2-6 or
+writes the handoff if there is no `ANTHROPIC_API_KEY`. Several name matches stops
+and lists them rather than guessing; `--pick N` chooses.
+
+A Google Maps URL works because the business name is in its `/place/` segment.
+A **`share.google/...` short link does not** — it carries nothing until a browser
+opens it, and the API cannot follow it. The tool says so and tells you to paste
+what the link lands on instead. (The `!1s0x88e5...` identifier inside a maps URL
+is an *ftid*, not a Places place id, so it is deliberately ignored rather than
+sent to an API that would reject it.)
+
+### Adding one business by name, from the UI
+
+The metro fence below applies to prospecting sweeps. `POST /api/lookup` with
+`{"query": "..."}` searches unfenced and adds the matches. Those rows carry no
+city, which keeps them out of the metro hit-rate statistics they would otherwise
+distort. It validates and scores them like any other lead; it does not generate
+anything.
+
 ## Geography
-
-### Adding one business by name
-
-The fence below applies to prospecting sweeps. Looking up a business you already
-know - a referral, a shop someone mentioned - is the opposite situation, so
-`POST /api/lookup` with `{"query": "..."}` searches unfenced and adds the
-matches. Those rows carry no city, which keeps them out of the metro hit-rate
-statistics they would otherwise distort. It validates and scores them like any
-other lead; it does not generate anything.
 
 
 The POC covers the Jacksonville metro and nothing else. That is enforced twice:
@@ -554,7 +577,9 @@ src/
   http.js                router, SSE, static serving, JSON helpers
   server.js              routes
   selftest.js            npm run check
+  maps-link.js           what a pasted Google link can and cannot tell us
   cli/
+    site.js              npm run site - one business, start to finish
     handoff.js           npm run handoff - the document for generating by hand
     import.js            npm run import - bring a hand-generated site back in
     qa.js                npm run qa - re-run the gates across stored sites
